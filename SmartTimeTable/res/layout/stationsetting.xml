@@ -1,0 +1,220 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:id="@+id/tab_view1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/stroke_mylocation"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="출발지 : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/roh_my_location_sp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="10dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:singleLine="true"
+                        android:text="@string/detail"
+                        android:textColor="#ffffff" />
+                    
+                    <Button 
+                        android:id="@+id/setup_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/stroke_button"
+                        android:layout_weight="0"
+                        android:text="설정"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/roh_sp_stop_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:cacheColorHint="#00000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_view2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/stroke_mylocation"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="도착지 : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/roh_my_location_dest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="10dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:text="@string/detail"
+                        android:textColor="#ffffff" />
+                    
+                    <Button 
+                        android:id="@+id/setup_dest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/stroke_button"
+                        android:layout_weight="0"
+                        android:text="설정"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/roh_dest_stop_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:cacheColorHint="#00000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_view3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/stroke_mylocation"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="내위치 : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/roh_my_location_current"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="10dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:text="현재 위치 검색중..."
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/roh_current_stop_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:cacheColorHint="#00000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_view4"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/roh_input_search_station"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/stroke_edittext"
+                        android:hint="정류장 이름 또는 번호" />
+
+                    <Button
+                        android:id="@+id/roh_btn_search_station"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/stroke_button"
+                        android:text="@string/search" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/roh_search_station_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="15dp"
+                    android:cacheColorHint="#00000000" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+</TabHost>

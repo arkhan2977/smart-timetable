@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+            <FrameLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="#ffffff" >
+
+                <com.ajouroid.timetable.TimeTable
+                    android:id="@+id/timetable"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <SlidingDrawer
+                    android:id="@+id/subjectDrawer"
+                    android:layout_width="242dip"
+                    android:layout_height="292dip"
+                    android:layout_gravity="top|right"
+                    android:content="@+id/content"
+                    android:handle="@+id/handle"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@id/handle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/slidingdrawer_tab" />
+                    <LinearLayout
+                        android:id="@id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/slidingdrawer"
+                        android:orientation="vertical" >
+
+                        <ListView
+                            android:id="@+id/subjectList"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dip"
+                            android:layout_weight="1"
+                            android:cacheColorHint="#00000000" />
+                        <Button
+					        android:id="@+id/btn_addSubject"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_gravity="right"
+					        android:background="@drawable/stroke_button"
+					        android:layout_margin="10dp"
+					        android:text="@string/addNewSubject" />
+                    </LinearLayout>
+                </SlidingDrawer>
+            </FrameLayout>
+		<com.cauly.android.ad.AdView
+			xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+			android:id="@+id/ad"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_alignParentBottom="true"
+			app:appcode="CAULY"
+			app:adtype="CPC"
+			app:gender="all"
+			app:age="20"
+			app:gps="off"
+			app:effect="circle"
+			app:allowcall="yes"
+			app:reloadInterval="30"
+			app:dynamicReloadInterval="true" />
+    </LinearLayout>

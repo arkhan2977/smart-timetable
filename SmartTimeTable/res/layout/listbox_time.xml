@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:padding="10dp" >
+        <TableRow>
+        <TextView
+            android:id="@+id/timelist_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="요일"
+            android:textSize="12pt" />
+        <TextView
+            android:id="@+id/timelist_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:text="시작시간"
+            android:textSize="8pt" />
+        <TextView
+            android:text=" ~ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="6pt" />
+        <TextView
+            android:id="@+id/timelist_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="종료시간"
+            android:textSize="8pt" />
+        
+        <ImageView
+            android:id="@+id/timelist_edit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/modify"
+            android:clickable="true"
+            android:layout_margin="5dp" />
+        
+        <ImageView
+            android:id="@+id/timelist_delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/close"
+            android:clickable="true"
+            android:layout_margin="5dp" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/stroke_dialog"
+    android:orientation="vertical" >
+
+    <LinearLayout
+    	android:id="@+id/info_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/info_subjectName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="11pt"
+            android:text="subject"
+            android:textColor = "#000000"
+            android:paddingTop="10dp" />
+            
+        <TextView
+            android:id="@+id/info_classroom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="8pt"
+            android:paddingBottom = "10dp"
+            android:paddingTop="5dp"
+            android:text="subject"
+            android:textColor = "#000000"
+            android:layout_marginBottom="5dp" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:gravity="right" >
+
+            <Button
+                android:id="@+id/info_addtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@drawable/stroke_button"
+                android:layout_margin="5dp"
+                android:text="시간\n추가" />
+
+            <Button
+                android:id="@+id/info_editSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@drawable/stroke_button"
+                android:layout_margin="5dp"
+                android:text="과목\n편집" />
+                
+                <Button
+                android:id="@+id/info_sendEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@drawable/stroke_button"
+                android:layout_margin="5dp"
+                android:text="e-mail\n전송" />
+
+            <Button
+                android:id="@+id/info_deleteSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:background="@drawable/stroke_button"
+                android:layout_margin="5dp"
+                android:text="과목\n삭제" />
+        </LinearLayout>
+    
+
+    <ListView
+        android:id="@+id/infolistbox"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/stroke_bus"
+        android:layout_margin="5dp"
+        android:cacheColorHint="#00000000" />
+
+    <Button
+        android:id="@+id/info_addtask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_button"
+                android:layout_margin="5dp"
+        android:text="@string/addtask" />
+
+</LinearLayout>

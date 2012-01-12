@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preference_root" >
+
+    <PreferenceCategory
+        android:key="setting_bus_stop"
+        android:title="@string/loc_setBusStop" >
+        
+        <PreferenceScreen
+            android:key="find_station"
+            android:summary="@string/loc_findBusStop_desc"
+            android:title="@string/loc_findBusStop" >
+        </PreferenceScreen>
+        
+        <PreferenceScreen
+            android:key="find_bus"
+            android:summary="버스의 경유 노선을 검색합니다."
+            android:title="버스 검색" >
+        </PreferenceScreen>
+        
+        <PreferenceScreen
+            android:key="db_version"
+            android:summary="데이터베이스 버전"
+            android:title="GBus 노선정보 데이터베이스 버전" >
+        </PreferenceScreen>
+    </PreferenceCategory>
+    
+    <PreferenceCategory        
+        android:key="start_location"
+        android:title="위치 설정" >
+        
+        <PreferenceScreen
+            android:key="show_distance"            
+            android:title="@string/loc_distance"/>
+        
+        <PreferenceScreen
+            android:key="find_map_start"
+            android:summary="@string/loc_setfrommap_start_desc"
+            android:title="@string/loc_setStart" >
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:key="find_map_dest"
+            android:summary="@string/loc_setfrommap_dest_desc"
+            android:title="@string/loc_setDest" >
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

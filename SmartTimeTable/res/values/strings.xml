@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">똑똑한 시간표</string>
+    <string name="widget_name">똑똑한 시간표 4x4</string>
+    <string name="menu_add">과목 추가</string>
+    <string name="menu_alarm">등교 관리</string>
+    <string name="menu_share">공유</string>
+    <string name="menu_toImage">이미지 추출</string>
+    <string name="menu_option">환경설정</string>
+    <string name="menu_exit">종료</string>
+    <string name="cmenu_edit">과목 편집</string>
+    <string name="cmenu_add">시간 추가</string>
+    <string name="cmenu_delete">과목 삭제</string>
+    <string name="opt_theme">테마</string>
+    <string name="opt_theme_desc">시간표 위젯의 테마를 설정합니다.</string>
+    <string name="opt_opacity">위젯 투명도</string>
+    <string name="opt_opacity_desc">바탕화면 위젯의 투명도를 설정합니다.</string>
+    <string name="opt_alarm">수업 시간 알림</string>
+    <string name="opt_alarm_desc">수업 시간 알림을 설정합니다.</string>
+    <string name="opt_alarmmusic">모닝콜 소리</string>
+    <string name="opt_alarmmusic_desc">모닝콜 소리를 설정합니다.</string>
+    <string name="opt_alarmtime">수업알림 시간</string>
+    <string name="opt_alarmtime_desc">수업알림 시간을 설정합니다.</string>
+    <string name="opt_weekend">주말 설정</string>
+    <string name="opt_weekend_desc">시간표에 표시될 요일을 선택합니다.</string>
+    <string name="opt_base">시간 단위</string>
+    <string name="opt_base_desc">시간표의 단위 시간을 설정합니다.</string>
+    <string name="opt_start">시작 시작</string>
+    <string name="opt_start_desc">시간표의 첫 시간을 설정합니다.</string>
+    <string name="opt_end">종료 시간</string>
+    <string name="opt_end_desc">시간표의 마지막 시간을 설정합니다.</string>
+    <string name="opt_goingtime">등교 시간</string>
+    <string name="opt_goingtime_desc">등교에 걸리는 시간을 설정합니다</string>
+    <string name="opt_morningcall">모닝콜</string>
+    <string name="opt_morningcall_desc">모닝콜 사용 여부</string>
+    <string name="opt_aboutus">개발자 정보</string>
+    <string name="opt_backup">백업</string>
+    <string name="opt_backup_desc">데이터를 백업합니다.</string>
+    <string name="opt_init">초기화</string>
+    <string name="opt_init_desc">모든 데이터를 초기화합니다.</string>
+    <string name="opt_initMsg">모든 데이터가 초기화됩니다.</string>
+    <string name="opt_timeErrMsg">시작시간이 종료시간보다 늦을 수 없습니다.</string>
+    <string name="opt_current">현재 설정:</string>
+    <string name="err_duplicateTime">중복된 시간입니다.</string>
+    <string name="err_nullSubjectName">과목명을 입력해주세요.</string>
+    <string name="err_nullClassRoom">강의실을 입력해주세요.</string>
+    <string name="err_nullDays">요일을 선택해주세요.</string>
+    
+    <string name="loc_businfo">버스 도착 정보</string>
+    <string name="loc_unset">출발지 미설정</string>
+    <string name="loc_distance">출발지 - 도착지간 거리</string>
+    <string name="loc_start">출발지</string>
+    <string name="loc_destination">도착지</string>
+    <string name="loc_setLocation">위치 설정</string>
+    <string name="loc_setStart">출발지 설정</string>
+    <string name="loc_setDest">도착지 설정</string>
+    <string name="loc_setBusStop">버스 정류소 설정</string>
+    <string name="loc_findBusStop">정류소 설정</string>
+    <string name="loc_findBusStop_desc">설정된 출발지와 도착지, 내주변 버스 정류장 검색 및 설정.</string>
+    <string name="loc_spBusStop">출발 정류장</string>
+    <string name="loc_destBusStop">도착 정류장</string>
+    <string name="loc_inputaddr">주소를 입력해주세요.</string>
+    <string name="loc_questionSetLocaton">이 주소를 출발지로 설정하시겠습니까?</string>
+    <string name="loc_setfrommap_start_desc">지도에 직접 클릭하여 출발지를 설정합니다.</string>
+    <string name="loc_setfrommap_dest_desc">지도에 직접 클릭하여 도착지를 설정합니다.</string>
+    <string name="loc_setfrommap">출발지를 지도에서 찾아 클릭하세요.</string>
+    <string name="loc_setToStartLocation">출발지로 설정하기</string>
+    <string name="loc_err_cannotfindaddr">주소를 지도에서 찾을 수 없습니다!</string>
+    <string name="loc_err_noaddr">입력한 주소가 존재하지 않습니다.</string>
+    <string name="loc_find_sp_stop">출발지 주변 정류소</string>
+    <string name="loc_find_dest_stop">도착지 주변 정류소</string>
+    
+    <string name="add_generalInfo">일반 정보</string>
+    <string name="add_subjectName">과목명</string>
+    <string name="add_classRoom">강의실</string>
+    <string name="add_professor">교수</string>
+    <string name="add_email">e-mail</string>
+    <string name="add_subjectName_desc">과목명</string>
+    <string name="add_classRoom_desc">강의실 위치</string>
+    <string name="add_professor_desc">교수님의 성함</string>
+    <string name="add_email_desc">교수님의 e-mail 주소</string>
+    <string name="add_setColor">색 설정</string>
+    <string name="add_setTime">시간 설정</string>
+    <string name="add_addTime">시간 추가</string>
+    
+    <string name="info_assign">과제</string>
+    <string name="info_test">시험</string>
+    <string name="info_extra">보강</string>
+    <string name="info_etc">기타</string>
+    
+    <string name="latitude">위도</string>
+    <string name="longitude">경도</string>
+     
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+    <string name="save">저장</string>
+    <string name="addtask">일정 추가</string>
+    <string name="start">시작</string>
+    <string name="end">종료</string>
+    <string name="search">검색</string>
+    <string name="detail">내용</string>
+    <string name="warning">경고</string>
+    <string name="unset">미설정</string>
+    <string name="refresh">새로고침</string>
+    <string name="addNewSubject">새 과목 추가</string>
+    <string name="searching">검색중...</string>
+    <string name="waitforcomplete">완료될 때까지 기다려주십시오...</string>
+    
+    <string name="pressBackBtn">끝내시려면 Back 버튼을 누르세요.</string>
+    <string name="exportcomplete">이미지 추출 완료: </string>
+    
+    <string name="deleteMsg">정말 삭제하시겠습니까?</string>
+
+	<string name="seclater">초 후</string>
+    <string name="minlater">분 후</string>
+    <string name="hourlater">시간 후</string>
+    <string name="daylater">일 후</string>
+    <string name="today">오늘</string>
+    <string name="dateformat">yyyy/MM/dd a hh:mm</string>
+</resources>

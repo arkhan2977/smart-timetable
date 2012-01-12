@@ -1,0 +1,18 @@
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        
+        <item
+            android:id="@+id/cmenu_start"
+            android:title="등교 - 출발정류장 설정" />
+        
+        <item
+            android:id="@+id/cmenu_end"
+            android:title="등교 - 도착정류장 설정" />
+        
+        <item
+            android:id="@+id/cmenu_start_2"
+            android:title="하교 - 출발정류장 설정" />
+        
+        <item
+            android:id="@+id/cmenu_end_2"
+            android:title="하교 - 도착정류장 설정" />
+    </menu>

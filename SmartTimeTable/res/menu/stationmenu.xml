@@ -1,0 +1,6 @@
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/menu_station_update"
+            android:title="DB 업데이트"
+            android:icon="@drawable/icon_refresh" />
+    </menu>

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:stretchColumns="1" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="#222222"
+            android:padding="3dp"
+            android:text="@string/add_generalInfo" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft ="5dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/add_subjectName" />
+
+            <EditText
+                android:id="@+id/dlgsubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_edittext"
+                android:layout_margin="5dp"
+                android:hint="@string/add_subjectName_desc" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft ="5dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/add_classRoom" />
+
+            <EditText
+                android:id="@+id/dlgClassname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_edittext"
+                android:layout_margin="5dp"
+                android:hint="@string/add_classRoom_desc" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft ="5dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/add_professor" />
+
+            <EditText
+                android:id="@+id/dlgProfessorname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_edittext"
+                android:layout_margin="5dp"
+                android:hint="@string/add_professor_desc" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft ="5dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/add_email" />
+
+            <EditText
+                android:id="@+id/dlgproEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_edittext"
+                android:layout_margin="5dp"
+                android:inputType="textEmailAddress"
+                android:hint="@string/add_email_desc" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft ="5dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/add_setColor" />
+
+            <HorizontalScrollView
+            	android:id="@+id/add_scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/colorBg1"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:background="#000000"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color1"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg2"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color2"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg3"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color3"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color3" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg4"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color4"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg5"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color5"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color5" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg6"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color6"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color6" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg7"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color7"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color7" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg8"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color8"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color8" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg9"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color9"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color9" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg10"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color10"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg11"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color11"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color11" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorBg12"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="3dip"
+                        android:padding="3dip" >
+
+                        <ImageView
+                            android:id="@+id/color12"
+                            android:layout_width="32dip"
+                            android:layout_height="32dip"
+                            android:background="@color/color12" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </TableRow>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:background="#222222"
+            android:padding="3dp"
+            android:text="@string/add_setTime" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/add_mon"
+                android:text="월"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_tue"
+                android:text="화"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_wed"
+                android:text="수"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_thu"
+                android:text="목"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_fri"
+                android:text="금"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_sat"
+                android:text="토"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+            
+            <Button
+                android:id="@+id/add_sun"
+                android:text="일"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/day_off"
+                android:layout_margin="5dp" />
+           
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/start" />
+
+            <Button
+                android:id="@+id/starttime"
+                android:layout_width="90dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_button"
+                android:text="AM 9:00 " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dip"
+                android:text="@string/end" />
+
+            <Button
+                android:id="@+id/endtime"
+                android:layout_width="90dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_button"
+                android:layout_marginRight="10dp"
+                android:text="AM 10:30 " />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_addtime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/stroke_button"
+            android:layout_margin="10dp"
+            android:text="@string/add_addTime" />
+    </TableLayout>
+
+</LinearLayout>

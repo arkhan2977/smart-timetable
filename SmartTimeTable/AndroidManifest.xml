@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ajouroid.timetable"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+
+    <application
+        android:icon="@drawable/ic_appicon"
+        android:label="@string/app_name"
+        android:name=".SmartTimeTable" >
+        <receiver
+            android:label="@string/widget_name"
+            android:name=".TimeTableWidget" >
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_config" />
+
+            <intent-filter >
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.ajouroid.timetable.WIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
+        
+        <service android:name=".AlarmService" />
+
+        <receiver android:name=".NotifyReceiver" />
+        <receiver
+            android:name=".ReStartService" >
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="com.ajouroid.timetable.UPDATE_ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver
+            android:name=".PhoneCallReceiver" >
+            <intent-filter >
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".MainActivity"
+            android:screenOrientation = "portrait" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".OptionActivity"
+            android:screenOrientation = "portrait" />
+        <activity android:name=".AboutUsActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".AddDialog"
+             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".EditTime"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".SubjectSelector"
+             android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".InfoList"
+             android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".AddTaskDialog"
+             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".GotoSchoolActivity"
+            android:screenOrientation = "portrait" />
+        <activity android:name=".SetupLocation"
+            android:screenOrientation = "portrait" />
+        <activity android:name=".MapViewer" />
+        <activity android:name=".NMapViewer" />
+        <activity
+            android:name=".SearchAddr"
+            android:theme="@android:style/Theme.Translucent"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".StationSetting" />
+        <activity android:name=".AlarmView"
+            android:screenOrientation = "portrait" />
+        <activity android:name=".FindBusActivity" />
+        <activity android:name=".RouteViewer" />
+
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="true" />
+    </application>
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+</manifest>

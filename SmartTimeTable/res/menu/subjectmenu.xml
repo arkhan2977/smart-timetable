@@ -1,0 +1,15 @@
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        
+        <item
+            android:id="@+id/cmenu_edit"
+            android:title="@string/cmenu_edit" />
+        
+        <item
+            android:id="@+id/cmenu_add"
+            android:title="@string/cmenu_add" />
+        
+        <item
+            android:id="@+id/cmenu_delete"
+            android:title="@string/cmenu_delete" />
+        
+    </menu>
