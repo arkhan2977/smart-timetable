@@ -234,9 +234,9 @@ public class OptionActivity extends PreferenceActivity
 			String db_version = prefs.getString("db_version", "-1");
 			Editor edit = prefs.edit();
 			edit.clear();
-			/*
+
 			edit.putBoolean("db_complete", db_complete);
-			edit.putString("db_version", db_version);*/
+			edit.putString("db_version", db_version);
 			edit.commit();
 			finish();
 		}

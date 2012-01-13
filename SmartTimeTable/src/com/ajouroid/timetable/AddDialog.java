@@ -36,8 +36,10 @@ public class AddDialog extends Activity implements OnClickListener {
 	EditText proEmail;
 
 	
+	/** Day-of-week select button */
 	Button[] dayBtn;
 	
+	/** Color Selector's Background */
 	LinearLayout bg1;
 	LinearLayout bg2;
 	LinearLayout bg3;
@@ -51,7 +53,7 @@ public class AddDialog extends Activity implements OnClickListener {
 	LinearLayout bg11;
 	LinearLayout bg12;
 	
-	
+	/** Color selector */
 	ImageView color1;
 	ImageView color2;
 	ImageView color3;
@@ -114,8 +116,6 @@ public class AddDialog extends Activity implements OnClickListener {
 		LayoutInflater li = getLayoutInflater();
 		LinearLayout head = (LinearLayout) li.inflate(R.layout.add_head, null);
 		timeListView.addHeaderView(head);
-		//LinearLayout foot = (LinearLayout) li.inflate(R.layout.add_foot, null);
-		//timeListView.addFooterView(foot);
 
 		timeList = new ArrayList<ClassTime>();
 
@@ -178,6 +178,7 @@ public class AddDialog extends Activity implements OnClickListener {
 
 		Intent intent = getIntent();
 
+		// 과목 id값이 넘어온 경우 해당 과목의 값들을 설정
 		if (intent.getExtras() != null) {
 			int id = intent.getIntExtra("id", -1);
 			if (id>-1)
@@ -225,12 +226,9 @@ public class AddDialog extends Activity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		
 		dayString = getResources().getStringArray(R.array.days);
-		startPicker = new TimePickerDialog(this, new StartTimeListener(), 9, 0,
-				false);
-		endPicker = new TimePickerDialog(this, new EndTimeListener(), 10, 30,
-				false);
+		startPicker = new TimePickerDialog(this, new StartTimeListener(), 9, 0, false);
+		endPicker = new TimePickerDialog(this, new EndTimeListener(), 10, 30, false);
 
 		startTime = new Time(9, 0);
 		endTime = new Time(10, 30);
@@ -292,7 +290,7 @@ public class AddDialog extends Activity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-
+		/** 요일 선택 */
 		case R.id.add_mon:
 			if ((dayset & 0x1) == 0)
 				dayBtn[0].setBackgroundResource(R.drawable.day_on);
@@ -336,8 +334,6 @@ public class AddDialog extends Activity implements OnClickListener {
 
 			dayset = dayset ^ 0x10;
 			break;
-
-
 		case R.id.add_sat:
 			if ((dayset & 0x20) == 0)
 				dayBtn[5].setBackgroundResource(R.drawable.day_on);
@@ -354,8 +350,9 @@ public class AddDialog extends Activity implements OnClickListener {
 
 			dayset = dayset ^ 0x40;
 			break;
+		/** 요일 끝 */
 
-
+		/** 시간 지정 */
 		case R.id.starttime:
 			startPicker.updateTime(startTime.getHour(), startTime.getMinute());
 			startPicker.show();
@@ -365,7 +362,8 @@ public class AddDialog extends Activity implements OnClickListener {
 			endPicker.updateTime(endTime.getHour(), endTime.getMinute());
 			endPicker.show();
 			break;
-
+		
+		/** 시간 추가 */
 		case R.id.add_addtime:
 			if (dayset == 0) {
 				Toast.makeText(this,
@@ -376,6 +374,7 @@ public class AddDialog extends Activity implements OnClickListener {
 			
 			dbHelper.open();
 			
+			/** 요일별로 추가 */
 			for (int i=0; i<7; i++)
 			{
 				if (((dayset >> i) & 1) == 1) {
@@ -415,6 +414,7 @@ public class AddDialog extends Activity implements OnClickListener {
 			adapter.notifyDataSetChanged();
 			break;
 
+		/** 과목 정보 저장 */
 		case R.id.storeButton:
 			if (TextUtils.isEmpty(subjectName.getText())) {
 				Toast.makeText(this,
@@ -499,8 +499,6 @@ public class AddDialog extends Activity implements OnClickListener {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-
-
 
 	class TimeListAdapter extends ArrayAdapter<ClassTime> {
 		ListDeleteListener deleteListener;

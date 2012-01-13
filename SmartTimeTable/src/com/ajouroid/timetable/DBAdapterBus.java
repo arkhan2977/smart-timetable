@@ -9,18 +9,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class DBAdapterBus {
 
-	private DatabaseHelper mDbHelper;
+	//private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb; // 데이터베이스를 저장
-
-	private static final int DATABASE_VERSION = 3;
-
+	
 	private final Context mCtx;
 
 	public static final int TYPE_ASSIGNMENT = 0;
@@ -28,8 +24,9 @@ public class DBAdapterBus {
 	public static final int TYPE_EXTRA = 2;
 	public static final int TYPE_ETC = 3;
 
+	/*
 	private class DatabaseHelper extends SQLiteOpenHelper {
-
+		private static final int DATABASE_VERSION = 3;
 		public DatabaseHelper(Context context) {
 			super(context, "timetable_bus.db", null, DATABASE_VERSION);
 		}
@@ -45,18 +42,18 @@ public class DBAdapterBus {
 					+ "RS_VER TEXT)");
 
 
-			/* 지역정보
-			센터ID|지역ID|지역이름*/
+			// 지역정보
+			// 센터ID|지역ID|지역이름
 			db.execSQL("CREATE TABLE area (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "CENTER_ID TEXT,"
 					+ "AREA_ID TEXT,"
 					+ "AREA_NAME TEXT)");
 
-			/*노선정보
-			노선ID|노선번호|운행차량|기점ID|기점이름|기점정류소번호|
-			종점ID|종점이름|종점정류소번호|상행첫차시간|상행막차시간|
-			하행첫차시간|하행막차시간|출퇴근배차간격|평일배차간격|회사ID|
-			회사이름|회사전번|운행지역|DISTRICT_CD*/
+			// 노선정보
+			//노선ID|노선번호|운행차량|기점ID|기점이름|기점정류소번호|
+			//종점ID|종점이름|종점정류소번호|상행첫차시간|상행막차시간|
+			//하행첫차시간|하행막차시간|출퇴근배차간격|평일배차간격|회사ID|
+			//회사이름|회사전번|운행지역|DISTRICT_CD
 			db.execSQL("CREATE TABLE route ("
 					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "ROUTE_ID TEXT," + "ROUTE_NM TEXT,"
@@ -70,9 +67,9 @@ public class DBAdapterBus {
 					+ "COMPANY_NM TEXT," + "TEL_NO TEXT," 
 					+ "REGION_NAME TEXT," + "DISTRICT_CD TEXT)");	
 
-			/*정류소정보
-			정류소ID|정류소이름|지역ID|CENTER_YN|경도|위도|지역이름|
-			정류소번호|???*/
+			//정류소정보
+			//정류소ID|정류소이름|지역ID|CENTER_YN|경도|위도|지역이름|
+			//정류소번호|???
 			db.execSQL("CREATE TABLE station ("
 					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ "STATION_ID TEXT,"
@@ -85,9 +82,9 @@ public class DBAdapterBus {
 					+ "STATION_NO TEXT,"
 					+ "DISTRICT_CD TEXT)");
 
-			/*노선-정류소 정보			
-			노선ID|정류소ID|상하행여부(정,역)|정류소순서|노선번호|정류소이름
-			100100012|207000420|정|1|107|민락동종점^*/			
+			//노선-정류소 정보			
+			//노선ID|정류소ID|상하행여부(정,역)|정류소순서|노선번호|정류소이름
+			//100100012|207000420|정|1|107|민락동종점			
 			db.execSQL("CREATE TABLE routestation ("
 					+ "ROUTE_ID TEXT,"
 					+ "STATION_ID TEXT,"
@@ -109,7 +106,7 @@ public class DBAdapterBus {
 			onCreate(db);// �ٽ� �����
 		}
 	}
-
+	*/
 	public DBAdapterBus(Context ctx) {
 		this.mCtx = ctx;
 	}

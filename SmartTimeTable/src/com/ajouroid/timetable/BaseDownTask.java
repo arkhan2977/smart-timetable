@@ -20,12 +20,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
+@Deprecated
 class BaseDownTask extends AsyncTask<Void, Integer, Boolean>{
 	ProgressDialog Dialog;
 	BaseInfo b_info;

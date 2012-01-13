@@ -47,11 +47,7 @@ public class GotoSchoolActivity extends Activity {
 	
 	BusAdapter adapter;
 	BusAdapter adapter_2;
-	
-	private String start_address ;
-	private String dest_address ;
-	private String start_stop;
-	private String dest_stop;
+
 	
 	String TEST_KEY = "1234567890";
 	String KEY= "O904OQN755V3irRmS5Hmqux3lB/xFZVw6b7Pb7RORO9kElznBFFIj3Kn4xkDCKOuHaT97ceTxM1hchELb6qwyA==";
@@ -96,6 +92,7 @@ public class GotoSchoolActivity extends Activity {
 		
 		setupBtn = (Button)findViewById(R.id.bus_setup_station);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -107,24 +104,7 @@ public class GotoSchoolActivity extends Activity {
 		//Regist_bus();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		start_address = mPrefs.getString("START_ADDRESS", getResources().getString(R.string.unset));		
-		dest_address = mPrefs.getString("DEST_ADDRESS", getResources().getString(R.string.unset));
-		start_stop = mPrefs.getString("START_STOP_NAME", getResources().getString(R.string.unset));
-		dest_stop = mPrefs.getString("DEST_STOP_NAME", getResources().getString(R.string.unset));
 
-		/*
-		start_point.setText(start_address);
-		start_point.setSelected(true);
-		destination.setText(dest_address);
-		destination.setSelected(true);
-
-		sp_bus_stop.setText(start_stop);
-		//sp_bus_stop.setTextColor(0xFFFFFF);
-		sp_bus_stop.setSelected(true);
-		dest_bus_stop.setText(dest_stop);
-		//dest_bus_stop.setTextColor(0xFFFFFF);
-		dest_bus_stop.setSelected(true);
-		*/
 		update_btn.setOnClickListener(new UpdateClickListener());
 		update_btn_2.setOnClickListener(new UpdateClickListener());
 		

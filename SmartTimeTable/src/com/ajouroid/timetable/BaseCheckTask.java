@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+@Deprecated
 class BaseCheckTask extends AsyncTask<Void, Integer, Boolean>{
 
 	String key;

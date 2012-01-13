@@ -87,8 +87,6 @@ public class StationSetting extends Activity implements LocationListener, View.O
 	double SP_LNG;
 	double DEST_LAT;
 	double DEST_LNG;
-	BaseCheckTask task;
-	BaseDownTask down_task;
 	boolean checkRunning = false;
 	boolean downRunning = false;
 	
@@ -140,8 +138,7 @@ public class StationSetting extends Activity implements LocationListener, View.O
 		this.registerReceiver(receiver, new IntentFilter("com.ajouroid.timetable.DOWNLOAD_COMPLETE"));
 		
 		if (!sPrefs.getBoolean("db_complete", false)){
-			//task = new BaseCheckTask(this);
-			//task.execute();
+			@SuppressWarnings("unused")
 			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
 			.setTitle("DB 다운로드")
 			.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
@@ -218,13 +215,6 @@ public class StationSetting extends Activity implements LocationListener, View.O
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();		
-		//개념//
-		//1.무조건 기반정보를 받아옴. 
-		//2.받아온 기반정보는 BaseInfo 객체에 임시로 들어있음 
-		//3.DB를 가져옴. 이중에서 버젼정보를 가진 row 를 모두 읽음.
-		//4.해당 row가 비어있다 -> BaseInfo 객체에 있는 기반정보를 모두 DB에 저장.
-		//5.해당 row가 비어있지 않으나 각각 version 중 다른 것들은 새로 DB에 저장.
-
 		myloc_sp.setText(sPrefs.getString("START_ADDRESS", "출발지 미설정"));
 		startEnable = sPrefs.contains("START_ADDRESS");
 		myloc_sp.setSelected(true);
@@ -260,12 +250,6 @@ public class StationSetting extends Activity implements LocationListener, View.O
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		if(checkRunning){
-			task.cancel(true);
-		}
-		if(downRunning){
-			down_task.cancel(true);
-		}
 		unregisterReceiver(receiver);
 		dbA.close();
 	}
@@ -290,18 +274,26 @@ public class StationSetting extends Activity implements LocationListener, View.O
 		switch(item.getItemId())
 		{
 		case R.id.menu_station_update:
-			/*
-			String startId = sPrefs.getString("START_STOP", "0");
-			String destId = sPrefs.getString("DEST_STOP", "0");
-			ArrayList<BusInfo> busList = dbA.findBus(startId, destId);
-			Log.w("BUS", startId + " to " + destId);
-			for (int i=0; i<busList.size(); i++)
+			@SuppressWarnings("unused")
+			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
+			.setTitle("DB 다운로드")
+			.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
+					"\n설치를 원하지 않으면 취소를 클릭하시오.\n(단, 버스 관련 서비스를 이용할 수 없습니다.")
+			.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
 			{
-				Log.w("BUS", busList.get(i).getBus_number());
-			}
-			*/
-			task = new BaseCheckTask(this);
-			task.execute();
+				public void onClick(DialogInterface dialog, int which)
+				{
+					dialog.dismiss();
+					DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
+					down_task.execute();
+				}
+			}).setNegativeButton(StationSetting.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int which)
+				{							
+					dialog.dismiss();
+				}
+			}).show();
 			break;
 		}
 		return super.onOptionsItemSelected(item);

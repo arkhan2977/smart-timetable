@@ -3,6 +3,7 @@ package com.ajouroid.timetable;
  * 버스기반정보 저장 클래스 
  */
 
+@Deprecated
 public class BaseInfo {
 	private String areadownloadurl;
 	private String routedownloadurl;

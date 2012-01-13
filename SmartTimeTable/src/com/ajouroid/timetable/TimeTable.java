@@ -1,7 +1,6 @@
 package com.ajouroid.timetable;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,7 +17,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
@@ -28,7 +26,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class TimeTable extends View {
@@ -967,7 +964,6 @@ public class TimeTable extends View {
 						.ascent()) * (subjectLineCnt)) + 5;
 				int classHeight = (int) ((classFont.descent() - classFont
 						.ascent()) * (classLineCnt) - classFont.ascent());
-				int textHeight = subHeight + classHeight;
 
 				// 영역 안에 들어가는 경우
 				if (subHeight < (timeHeight/2 - taskRadius*3) && classHeight < timeHeight / 2) {
@@ -1082,7 +1078,6 @@ public class TimeTable extends View {
 					- subjectFont.ascent() + 1) * (subjectLineCnt)) + 5;
 			int classHeight = (int) ((classFont.descent() - classFont.ascent())
 					* (classLineCnt) - classFont.ascent());
-			int textHeight = subHeight + classHeight;
 
 			// 영역 안에 들어가는 경우
 			if (subHeight < timeHeight / 2 && classHeight < timeHeight / 2) {

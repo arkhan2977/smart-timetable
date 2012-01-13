@@ -5,13 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.apache.http.util.ByteArrayBuffer;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +14,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class DBDownloadTask extends AsyncTask<String, Integer, Void> {
 	ProgressDialog Dialog;
