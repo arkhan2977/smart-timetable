@@ -970,7 +970,7 @@ public class TimeTable extends View {
 				int textHeight = subHeight + classHeight;
 
 				// 영역 안에 들어가는 경우
-				if (subHeight < timeHeight / 2 && classHeight < timeHeight / 2) {
+				if (subHeight < (timeHeight/2 - taskRadius*3) && classHeight < timeHeight / 2) {
 					for (int l = 0; l < subjectLineCnt; l++) {
 						textCanvas.drawText(
 								subjectLines[l],

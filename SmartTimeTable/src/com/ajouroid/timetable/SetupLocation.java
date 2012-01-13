@@ -142,8 +142,13 @@ public class SetupLocation extends PreferenceActivity {
 		}
 		else if (preference.getKey().compareToIgnoreCase("db_version") == 0)
 		{
-				BaseCheckTask task = new BaseCheckTask(this);
+				//BaseCheckTask task = new BaseCheckTask(this);
+				//task.execute();
+			if (!mPrefs.getBoolean("db_complete", false))
+			{
+				DBDownloadTask task = new DBDownloadTask(this);
 				task.execute();
+			}
 		}
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}

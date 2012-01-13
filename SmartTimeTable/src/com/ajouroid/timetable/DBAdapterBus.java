@@ -8,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.preference.PreferenceManager;
@@ -114,8 +115,15 @@ public class DBAdapterBus {
 	}
 
 	public boolean open() throws SQLException {
-		mDbHelper = new DatabaseHelper(mCtx);
-		mDb = mDbHelper.getWritableDatabase();
+		//mDbHelper = new DatabaseHelper(mCtx);
+		//mDb = mDbHelper.getWritableDatabase();
+		try{
+			mDb = SQLiteDatabase.openDatabase("/data/data/com.ajouroid.timetable/databases/timetable_bus.db", null, SQLiteDatabase.OPEN_READWRITE|SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		} catch(SQLiteException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 		if (!mDb.isDbLockedByOtherThreads())
 		{
 			return true;
@@ -125,7 +133,9 @@ public class DBAdapterBus {
 	}
 
 	public void close() {
-		mDbHelper.close();
+		//mDbHelper.close();
+		if (mDb != null && mDb.isOpen())
+			mDb.close();
 	}
 	
 	public void initData()
