@@ -48,14 +48,8 @@ public class GotoSchoolActivity extends Activity {
 	BusAdapter adapter;
 	BusAdapter adapter_2;
 
-	
-	String TEST_KEY = "1234567890";
-	String KEY= "O904OQN755V3irRmS5Hmqux3lB/xFZVw6b7Pb7RORO9kElznBFFIj3Kn4xkDCKOuHaT97ceTxM1hchELb6qwyA==";
-	
-	//버스위치정보
-	//O904OQN755V3irRmS5Hmqux3lB/xFZVw6b7Pb7RORO9kElznBFFIj3Kn4xkDCKOuHaT97ceTxM1hchELb6qwyA==
 	String url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station";
-	URL requestURL;	
+	URL requestURL;
 	RequestBusInfoTask requestTask;
 	RequestBusInfoTask requestTask_2;
 	
@@ -103,7 +97,6 @@ public class GotoSchoolActivity extends Activity {
 		
 		//Regist_bus();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
 
 		update_btn.setOnClickListener(new UpdateClickListener());
 		update_btn_2.setOnClickListener(new UpdateClickListener());

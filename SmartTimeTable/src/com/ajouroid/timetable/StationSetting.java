@@ -236,7 +236,7 @@ public class StationSetting extends Activity implements LocationListener, View.O
 		btn_search_station.setOnClickListener(this);
 		
 		btn_setup_start.setOnClickListener(this);
-		btn_setup_start.setOnClickListener(this);
+		btn_setup_dest.setOnClickListener(this);
 		
 		registerForContextMenu(sp_stop_list);
 		registerForContextMenu(dest_stop_list);
