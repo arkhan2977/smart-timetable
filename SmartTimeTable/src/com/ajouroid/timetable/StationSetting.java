@@ -274,26 +274,10 @@ public class StationSetting extends Activity implements LocationListener, View.O
 		switch(item.getItemId())
 		{
 		case R.id.menu_station_update:
-			@SuppressWarnings("unused")
-			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
-			.setTitle("DB 다운로드")
-			.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
-					"\n설치를 원하지 않으면 취소를 클릭하시오.\n(단, 버스 관련 서비스를 이용할 수 없습니다.")
-			.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
-			{
-				public void onClick(DialogInterface dialog, int which)
-				{
-					dialog.dismiss();
-					DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
-					down_task.execute();
-				}
-			}).setNegativeButton(StationSetting.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-			{
-				public void onClick(DialogInterface dialog, int which)
-				{							
-					dialog.dismiss();
-				}
-			}).show();
+
+			DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
+			down_task.run();
+
 			break;
 		}
 		return super.onOptionsItemSelected(item);
