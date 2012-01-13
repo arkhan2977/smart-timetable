@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.database.DataSetObserver;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -78,9 +79,12 @@ public class RouteViewer extends ListActivity {
 			setDestStop_2(stationArr.get(info.position).getStop_id(),stationArr.get(info.position).getStop_name());
 			break;
 		}
+
+		adapter.notifyDataSetChanged();
 		
 		return super.onContextItemSelected(item);
 	}
+	BusStopAdapter adapter;
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -134,7 +138,8 @@ public class RouteViewer extends ListActivity {
 		protected void onPostExecute(Void result) {
 			dbA.close();
 			dialog.dismiss();
-			RouteViewer.this.setListAdapter(new BusStopAdapter());
+			adapter = new BusStopAdapter();
+			RouteViewer.this.setListAdapter(adapter);
 			super.onPostExecute(result);
 		}
 
