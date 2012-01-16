@@ -3,7 +3,7 @@
     <item android:state_focused="true"><shape xmlns:android="http://schemas.android.com/apk/res/android">
             <solid android:color="#FFFFFF" />
 
-            <stroke android:width="4dp" android:color="#B8CE4F" />
+            <stroke android:width="2dp" android:color="#FF4500" />
 
             <corners android:radius="10dip" />
 
@@ -12,7 +12,7 @@
     <item><shape xmlns:android="http://schemas.android.com/apk/res/android">
             <solid android:color="#FFFFFF" />
 
-            <stroke android:width="4dp" android:color="#FFFAF0" />
+            <stroke android:width="2dp" android:color="#696969" />
 
             <corners android:radius="10dip" />
 

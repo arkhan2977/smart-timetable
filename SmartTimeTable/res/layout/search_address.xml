@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/layout_root" android:orientation="vertical"
 	android:layout_width="280dp" android:layout_height="450dp"
-	android:background="@drawable/stroke_search_addr"
+	android:background="@drawable/stroke_dialog"
 	android:layout_gravity="center_vertical|center_horizontal"
 	android:padding="10dp">	
 	

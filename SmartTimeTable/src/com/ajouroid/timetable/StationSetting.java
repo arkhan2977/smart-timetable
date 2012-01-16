@@ -106,28 +106,35 @@ public class StationSetting extends Activity implements LocationListener, View.O
 
 		dalvik.system.VMRuntime.getRuntime().setTargetHeapUtilization(0.7f);
 		tabHost = (TabHost)findViewById(R.id.tabhost);
+		
+		/* 에러방지용 임시 주석
 		sp_stop_list = (ListView)findViewById(R.id.roh_sp_stop_list);
 		dest_stop_list = (ListView)findViewById(R.id.roh_dest_stop_list);
+		*/
 		current_station_list = (ListView)findViewById(R.id.roh_current_stop_list);
 		search_station_list = (ListView)findViewById(R.id.roh_search_station_list);
 		et_stationNo = (EditText)findViewById(R.id.roh_input_search_station);
 		
+		/* 에러방지용 임시 주석
 		myloc_sp = (TextView) findViewById(R.id.roh_my_location_sp);
 		myloc_dest = (TextView) findViewById(R.id.roh_my_location_dest);
+		*/
 		myloc_current = (TextView) findViewById(R.id.roh_my_location_current);
 		btn_search_station = (Button) findViewById(R.id.roh_btn_search_station);
 		
+		/* 에러방지용 임시 주석
 		btn_setup_start = (Button)findViewById(R.id.setup_start);
 		btn_setup_dest = (Button)findViewById(R.id.setup_dest);
+		*/
 		
 		tabHost.setup();
 
 		
 		registTab("주변정류장", R.drawable.tab_sp, R.id.tab_view1);
-		registTab("주변지도", R.drawable.tab_dest, R.id.tab_view2);
+		//registTab("주변지도", R.drawable.tab_dest, R.id.tab_view2); //에러방지용 임시 주석
 
 		registTab("정류장검색", R.drawable.tab_myloc, R.id.tab_view3);
-		registTab("버스검색", R.drawable.tab_search, R.id.tab_view4);
+		//registTab("버스검색", R.drawable.tab_search, R.id.tab_view4); //에러방지용 임시 주석
 		tabHost.setOnTabChangedListener(this);
 			
 		tabHost.setCurrentTab(0);
@@ -622,7 +629,7 @@ public class StationSetting extends Activity implements LocationListener, View.O
 			
 			findTask.execute(station);
 			break;
-			
+			/* 에러방지용 임시 주석
 		case R.id.setup_start:
 			Intent startActivity = new Intent(this,MapViewer.class);
 			startActivity.putExtra("TYPE", 0);
@@ -633,6 +640,7 @@ public class StationSetting extends Activity implements LocationListener, View.O
 			destActivity.putExtra("TYPE", 1);
 			startActivity(destActivity);
 			break;
+			*/
 		}
 	}
 	

@@ -12,7 +12,7 @@
         android:visibility="invisible"
         android:layout_weight="0"
         android:text="등교\n출발"
-        android:background="@drawable/stroke_bus"
+        android:background="@drawable/stroke_box"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical|center_horizontal"
         android:layout_margin="10dp" />
