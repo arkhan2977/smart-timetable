@@ -102,9 +102,10 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 		try {
 			vibe = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 			long[] pattern = {1000, 1500};
-			vibe.vibrate(pattern, 1);
+			vibe.vibrate(pattern, 0);
 			mp.setDataSource(this, Uri.parse(uri));
 			mp.setAudioStreamType(AudioManager.STREAM_ALARM);
+			mp.setOnCompletionListener(this);
 			mp.prepare();
 			mp.start();
 		} catch (IllegalArgumentException e) {
@@ -126,10 +127,12 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 	{
 		if (mp != null)
 		{
-			vibe.cancel();
 			mp.stop();
 			mp.release();
 		}
+		
+		if(vibe != null)
+			vibe.cancel();
 	}
 	
 	public void goSnooze()
@@ -173,6 +176,8 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			app.morningCallService.setMorningCall();
 			sCpuWakeLock.release();
 		}
+		running = false;
+		finish();
 	}
 
 	public void onCompletion(MediaPlayer mp) {
@@ -392,7 +397,6 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 						if (remain == 0)
 						{
 							stopAlarm();
-							finish();
 						}
 						invalidate();
 					}
