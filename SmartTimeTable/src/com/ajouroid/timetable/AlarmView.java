@@ -150,6 +150,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			{
 				if (snoozeMinute > 0)
 				{
+					pauseAlarm();
 					snoozeMinute--;
 					sendEmptyMessageDelayed(1,1000);
 					gameView.invalidate();

@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: C:\\Users\\solbox\\Documents\\workspace\\SmartTimeTable\\src\\com\\android\\internal\\telephony\\ITelephony.aidl
+ * Original file: D:\\Library\\Works\\SmartTimeTable\\src\\com\\android\\internal\\telephony\\ITelephony.aidl
  */
 package com.android.internal.telephony;
 /**
