@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="#FFFFFF" >
 
         <FrameLayout
             android:id="@android:id/tabcontent"
@@ -34,7 +35,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="출발지 : "
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
 
                     <TextView
                         android:id="@+id/roh_my_location_sp"
@@ -48,7 +49,7 @@
                         android:focusable="true"
                         android:singleLine="true"
                         android:text="@string/detail"
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
                     
                     <Button 
                         android:id="@+id/setup_start"
@@ -88,7 +89,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="도착지 : "
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
 
                     <TextView
                         android:id="@+id/roh_my_location_dest"
@@ -103,7 +104,7 @@
                         android:gravity="right"
                         android:singleLine="true"
                         android:text="@string/detail"
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
                     
                     <Button 
                         android:id="@+id/setup_dest"
@@ -145,7 +146,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="내위치 : "
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
 
                     <TextView
                         android:id="@+id/roh_my_location_current"
@@ -159,13 +160,14 @@
                         android:gravity="right"
                         android:singleLine="true"
                         android:text="현재 위치 검색중..."
-                        android:textColor="#ffffff" />
+                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <ListView
                     android:id="@+id/roh_current_stop_list"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/stroke_box"
                     android:layout_margin="15dp"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>

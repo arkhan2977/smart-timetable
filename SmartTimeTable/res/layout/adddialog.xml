@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content"
-	android:background="@drawable/stroke_dialog" android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/stroke_dialog"
+    android:orientation="vertical" >
 
-	<ListView android:id="@+id/add_timelist" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_weight="1" />
+    <ListView
+        android:id="@+id/add_timelist"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:layout_weight="1" />
 
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:background="#90888888"
-		android:padding="5dp" android:gravity="center_vertical">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#90888888"
+        android:gravity="center_vertical"
+        android:padding="5dp" >
 
+        <Button
+            android:id="@+id/storeButton"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_button"
+            android:maxLines="2"
+            android:text="@string/save" />
 
-		<Button android:id="@+id/storeButton" android:layout_width="0dip"
-			android:layout_height="wrap_content"
-			android:layout_weight="1" android:layout_margin="5dp"
-			android:background="@drawable/stroke_button" android:maxLines="2"
-			android:text="@string/save" />
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_button"
+            android:maxLines="2"
+            android:text="@string/cancel" />
+    </LinearLayout>
 
-		<Button android:id="@+id/cancelButton" android:layout_width="0dip"
-			android:layout_height="wrap_content"
-			android:layout_weight="1" android:layout_margin="5dp"
-			android:background="@drawable/stroke_button" android:maxLines="2"
-			android:text="@string/cancel" />
-
-	</LinearLayout>
-	
-	<com.cauly.android.ad.AdView
-		xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
-		android:id="@+id/ad" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_weight="0"
-		android:layout_alignParentBottom="true" app:appcode="CAULY"
-		app:adtype="CPC" app:gender="all" app:age="20" app:gps="off"
-		app:effect="circle" app:allowcall="yes" app:reloadInterval="30"
-		app:dynamicReloadInterval="true" />
+    <com.cauly.android.ad.AdView
+        xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+        android:id="@+id/ad"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="0"
+        app:adtype="CPC"
+        app:age="20"
+        app:allowcall="yes"
+        app:appcode="CAULY"
+        app:dynamicReloadInterval="true"
+        app:effect="circle"
+        app:gender="all"
+        app:gps="off"
+        app:reloadInterval="30" />
 
 </LinearLayout>

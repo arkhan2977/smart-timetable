@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:weightSum="1" >
 
     <LinearLayout
@@ -23,6 +24,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:text="출발지 버스 도착정보"
+                android:textColor="#000000"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <FrameLayout
@@ -47,6 +49,7 @@
                     android:layout_margin="10dp"
                     android:text="새로고침"
                     android:textSize="6pt"
+                    android:textColor="#000000"
                     android:visibility="visible" />
             </FrameLayout>
         </LinearLayout>
@@ -79,6 +82,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:text="도착지 버스 도착정보"
+                android:textColor="#000000"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <FrameLayout
@@ -102,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="새로고침"
+                    android:textColor="#000000"
                     android:textSize="6pt"
                     android:visibility="visible" />
             </FrameLayout>

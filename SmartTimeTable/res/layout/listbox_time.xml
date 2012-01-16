@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#FFFFFF" >
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -15,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="요일"
             android:background="@drawable/stroke_box"
+            android:textColor="#000000"
             android:textSize="12pt" />
         <TextView
             android:id="@+id/timelist_start"
@@ -22,12 +24,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:text="시작시간"
+            android:textColor="#000000"
             android:textSize="8pt" />
         <TextView
             android:text=" ~ "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:textColor="#000000"
             android:textSize="6pt" />
         <TextView
             android:id="@+id/timelist_end"
@@ -35,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="종료시간"
+            android:textColor="#000000"
             android:textSize="8pt" />
         
         <ImageView

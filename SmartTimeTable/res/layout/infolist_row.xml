@@ -2,7 +2,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="1" >
+    android:stretchColumns="1"
+    android:background="#FFFFFF" >
 
     <TableRow >
 
@@ -14,6 +15,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/stroke_box"
+            android:textColor="#000000"
             android:textSize="12sp"
             android:text="과제" />
 
@@ -34,6 +36,7 @@
                         android:id="@+id/info_datetime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="#000000"
                         android:text="Datetime" />
                 </LinearLayout>
 
@@ -47,6 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:textColor="#000000"
                         android:text="Remain" />
                 </LinearLayout>
             </LinearLayout>
@@ -57,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Title"
+                android:textColor="#000000"
                 android:textSize="9pt" />
         </LinearLayout>
 

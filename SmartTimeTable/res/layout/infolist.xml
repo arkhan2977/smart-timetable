@@ -83,7 +83,7 @@
         android:id="@+id/infolistbox"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/stroke_bus"
+        android:background="@drawable/stroke_box"
         android:layout_margin="5dp"
         android:cacheColorHint="#00000000" />
 

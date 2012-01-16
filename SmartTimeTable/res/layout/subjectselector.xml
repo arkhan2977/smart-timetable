@@ -3,9 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical|center_horizontal"
-    android:background="@drawable/stroke_box"
+    android:background="@drawable/stroke_dialog"
     android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical" >
 	<TextView
 	    android:background="#222222"
@@ -19,7 +19,6 @@
     <ListView 
         android:id="@+id/selector_list"
         android:background="@drawable/stroke_box"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
