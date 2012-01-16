@@ -497,6 +497,7 @@ containing a value of this type.
     }
     public static final class style {
         public static final int Dialog=0x7f080000;
+        public static final int WhitePreference=0x7f080001;
     }
     public static final class xml {
         public static final int widget_config=0x7f040000;

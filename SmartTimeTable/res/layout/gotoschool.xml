@@ -60,7 +60,9 @@
             android:layout_height="fill_parent"
             android:background="@drawable/stroke_box"
             android:cacheColorHint="#00000000"
-            android:divider="#20FFFF00"
+            android:divider="#30ff7f50"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:dividerHeight="1dp" />
     </LinearLayout>
 
@@ -118,8 +120,10 @@
             android:layout_height="fill_parent"
             android:background="@drawable/stroke_box"
             android:cacheColorHint="#00000000"
-            android:divider="#20FFFF00"
-            android:dividerHeight="1dp" />
+            android:divider="#30ff7f50"
+            android:dividerHeight="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
     </LinearLayout>
 
     <LinearLayout

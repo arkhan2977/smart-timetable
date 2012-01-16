@@ -13,6 +13,7 @@
             android:entryValues="@array/theme_value"
             android:key="theme"
             android:summary="@string/opt_theme_desc"
+            android:textColor="#000000"
             android:title="@string/opt_theme" />
 
         <ListPreference

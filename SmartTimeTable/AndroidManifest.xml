@@ -54,7 +54,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".OptionActivity"
-            android:screenOrientation = "portrait" />
+            android:screenOrientation = "portrait"
+            android:theme="@style/WhitePreference" />
         <activity android:name=".AboutUsActivity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
@@ -74,7 +75,8 @@
         <activity android:name=".GotoSchoolActivity"
             android:screenOrientation = "portrait" />
         <activity android:name=".SetupLocation"
-            android:screenOrientation = "portrait" />
+            android:screenOrientation = "portrait"
+            android:theme="@style/WhitePreference" />
         <activity android:name=".MapViewer" />
         <activity android:name=".NMapViewer" />
         <activity
