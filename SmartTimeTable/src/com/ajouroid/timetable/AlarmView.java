@@ -29,6 +29,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+//Alarm View
 public class AlarmView extends Activity implements MediaPlayer.OnCompletionListener{
 
 	MediaPlayer mp = null;
