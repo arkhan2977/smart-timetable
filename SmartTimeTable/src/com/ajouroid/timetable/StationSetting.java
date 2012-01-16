@@ -123,11 +123,11 @@ public class StationSetting extends Activity implements LocationListener, View.O
 		tabHost.setup();
 
 		
-		registTab("출발지", R.drawable.tab_sp, R.id.tab_view1);
-		registTab("도착지", R.drawable.tab_dest, R.id.tab_view2);
+		registTab("주변정류장", R.drawable.tab_sp, R.id.tab_view1);
+		registTab("주변지도", R.drawable.tab_dest, R.id.tab_view2);
 
-		registTab("내주변", R.drawable.tab_myloc, R.id.tab_view3);
-		registTab("정류장검색", R.drawable.tab_search, R.id.tab_view4);
+		registTab("정류장검색", R.drawable.tab_myloc, R.id.tab_view3);
+		registTab("버스검색", R.drawable.tab_search, R.id.tab_view4);
 		tabHost.setOnTabChangedListener(this);
 			
 		tabHost.setCurrentTab(0);

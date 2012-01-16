@@ -122,7 +122,12 @@ public class SetupLocation extends PreferenceActivity {
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 			Preference preference) {
 		// TODO Auto-generated method stub
-		if(preference.getKey().compareToIgnoreCase("find_map_start") == 0){
+		if(preference.getKey().compareToIgnoreCase("find_station") == 0){
+			Intent stationActivity = new Intent(this,StationSetting.class);
+			startActivity(stationActivity);
+		}
+		/* 출발지 설정, 도착지 설정, 노선찾기 preference 에서 일단 제외
+		 * else if(preference.getKey().compareToIgnoreCase("find_map_start") == 0){
 			Intent mapActivity = new Intent(this,MapViewer.class);
 			mapActivity.putExtra("TYPE", 0);
 			startActivity(mapActivity);
@@ -132,14 +137,10 @@ public class SetupLocation extends PreferenceActivity {
 			mapActivity.putExtra("TYPE", 1);
 			startActivity(mapActivity);
 		}
-		else if(preference.getKey().compareToIgnoreCase("find_station") == 0){
-			Intent stationActivity = new Intent(this,StationSetting.class);
-			startActivity(stationActivity);
-		}
 		else if(preference.getKey().compareToIgnoreCase("find_bus") == 0){
 			Intent busActivity = new Intent(this,FindBusActivity.class);
 			startActivity(busActivity);
-		}
+		}*/
 		else if (preference.getKey().compareToIgnoreCase("db_version") == 0)
 		{
 				//BaseCheckTask task = new BaseCheckTask(this);
