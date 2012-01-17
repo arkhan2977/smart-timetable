@@ -84,5 +84,4 @@ public class FindBusActivity extends Activity implements OnClickListener, OnItem
 
 		}
 	}
-
 }

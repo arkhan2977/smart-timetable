@@ -6,7 +6,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="theme_screen"
         android:title="테마" >
-
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/theme_list"
@@ -15,7 +14,6 @@
             android:summary="@string/opt_theme_desc"
             android:textColor="#000000"
             android:title="@string/opt_theme" />
-
         <ListPreference
             android:defaultValue="100"
             android:entries="@array/opacity_list"
@@ -24,26 +22,22 @@
             android:summary="@string/opt_opacity_desc"
             android:title="@string/opt_opacity" />
     </PreferenceCategory>
-
     <PreferenceCategory
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:key="table_screen"
         android:title="시간표" >
-
         <com.ajouroid.timetable.TimePickerPreference
             custom:defaultValue="09:00"
             custom:is24hour="false"
             android:key="start"
             android:summary="@string/opt_start_desc"
             android:title="@string/opt_start" />
-
         <com.ajouroid.timetable.TimePickerPreference
             custom:defaultValue="18:00"
             custom:is24hour="false"
             android:key="end"
             android:summary="@string/opt_end_desc"
             android:title="@string/opt_end" />
-
         <com.ajouroid.timetable.TimePickerPreference
             custom:defaultValue="01:30"
             custom:is24hour="true"
@@ -59,121 +53,51 @@
             android:summary="@string/opt_weekend_desc"
             android:title="@string/opt_weekend" />
     </PreferenceCategory>
-
-<PreferenceCategory
+    <PreferenceCategory
         android:key="extra_category"
         android:title="부가기능" >
-    <PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:key="alarm_screen"
-        android:title="알람 설정"
-        android:summary="모닝콜, 수업시간 알림을 설정합니다." >
-        <PreferenceCategory
-        android:key="alarm_screen"
-        android:title="모닝콜" >
+        <PreferenceScreen
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:background="#FFFFFF"
+            android:key="alarm_screen"
+            android:summary="모닝콜, 수업시간, 일정 알림을 설정합니다."
+            android:title="알람 설정" >
+            <intent android:action="android.intent.action.VIEW"
+                    android:targetPackage="com.ajouroid.timetable"
+                    android:targetClass="com.ajouroid.timetable.AlarmPreference" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:key="alarm_screen"
+            android:summary="수업중 수신거부를 설정합니다."
+            android:title="수신거부 설정" >
+            <intent android:action="android.intent.action.VIEW"
+                    android:targetPackage="com.ajouroid.timetable"
+                    android:targetClass="com.ajouroid.timetable.RejectPreference" />
+        </PreferenceScreen>
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="morningcall"
-            android:summary="@string/opt_morningcall_desc"
-            android:title="@string/opt_morningcall" />
-
-        <com.ajouroid.timetable.TimePickerPreference
-            custom:defaultValue="00:30"
-            android:enabled="false"
-            custom:is24hour="true"
-            android:key="goingtime"
-            android:summary="@string/opt_goingtime_desc"
-            android:title="@string/opt_goingtime" />
-
-        <RingtonePreference
-            android:enabled="false"
-            android:key="alarm_music"
-            android:ringtoneType="all"
-            android:showSilent="true"
-            android:summary="@string/opt_alarmmusic_desc"
-            android:defaultValue="content://settings/system/ringtone"
-            android:title="@string/opt_alarmmusic" />
-
-</PreferenceCategory>
-<PreferenceCategory
-        android:key="alarm_screen"
-        android:title="수업시간 알림" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="alarm"
-            android:summary="@string/opt_alarm_desc"
-            android:title="@string/opt_alarm" />
-
-        <ListPreference
-            android:defaultValue="5"
-            android:enabled="false"
-            android:entries="@array/alarmtime_list"
-            android:entryValues="@array/alarmtime_value"
-            android:key="alarm_time"
-            android:summary="@string/opt_alarmtime_desc"
-            android:title="@string/opt_alarmtime" />
-    </PreferenceCategory>
-    </PreferenceScreen>
-
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:key="alarm_screen"
-        android:title="수신거부 설정"
-        android:summary="수업중 수신거부를 설정합니다." >
-    <PreferenceCategory
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:key="reject_category"
-        android:title="수신거부" >
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="usereject"
-            android:summary="수업중 걸려온 전화를 자동으로 거절하고 SMS 메시지를 전송합니다."
-            android:title="수업중 수신거부 사용" />
-        
-        <EditTextPreference
-            android:enabled="false"
-            android:key="message"
-            android:defaultValue="수업중입니다. 나중에 다시 연락드리겠습니다."
-            android:summary="전화 수신시 전송할 메시지를 설정합니다"
-            android:title = "수신거부 메시지 설정"/>
-
-        <com.ajouroid.timetable.TimePickerPreference
-            custom:defaultValue="00:15"
-            android:enabled="false"
-            custom:is24hour="true"
-            android:key="resttime"
-            android:summary="수업 종료 전 쉬는시간을 설정합니다."
-            android:title="쉬는 시간 설정" />
-    </PreferenceCategory>
-    </PreferenceScreen>
-    <CheckBoxPreference
             android:defaultValue="false"
             android:key="vibrate_mode"
             android:summary="수업시간이 되면 자동으로 진동모드로 전환합니다."
             android:title="수업중 진동모드 전환" />
-</PreferenceCategory>
+    </PreferenceCategory>
     <PreferenceCategory android:title="기타" >
-
         <PreferenceScreen
             android:key="backup"
             android:summary="@string/opt_backup_desc"
             android:title="@string/opt_backup" >
         </PreferenceScreen>
-        
         <PreferenceScreen
             android:key="restore"
             android:summary="백업해둔 데이터를 복구합니다"
             android:title="데이터 복구" >
         </PreferenceScreen>
-
         <PreferenceScreen
             android:key="aboutus"
             android:summary=""
             android:title="@string/opt_aboutus" >
         </PreferenceScreen>
-
         <PreferenceScreen
             android:key="init"
             android:summary="@string/opt_init_desc"

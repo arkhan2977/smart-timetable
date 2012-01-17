@@ -1,0 +1,71 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+    android:background="#FFFFFF"
+    android:key="alarm_screen"
+    android:summary="모닝콜, 수업시간, 일정 알림을 설정합니다."
+    android:title="알람 설정" >
+
+    <PreferenceCategory
+        android:key="morning_screen"
+        android:title="모닝콜" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="morningcall"
+            android:summary="@string/opt_morningcall_desc"
+            android:title="@string/opt_morningcall" />
+
+        <com.ajouroid.timetable.TimePickerPreference
+            custom:defaultValue="00:30"
+            android:enabled="false"
+            custom:is24hour="true"
+            android:key="goingtime"
+            android:summary="@string/opt_goingtime_desc"
+            android:title="@string/opt_goingtime" />
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/ringtone"
+            android:enabled="false"
+            android:key="alarm_music"
+            android:ringtoneType="all"
+            android:showSilent="true"
+            android:summary="@string/opt_alarmmusic_desc"
+            android:title="@string/opt_alarmmusic" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="alarm_screen"
+        android:title="수업시간 알림" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="alarm"
+            android:summary="@string/opt_alarm_desc"
+            android:title="@string/opt_alarm" />
+
+        <ListPreference
+            android:defaultValue="5"
+            android:enabled="false"
+            android:entries="@array/alarmtime_list"
+            android:entryValues="@array/alarmtime_value"
+            android:key="alarm_time"
+            android:summary="@string/opt_alarmtime_desc"
+            android:title="@string/opt_alarmtime" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="task_screen"
+        android:title="일정 알림" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="task"
+            android:summary="일정 알림을 사용합니다"
+            android:title="일정 알림 사용" />
+
+        <ListPreference
+            android:defaultValue="60"
+            android:enabled="false"
+            android:entries="@array/tasktime_list"
+            android:entryValues="@array/tasktime_value"
+            android:key="task_time"
+            android:summary="일정을 알려줄 시간을 설정합니다."
+            android:title="일정 알림 시간 설정" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -25,40 +25,22 @@ public class OptionActivity extends PreferenceActivity
 	TimePickerPreference endtime;
 	TimePickerPreference basetime;
 	
-	TimePickerPreference resttime;
-	EditTextPreference message;
-	
-	TimePickerPreference goingtime;
-	RingtonePreference alarmmusic;
-	ListPreference alarmtime;
-	CheckBoxPreference morningcall;
-	CheckBoxPreference alarm;
-	CheckBoxPreference reject;
-	
+
 	SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		addPreferencesFromResource(R.layout.option);
+		addPreferencesFromResource(R.xml.option);
 		
 		prefs = getSharedPreferences("com.ajouroid.timetable_preferences", 0);
 		
-		goingtime = (TimePickerPreference)findPreference("goingtime");
-		alarmmusic = (RingtonePreference)findPreference("alarm_music");
-		alarmtime = (ListPreference)findPreference("alarm_time");
 		
-		alarm = (CheckBoxPreference)findPreference("alarm");
-		morningcall = (CheckBoxPreference)findPreference("morningcall");
 		
 		starttime = (TimePickerPreference)findPreference("start");
 		endtime = (TimePickerPreference)findPreference("end");
 		basetime = (TimePickerPreference)findPreference("base");
-		
-		resttime = (TimePickerPreference)findPreference("resttime");
-		message = (EditTextPreference)findPreference("message");
-		reject = (CheckBoxPreference)findPreference("usereject");
 
 	}
 	
@@ -70,30 +52,10 @@ public class OptionActivity extends PreferenceActivity
 		endtime.setSummary(getResources().getString(R.string.opt_current) + " " + new Time(prefs.getString("end", "18:00")).to12Hour());
 		basetime.setSummary(getResources().getString(R.string.opt_current) + " " + new Time(prefs.getString("base", "1:30")).toString());
 		
-		alarm.setOnPreferenceChangeListener(this);
-		morningcall.setOnPreferenceChangeListener(this);
+		
 		starttime.setOnPreferenceChangeListener(this);
 		endtime.setOnPreferenceChangeListener(this);
-		reject.setOnPreferenceChangeListener(this);
-		
-		
-		// üũ�ڽ��� ���� ��� �� �׸��� enable �Ӽ��� ������
-		if (prefs.getBoolean("alarm", false))
-		{
-			alarmtime.setEnabled(true);
-		}
-		
-		if (prefs.getBoolean("morningcall", false))
-		{
-			alarmmusic.setEnabled(true);
-			goingtime.setEnabled(true);
-		}
-		
-		if (prefs.getBoolean("usereject", false))
-		{
-			message.setEnabled(true);
-			resttime.setEnabled(true);
-		}
+
 	}
 
 	@Override
@@ -137,53 +99,7 @@ public class OptionActivity extends PreferenceActivity
 	}
 
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		if (preference == alarm)
-		{
-			if (!alarm.isChecked())
-			{
-				alarmtime.setEnabled(true);
-			}
-			else
-			{
-				alarmtime.setEnabled(false);
-			}
-			
-			return true;
-		}
-		
-		else if (preference == morningcall)
-		{
-			if (!morningcall.isChecked())
-			{
-				alarmmusic.setEnabled(true);
-				goingtime.setEnabled(true);
-			}
-			else
-			{
-				alarmmusic.setEnabled(false);
-				goingtime.setEnabled(false);
-			}
-			
-			return true;
-		}
-		
-		else if (preference == reject)
-		{
-			if (!reject.isChecked())
-			{
-				message.setEnabled(true);
-				resttime.setEnabled(true);
-			}
-			else
-			{
-				message.setEnabled(false);
-				resttime.setEnabled(false);
-			}
-			
-			return true;
-		}
-
-		else if (preference == starttime)
+		if (preference == starttime)
 		{
 			Time startTime = new Time((String)newValue);
 			Time endTime = new Time(prefs.getString("end", "18:00"));

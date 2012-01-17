@@ -11,15 +11,17 @@ public final class R {
     public static final class array {
         public static final int alarmtime_list=0x7f050004;
         public static final int alarmtime_value=0x7f050005;
-        public static final int bustimes=0x7f050009;
-        public static final int days=0x7f050008;
-        public static final int errorCode=0x7f05000a;
+        public static final int bustimes=0x7f05000b;
+        public static final int days=0x7f05000a;
+        public static final int errorCode=0x7f05000c;
         public static final int opacity_list=0x7f050002;
         public static final int opacity_value=0x7f050003;
+        public static final int tasktime_list=0x7f050006;
+        public static final int tasktime_value=0x7f050007;
         public static final int theme_list=0x7f050000;
         public static final int theme_value=0x7f050001;
-        public static final int weekend_list=0x7f050006;
-        public static final int weekend_value=0x7f050007;
+        public static final int weekend_list=0x7f050008;
+        public static final int weekend_value=0x7f050009;
     }
     public static final class attr {
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
@@ -364,19 +366,18 @@ containing a value of this type.
         public static final int listbox_time=0x7f03000c;
         public static final int main=0x7f03000d;
         public static final int map=0x7f03000e;
-        public static final int option=0x7f03000f;
-        public static final int route_row=0x7f030010;
-        public static final int row=0x7f030011;
-        public static final int row2=0x7f030012;
-        public static final int search_address=0x7f030013;
-        public static final int setuplocation=0x7f030014;
-        public static final int simple_list_row=0x7f030015;
-        public static final int simple_spinner_row=0x7f030016;
-        public static final int stationsetting=0x7f030017;
-        public static final int subjectlist=0x7f030018;
-        public static final int subjectselector=0x7f030019;
-        public static final int tab_indicator=0x7f03001a;
-        public static final int widget_layout=0x7f03001b;
+        public static final int route_row=0x7f03000f;
+        public static final int row=0x7f030010;
+        public static final int row2=0x7f030011;
+        public static final int search_address=0x7f030012;
+        public static final int setuplocation=0x7f030013;
+        public static final int simple_list_row=0x7f030014;
+        public static final int simple_spinner_row=0x7f030015;
+        public static final int stationsetting=0x7f030016;
+        public static final int subjectlist=0x7f030017;
+        public static final int subjectselector=0x7f030018;
+        public static final int tab_indicator=0x7f030019;
+        public static final int widget_layout=0x7f03001a;
     }
     public static final class menu {
         public static final int mainmenu=0x7f090000;
@@ -497,10 +498,13 @@ containing a value of this type.
     }
     public static final class style {
         public static final int Dialog=0x7f080000;
-        public static final int WhitePreference=0x7f080001;
+        public static final int WhiteTheme=0x7f080001;
     }
     public static final class xml {
-        public static final int widget_config=0x7f040000;
+        public static final int alarmpref=0x7f040000;
+        public static final int option=0x7f040001;
+        public static final int rejectpref=0x7f040002;
+        public static final int widget_config=0x7f040003;
     }
     public static final class styleable {
         /** Attributes that can be used with a TimePickerPreference.

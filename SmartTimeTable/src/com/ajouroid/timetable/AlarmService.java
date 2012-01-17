@@ -313,6 +313,15 @@ public class AlarmService extends Service {
 	}
 	public void setTaskTimeCall() {
 
+		boolean set = prefs.getBoolean("task", false);
+		
+		cancelTask();
+		if (!set)
+		{
+			Log.d("AlarmService", "Task Alarm Canceled");
+			return;
+		}
+		
 		DBAdapter dbA = new DBAdapter(this); // dbAdapter를 선언
 		dbA.open(); // dbadapter를 오픈
 		try {
@@ -335,7 +344,8 @@ public class AlarmService extends Service {
 					t.setHour(startTaskTime.getHours()); // 이것도 디비에서 가져온 시간.
 					t.setMinute(startTaskTime.getMinutes());
 
-					Time time = t.subTime(new Time(1, 0)); // 타임에서 몇분전에서 선택한 분을
+					int minutes = Integer.parseInt(prefs.getString("task_time", "60"));
+					Time time = t.subTime(new Time(minutes)); // 타임에서 몇분전에서 선택한 분을
 															// 빼서 넣는다.
 					
 					today.set(startTaskTime.getYear() + 1900, startTaskTime.getMonth(), startTaskTime.getDate());

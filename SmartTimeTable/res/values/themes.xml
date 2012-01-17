@@ -7,7 +7,7 @@
         <item name="android:screenOrientation">portrait</item>
     </style>
     
-    <style name="WhitePreference" parent="android:style/Theme.Light">
+    <style name="WhiteTheme" parent="android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorBackground">#FFFFFF</item>
     </style>

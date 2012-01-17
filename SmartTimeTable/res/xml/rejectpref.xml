@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:custom="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+	android:key="alarm_screen" android:summary="수업중 수신거부를 설정합니다."
+	android:title="수신거부 설정">
+
+	<PreferenceCategory xmlns:android="http://schemas.android.com/apk/res/android"
+		android:key="reject_category" android:title="수신거부">
+		<CheckBoxPreference android:defaultValue="false"
+			android:key="usereject" android:summary="수업중 걸려온 전화를 자동으로 거절하고 SMS 메시지를 전송합니다."
+			android:title="수업중 수신거부 사용" />
+
+		<EditTextPreference android:defaultValue="수업중입니다. 나중에 다시 연락드리겠습니다."
+			android:enabled="false" android:key="message" android:summary="전화 수신시 전송할 메시지를 설정합니다"
+			android:title="수신거부 메시지 설정" />
+
+		<com.ajouroid.timetable.TimePickerPreference
+			custom:defaultValue="00:15" android:enabled="false" custom:is24hour="true"
+			android:key="resttime" android:summary="수업 종료 전 쉬는시간을 설정합니다."
+			android:title="쉬는 시간 설정" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

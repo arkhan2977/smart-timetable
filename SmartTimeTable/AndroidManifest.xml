@@ -9,6 +9,7 @@
     <application
         android:icon="@drawable/ic_appicon"
         android:label="@string/app_name"
+        android:theme="@style/WhiteTheme"
         android:name=".SmartTimeTable" >
         <receiver
             android:label="@string/widget_name"
@@ -53,9 +54,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".OptionActivity"
             android:screenOrientation = "portrait"
-            android:theme="@style/WhitePreference" />
+            android:theme="@style/WhiteTheme" />
+        <activity android:name=".AlarmPreference"
+            android:screenOrientation = "portrait"
+            android:theme="@style/WhiteTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".RejectPreference"
+            android:screenOrientation = "portrait"
+            android:theme="@style/WhiteTheme" />
+        
         <activity android:name=".AboutUsActivity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
@@ -76,7 +90,7 @@
             android:screenOrientation = "portrait" />
         <activity android:name=".SetupLocation"
             android:screenOrientation = "portrait"
-            android:theme="@style/WhitePreference" />
+            android:theme="@style/WhiteTheme" />
         <activity android:name=".MapViewer" />
         <activity android:name=".NMapViewer" />
         <activity

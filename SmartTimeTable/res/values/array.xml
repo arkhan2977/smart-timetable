@@ -39,6 +39,19 @@
 		<item>5</item>
 		<item>10</item>
 	</string-array>
+	
+    <string-array name="tasktime_list">
+        <item>30분 전</item>
+        <item>1시간 전</item>
+        <item>3시간 전</item>
+        <item>6시간 전</item>
+    </string-array>
+    <string-array name="tasktime_value">
+		<item>30</item>
+		<item>60</item>
+		<item>180</item>
+		<item>360</item>
+	</string-array>
 
     <string-array name="weekend_list">
         <item>금</item>
