@@ -2,6 +2,10 @@ package com.ajouroid.timetable;
 
 import java.util.ArrayList;
 
+import com.ajouroid.timetable.StationSetting.BUSLIST_ClickEvent;
+import com.ajouroid.timetable.StationSetting.BusStopAdapter;
+
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -15,14 +19,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class RouteViewer extends ListActivity {
+public class RouteViewer extends Activity {
 
+	
+	TextView upfirst_time;
+	TextView uplast_time;
+	TextView downfirst_time;
+	TextView downlast_time;
+	TextView bus_term_peek;
+	TextView bus_term_npeek;
+	TextView bus_region;
+	TextView bus_name;
 	ListView stationList;
 	ArrayList<BusStopInfo> stationArr;
 	DBAdapterBus dbA;
@@ -32,8 +46,18 @@ public class RouteViewer extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.routeviewer);
+		stationList = (ListView)findViewById(R.id.findstation_list);
 		
-		stationList = this.getListView();
+		upfirst_time = (TextView)findViewById(R.id.findbus_upfirst);
+		uplast_time = (TextView)findViewById(R.id.findbus_uplast);
+		downfirst_time = (TextView)findViewById(R.id.findbus_downfirst);
+		downlast_time = (TextView)findViewById(R.id.findbus_downlast);
+		bus_term_peek = (TextView)findViewById(R.id.findbus_term_peek);
+		bus_term_npeek = (TextView)findViewById(R.id.findbus_term_npeek);
+		bus_region = (TextView)findViewById(R.id.findbus_region);
+		bus_name = (TextView)findViewById(R.id.findbus_name);
+		
 		registerForContextMenu(stationList);
 		
 		dbA = new DBAdapterBus(this);
@@ -51,6 +75,16 @@ public class RouteViewer extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		stationList.setOnItemClickListener(new List_ClickEvent());
+		bus_name.setText(getIntent().getStringExtra("number"));
+		bus_region.setText(getIntent().getStringExtra("region"));
+		upfirst_time.setText(getIntent().getStringExtra("upfirst"));
+		uplast_time.setText(getIntent().getStringExtra("uplast"));
+		downfirst_time.setText(getIntent().getStringExtra("downfirst"));
+		downlast_time.setText(getIntent().getStringExtra("downlast"));
+		bus_term_peek.setText(getIntent().getStringExtra("term_peek"));
+		bus_term_npeek.setText(getIntent().getStringExtra("term_npeek"));
+		
 	}
 	
 	@Override
@@ -85,14 +119,15 @@ public class RouteViewer extends ListActivity {
 	}
 	BusStopAdapter adapter;
 	
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
-		
-		v.showContextMenu();
-	}
-	
+	class List_ClickEvent implements ListView.OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> arg0, View v, int position,
+				long arg3) {
+
+			v.showContextMenu();
+
+		}
+	}	
 	
 	public void setStartStop(String id,String name)
 	{
@@ -137,8 +172,10 @@ public class RouteViewer extends ListActivity {
 		protected void onPostExecute(Void result) {
 			dbA.close();
 			dialog.dismiss();
+			//adapter = new BusStopAdapter();
+			//RouteViewer.this.setListAdapter(adapter);
 			adapter = new BusStopAdapter();
-			RouteViewer.this.setListAdapter(adapter);
+			stationList.setAdapter(adapter);
 			super.onPostExecute(result);
 		}
 

@@ -58,7 +58,7 @@
                     android:id="@+id/roh_current_stop_list"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/stroke_box"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
@@ -154,7 +154,8 @@
                     android:id="@+id/roh_search_station_list"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/stroke_box"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
 
@@ -194,7 +195,8 @@
                     android:id="@+id/roh_search_bus_list"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/stroke_box"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
         </FrameLayout>

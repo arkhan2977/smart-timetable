@@ -714,7 +714,13 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			Intent i = new Intent(StationSetting.this, RouteViewer.class);
 			i.putExtra("number", bus.getBus_number());
 			i.putExtra("id", bus.getBus_id());
-			
+			i.putExtra("upfirst", bus.getUpFirstTime());
+			i.putExtra("uplast", bus.getUpLastTime());
+			i.putExtra("downfirst", bus.getDownFirstTime());
+			i.putExtra("downlast", bus.getDownLastTime());
+			i.putExtra("region", bus.getRegion());
+			i.putExtra("term_peek", bus.getPeek_term());
+			i.putExtra("term_npeek", bus.getNpeek_term());			
 			startActivity(i);		
 		}
 

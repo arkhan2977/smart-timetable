@@ -10,30 +10,36 @@ public class BusInfo {
 	String downFirstTime;
 	String downLastTime;
 	String region;
+	String peek_term;
+	String npeek_term;
 	ArrayList<BusStopInfo> stopList;
 	private String arrive_time;
 	private int bus_type;
 	
 	public BusInfo(){}
 	
-	public BusInfo(String _id, String _number, String _region)
+	public BusInfo(String _id, String _number, String _region, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term)
 	{
-		bus_id = _id;
-		bus_number = _number;
-		upFirstTime = "";
-		upLastTime = "";
-		downFirstTime = "";
-		downLastTime = "";
-		region = _region;
-	}
-	
-	public BusInfo(String _id, String _number, String ufirst, String ulast, String dfirst, String dlast) {
 		bus_id = _id;
 		bus_number = _number;
 		upFirstTime = ufirst;
 		upLastTime = ulast;
 		downFirstTime = dfirst;
 		downLastTime = dlast;
+		peek_term = _peek_term;
+		npeek_term = _npeek_term;
+		region = _region;
+	}
+	
+	public BusInfo(String _id, String _number, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term) {
+		bus_id = _id;
+		bus_number = _number;
+		upFirstTime = ufirst;
+		upLastTime = ulast;
+		downFirstTime = dfirst;
+		downLastTime = dlast;
+		peek_term = _peek_term;
+		npeek_term = _npeek_term;		
 		stopList = new ArrayList<BusStopInfo>();
 	}
 	
@@ -113,6 +119,23 @@ public class BusInfo {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public void setPeek_term(String peek_term) {
+		this.peek_term = peek_term;
+	}
+
+	public String getNpeek_term() {
+		return npeek_term;
+	}
+
+	public void setNpeek_term(String npeek_term) {
+		this.npeek_term = npeek_term;
+	}
+
+	public String getPeek_term() {
+		// TODO Auto-generated method stub
+		return peek_term;
 	}
 
 }
