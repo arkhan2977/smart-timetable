@@ -343,8 +343,8 @@ public class DBAdapterBus {
 		int lng_min = (int)((longitude - lng_hour) * 60f);
 		double lng_sec = (((longitude - lng_hour) * 60) - lng_min) * 60;
 		
-		final int latDistanceSec = 500 / 25;
-		final int lngDistanceSec = 500 / 31;
+		final int latDistanceSec = 900 / 25;
+		final int lngDistanceSec = 900 / 31;
 		
 		lat_sec -= latDistanceSec;
 		lng_sec -= lngDistanceSec;

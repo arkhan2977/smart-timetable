@@ -113,10 +113,41 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	private MapView mapView;
 	private MapController mc;
 
+	public void setLocation(){
+		//----------------위치 탐색 시작-------------------------
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Iterator<String> providers = locManager.getAllProviders().iterator();
+
+		// GPS 정보를 얻기위한 프로바이더 검색
+		while(providers.hasNext()) {
+			Log.d("StationSetting", "Provider : " + providers.next());
+		}
+
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+
+		String best = locManager.getBestProvider(criteria, true);
+
+		if (best == null){
+			Toast toast = Toast.makeText(this, "현재위치를 찾을 수 없습니다.", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.TOP, 0, 50 );
+			toast.show();		
+		}			
+		else
+		{
+			locManager.requestLocationUpdates(best, 0, 0, this);
+			// 주소를 확인하기 위한 Geocoder KOREA 와 KOREAN 둘다 가능
+			geoCoder = new Geocoder(this, Locale.KOREAN); 
+		}   
+		//----------------위치 탐색 끝-------------------------
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setLocation();
 
 		dbA = new DBAdapterBus(StationSetting.this);
 		dbA.open();	
@@ -135,7 +166,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		current_station_list = (ListView)findViewById(R.id.roh_current_stop_list);
 		search_station_list = (ListView)findViewById(R.id.roh_search_station_list);
 		et_stationNo = (EditText)findViewById(R.id.roh_input_search_station);
-		
+
 		et_busNumber = (EditText)findViewById(R.id.roh_input_search_bus);
 		btn_search_bus = (Button)findViewById(R.id.roh_btn_search_bus);
 		search_bus_List = (ListView)findViewById(R.id.roh_search_bus_list);
@@ -217,7 +248,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		// TODO Auto-generated method stub
 		if(tabId.compareToIgnoreCase("tab주변지도") == 0){
 			Log.d("StationSetting", tabId + " find and map start");
-			setMap();
+			//setMap();
+			Toast.makeText(getApplicationContext(), "현재위치와 다소 오차가 발생할 수 있습니다.", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -226,35 +258,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onResume();	
-		//----------------위치 탐색 시작-------------------------
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Iterator<String> providers = locManager.getAllProviders().iterator();
-
-		// GPS 정보를 얻기위한 프로바이더 검색
-		while(providers.hasNext()) {
-			Log.d("StationSetting", "Provider : " + providers.next());
-		}
-
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-
-		String best = locManager.getBestProvider(criteria, true);
-
-		if (best == null){
-			Toast toast = Toast.makeText(this, "현재위치를 찾을 수 없습니다.", Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.TOP, 0, 50 );
-			toast.show();		
-		}			
-		else
-		{
-			locManager.requestLocationUpdates(best, 0, 0, this);
-			// 주소를 확인하기 위한 Geocoder KOREA 와 KOREAN 둘다 가능
-			geoCoder = new Geocoder(this, Locale.KOREAN); 
-		}   
-		//----------------위치 탐색 끝-------------------------
-
+		super.onResume();
 		/*myloc_sp.setText(sPrefs.getString("START_ADDRESS", "출발지 미설정"));
 		startEnable = sPrefs.contains("START_ADDRESS");
 		myloc_sp.setSelected(true);
@@ -275,7 +279,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		search_bus_List.setOnItemClickListener(new BUSLIST_ClickEvent());
 		btn_search_station.setOnClickListener(this);
 		btn_search_bus.setOnClickListener(this);
-		
+
 
 		//btn_setup_start.setOnClickListener(this);
 		//btn_setup_dest.setOnClickListener(this);
@@ -447,9 +451,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		}
 	}
 
-	public void setMap(){	
-
-
+	public void setMap(){
+		
 		Log.d("StationSetting"," setting map");
 		mapView = (MapView)findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -528,7 +531,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		protected boolean onTap(int index) {
 			OverlayItem item = mOverlays.get(index);
 			Toast.makeText
-			(mContext, item.getSnippet(), Toast.LENGTH_LONG).show();
+			(mContext, item.getSnippet() + "   " + item.getTitle(), Toast.LENGTH_SHORT).show();
 			return true;
 		}
 
@@ -710,7 +713,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
 			BusInfo bus = busList.get(position);
-			
+
 			Intent i = new Intent(StationSetting.this, RouteViewer.class);
 			i.putExtra("number", bus.getBus_number());
 			i.putExtra("id", bus.getBus_id());
@@ -778,9 +781,9 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 			findTask.execute(station);
 			break;
-			
+
 		case R.id.roh_btn_search_bus:
-			
+
 			busList = dbA.getBusInfoByNumber(et_busNumber.getText().toString());
 			search_bus_List.setAdapter(new FindBusAdapter());
 			break;		
