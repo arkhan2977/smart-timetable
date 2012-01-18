@@ -88,8 +88,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	private LocationManager locManager;
 	boolean bGetteringGPS = false;
 	Geocoder geoCoder;
-	double current_lat = 0;
-	double current_lng = 0;
+	double current_lat = 37.2824052;
+	double current_lng = 127.0453329; //기본값 아주대학교
 
 	/*Base info 관련*/
 
