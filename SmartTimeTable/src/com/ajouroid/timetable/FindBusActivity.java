@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 public class FindBusActivity extends Activity implements OnClickListener, OnItemClickListener {
 	EditText et_busNumber;
-	Button btn_findBus;
-	ListView lv_busList;
+	Button btn_search_bus;
+	ListView search_bus_List;
 	ArrayList<BusInfo> busList;
 	
 	@Override
@@ -30,14 +30,14 @@ public class FindBusActivity extends Activity implements OnClickListener, OnItem
 		this.setContentView(R.layout.findbus);
 		
 		et_busNumber = (EditText)findViewById(R.id.roh_input_search_bus);
-		btn_findBus = (Button)findViewById(R.id.roh_btn_search_bus);
-		lv_busList = (ListView)findViewById(R.id.roh_search_bus_list);
+		btn_search_bus = (Button)findViewById(R.id.roh_btn_search_bus);
+		search_bus_List = (ListView)findViewById(R.id.roh_search_bus_list);
 	}
 	@Override
 	protected void onResume() {
 		super.onResume();
-		btn_findBus.setOnClickListener(this);
-		lv_busList.setOnItemClickListener(this);
+		btn_search_bus.setOnClickListener(this);
+		search_bus_List.setOnItemClickListener(this);
 	}
 
 	
@@ -46,12 +46,12 @@ public class FindBusActivity extends Activity implements OnClickListener, OnItem
 		DBAdapterBus dbA = new DBAdapterBus(this);
 		dbA.open();
 		busList = dbA.getBusInfoByNumber(et_busNumber.getText().toString());
-		lv_busList.setAdapter(new BusAdapter());
+		search_bus_List.setAdapter(new FindBusAdapter());
 		dbA.close();
 	}
 	
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		BusInfo bus = busList.get(arg2);
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		BusInfo bus = busList.get(position);
 		
 		Intent i = new Intent(this, RouteViewer.class);
 		i.putExtra("number", bus.getBus_number());
@@ -60,9 +60,9 @@ public class FindBusActivity extends Activity implements OnClickListener, OnItem
 		startActivity(i);
 	}
 	
-	class BusAdapter extends ArrayAdapter<BusInfo>{
+	class FindBusAdapter extends ArrayAdapter<BusInfo>{
 		
-		BusAdapter(){
+		FindBusAdapter(){
 			super(FindBusActivity.this, R.layout.bus_row ,R.id.row_busnumber, busList);
 		}
 

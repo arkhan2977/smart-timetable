@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import com.ajouroid.timetable.FindBusActivity.FindBusAdapter;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -57,18 +58,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StationSetting extends MapActivity implements LocationListener, View.OnClickListener, OnTabChangeListener {
-	
+
 	ListView sp_stop_list;
 	ListView dest_stop_list;
 	ListView current_station_list;
-	ListView search_station_list;
+	ListView search_station_list;	
+	ListView search_bus_List;
+
 	TextView myloc_sp;
 	TextView myloc_dest;
 	TextView myloc_current;
 	TextView myloc_current1;
 	EditText et_stationNo;
-	Button btn_search_station;
-	
+	EditText et_busNumber;
+	Button btn_search_station;	
+	Button btn_search_bus;
 	Button btn_setup_start;
 	Button btn_setup_dest;
 	SharedPreferences sPrefs;
@@ -79,7 +83,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	ArrayList<BusStopInfo> dest_stop_arrlist;
 	ArrayList<BusStopInfo> current_stop_arrlist;	
 	ArrayList<BusStopInfo> stopList;
-	
+	ArrayList<BusInfo> busList;
+
 	private LocationManager locManager;
 	boolean bGetteringGPS = false;
 	Geocoder geoCoder;
@@ -90,17 +95,17 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 	DBAdapterBus dbA;
 	Cursor cursor;
-	
-	
+
+
 	double SP_LAT;
 	double SP_LNG;
 	double DEST_LAT;
 	double DEST_LNG;
 	boolean checkRunning = false;
 	boolean downRunning = false;
-	
+
 	TabHost tabHost;
-	
+
 	private List<Overlay> mapOverlays;
 	private Drawable drawable;
 	private Drawable marker;
@@ -112,43 +117,47 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-				
+
 		dbA = new DBAdapterBus(StationSetting.this);
 		dbA.open();	
-		
-		
+
+
 		setContentView(R.layout.stationsetting);
-		
+
 
 		dalvik.system.VMRuntime.getRuntime().setTargetHeapUtilization(0.7f);
 		tabHost = (TabHost)findViewById(R.id.tabhost);
-		
+
 		/* 에러방지용 임시 주석
 		sp_stop_list = (ListView)findViewById(R.id.roh_sp_stop_list);
 		dest_stop_list = (ListView)findViewById(R.id.roh_dest_stop_list);
-		*/
+		 */
 		current_station_list = (ListView)findViewById(R.id.roh_current_stop_list);
 		search_station_list = (ListView)findViewById(R.id.roh_search_station_list);
 		et_stationNo = (EditText)findViewById(R.id.roh_input_search_station);
 		
+		et_busNumber = (EditText)findViewById(R.id.roh_input_search_bus);
+		btn_search_bus = (Button)findViewById(R.id.roh_btn_search_bus);
+		search_bus_List = (ListView)findViewById(R.id.roh_search_bus_list);
+
 		/* 에러방지용 임시 주석
 		myloc_sp = (TextView) findViewById(R.id.roh_my_location_sp);
 		myloc_dest = (TextView) findViewById(R.id.roh_my_location_dest);
-		*/
+		 */
 		myloc_current = (TextView) findViewById(R.id.roh_my_location_current); //주변정류장 내위치 표시
-		
+
 		btn_search_station = (Button) findViewById(R.id.roh_btn_search_station);
-		
+
 		myloc_current1 = (TextView) findViewById(R.id.roh_my_location_current1); //주변지도 내위치표시
-		
+
 		/* 에러방지용 임시 주석
 		btn_setup_start = (Button)findViewById(R.id.setup_start);
 		btn_setup_dest = (Button)findViewById(R.id.setup_dest);
-		*/
-		
+		 */
+
 		tabHost.setup();
 
-		
+
 		registTab("주변정류장", R.drawable.tab_myloc, R.id.tab_view1);		
 		registTab("주변지도", R.drawable.tab_map, R.id.tab_view2);
 		registTab("정류장검색", R.drawable.tab_search, R.id.tab_view3);
@@ -156,54 +165,54 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		//registTab("주변지도", R.drawable.tab_dest, R.id.tab_view2); //에러방지용 임시 주석
 		//registTab("버스검색", R.drawable.tab_search, R.id.tab_view4); //에러방지용 임시 주석
 		tabHost.setOnTabChangedListener(this);
-			
+
 		tabHost.setCurrentTab(0);
-	
-		
+
+
 		sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		
+
 		this.registerReceiver(receiver, new IntentFilter("com.ajouroid.timetable.DOWNLOAD_COMPLETE"));
-		
+
 		if (!sPrefs.getBoolean("db_complete", false)){
 			@SuppressWarnings("unused")
 			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
 			.setTitle("DB 다운로드")
 			.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
 					"\n설치를 원하지 않으면 취소를 클릭하시오.\n(단, 버스 관련 서비스를 이용할 수 없습니다.")
-			.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
-			{
-				public void onClick(DialogInterface dialog, int which)
-				{
-					dialog.dismiss();
-					DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
-					down_task.execute();
-				}
-			}).setNegativeButton(StationSetting.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-			{
-				public void onClick(DialogInterface dialog, int which)
-				{							
-					dialog.dismiss();
-				}
-			}).show();
+					.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
+					{
+						public void onClick(DialogInterface dialog, int which)
+						{
+							dialog.dismiss();
+							DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
+							down_task.execute();
+						}
+					}).setNegativeButton(StationSetting.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
+					{
+						public void onClick(DialogInterface dialog, int which)
+						{							
+							dialog.dismiss();
+						}
+					}).show();
 		}
-		
+
 	}	
 	public void registTab(String labelId, int drawableId, int id)
 	{
 		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);
-		
+
 		View tabIndicator = LayoutInflater.from(this).inflate(R.layout.tab_indicator, tabHost.getTabWidget(), false);
-		
+
 		TextView title = (TextView) tabIndicator.findViewById(R.id.roh_tab_title);
 		title.setText(labelId);
 		ImageView icon = (ImageView) tabIndicator.findViewById(R.id.roh_tab_icon);
-		
+
 		icon.setImageResource(drawableId);		
 		spec.setIndicator(tabIndicator);
 		spec.setContent(id);
 		tabHost.addTab(spec);
 	}
-	
+
 	public void onTabChanged(String tabId) {
 		// TODO Auto-generated method stub
 		if(tabId.compareToIgnoreCase("tab주변지도") == 0){
@@ -211,7 +220,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			setMap();
 		}
 	}
-	
+
 	boolean startEnable;
 	boolean destEnable;
 	@Override
@@ -221,7 +230,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		//----------------위치 탐색 시작-------------------------
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Iterator<String> providers = locManager.getAllProviders().iterator();
-		
+
 		// GPS 정보를 얻기위한 프로바이더 검색
 		while(providers.hasNext()) {
 			Log.d("StationSetting", "Provider : " + providers.next());
@@ -232,7 +241,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
 
 		String best = locManager.getBestProvider(criteria, true);
-		
+
 		if (best == null){
 			Toast toast = Toast.makeText(this, "현재위치를 찾을 수 없습니다.", Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.TOP, 0, 50 );
@@ -242,41 +251,43 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		{
 			locManager.requestLocationUpdates(best, 0, 0, this);
 			// 주소를 확인하기 위한 Geocoder KOREA 와 KOREAN 둘다 가능
-	        geoCoder = new Geocoder(this, Locale.KOREAN); 
+			geoCoder = new Geocoder(this, Locale.KOREAN); 
 		}   
 		//----------------위치 탐색 끝-------------------------
-		
+
 		/*myloc_sp.setText(sPrefs.getString("START_ADDRESS", "출발지 미설정"));
 		startEnable = sPrefs.contains("START_ADDRESS");
 		myloc_sp.setSelected(true);
 		SP_LAT = Double.parseDouble(sPrefs.getString("SP_LAT", "-1"));
 		SP_LNG = Double.parseDouble(sPrefs.getString("SP_LNG", "-1"));	
-		
+
 		myloc_dest.setText(sPrefs.getString("DEST_ADDRESS", "도착지 미설정"));
 		destEnable = sPrefs.contains("DEST_ADDRESS");
 		myloc_dest.setSelected(true);
 		DEST_LAT = Double.parseDouble(sPrefs.getString("DEST_LAT", "-1"));
 		DEST_LNG = Double.parseDouble(sPrefs.getString("DEST_LNG", "-1"));*/
-		
+
 		CURR_ClickEvent clickListener = new CURR_ClickEvent();
 		//sp_stop_list.setOnItemClickListener(clickListener);
 		//dest_stop_list.setOnItemClickListener(clickListener);	
 		current_station_list.setOnItemClickListener(clickListener);
 		search_station_list.setOnItemClickListener(clickListener);
-		
+		search_bus_List.setOnItemClickListener(new BUSLIST_ClickEvent());
 		btn_search_station.setOnClickListener(this);
+		btn_search_bus.setOnClickListener(this);
 		
+
 		//btn_setup_start.setOnClickListener(this);
 		//btn_setup_dest.setOnClickListener(this);
-		
+
 		//registerForContextMenu(sp_stop_list);
 		//registerForContextMenu(dest_stop_list);
 		registerForContextMenu(current_station_list);
 		registerForContextMenu(search_station_list);
-		
+
 		setAdapter();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -284,22 +295,22 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		unregisterReceiver(receiver);
 		dbA.close();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.stationmenu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.stopsettiongmenu, menu);		
-		
+
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId())
@@ -316,7 +327,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		
+
 		switch(tabHost.getCurrentTab())
 		{
 		case 0:
@@ -328,7 +339,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			case R.id.cmenu_end:
 				setDestStop(sp_stop_arrlist.get(info.position).getStop_id(),sp_stop_arrlist.get(info.position).getStop_name());
 				break;
-				
+
 			case R.id.cmenu_start_2:
 				setStartStop_2(sp_stop_arrlist.get(info.position).getStop_id(),sp_stop_arrlist.get(info.position).getStop_name());
 				break;
@@ -337,7 +348,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				break;
 			}
 			break;
-			
+
 		case 1:
 			switch(item.getItemId())
 			{
@@ -347,7 +358,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			case R.id.cmenu_end:
 				setDestStop(dest_stop_arrlist.get(info.position).getStop_id(),dest_stop_arrlist.get(info.position).getStop_name());
 				break;
-				
+
 			case R.id.cmenu_start_2:
 				setStartStop_2(dest_stop_arrlist.get(info.position).getStop_id(),dest_stop_arrlist.get(info.position).getStop_name());
 				break;
@@ -365,7 +376,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			case R.id.cmenu_end:
 				setDestStop(current_stop_arrlist.get(info.position).getStop_id(),current_stop_arrlist.get(info.position).getStop_name());
 				break;
-				
+
 			case R.id.cmenu_start_2:
 				setStartStop_2(current_stop_arrlist.get(info.position).getStop_id(),current_stop_arrlist.get(info.position).getStop_name());
 				break;
@@ -374,18 +385,18 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				break;
 			}
 			break;
-			
+
 		case 3:
 			switch(item.getItemId())
 			{
 			case R.id.cmenu_start:
-				
+
 				setStartStop(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
 				break;
 			case R.id.cmenu_end:
 				setDestStop(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
 				break;
-				
+
 			case R.id.cmenu_start_2:
 				setStartStop_2(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
 				break;
@@ -400,7 +411,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		Log.d("StationSetting", "Location changed.");		
-		
+
 		if(bGetteringGPS == false) {
 
 			current_lat = location.getLatitude();
@@ -413,7 +424,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				List<Address> addresses = null;
 				addresses = geoCoder.getFromLocation(current_lat, current_lng, 1);
 				myloc = addresses.get(0).getAddressLine(0).toString();
-				
+
 			} catch (IOException e) {
 				myloc = current_lat + ", " + current_lng ;
 			}
@@ -435,10 +446,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			}
 		}
 	}
-	
+
 	public void setMap(){	
-		
-		
+
+
 		Log.d("StationSetting"," setting map");
 		mapView = (MapView)findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -455,24 +466,24 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 		OverlayItem overlayitem = 
 				new OverlayItem(getPoint(current_lat, current_lng), "내 위치","내 현재위치");
-		
+
 		around_station.addOverlay(overlayitem,drawable);
-		
+
 		for(int i=0; i<current_stop_arrlist.size(); i++){
 			OverlayItem overlayitem1 =
 					new OverlayItem(getPoint(current_stop_arrlist.get(i).getLatitude(),
 							current_stop_arrlist.get(i).getLongitude()),
 							current_stop_arrlist.get(i).getStop_name(),
 							current_stop_arrlist.get(i).getStop_id());
-			
+
 			around_station.addOverlay(overlayitem1);
 			mapOverlays.add(around_station);
 		}
-		
 
 
-		
-		
+
+
+
 	}
 	private GeoPoint getPoint(double lat, double lon) {
 		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
@@ -522,29 +533,29 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		}
 
 	}
-	
-	
+
+
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
-	
-	
-//	BusStopAdapter sp_adapter;
-//	BusStopAdapter dest_adapter;
+
+
+
+
+	//	BusStopAdapter sp_adapter;
+	//	BusStopAdapter dest_adapter;
 	BusStopAdapter curr_adapter;
 	BusStopAdapter find_adapter;
-	
+
 	public void setAdapter(){
 		/*if(SP_LAT != -1 && SP_LNG != -1){
 			sp_stop_arrlist = dbA.findNearStops(SP_LAT, SP_LNG);
@@ -569,7 +580,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			Toast.makeText(StationSetting.this, "도착지가 설정되어있지 않습니다.", Toast.LENGTH_SHORT).show();
 		}*/
 	}
-	
+
 	public void updateAdapter()
 	{
 		/*if (sp_adapter != null)
@@ -584,7 +595,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		{
 			curr_adapter.notifyDataSetChanged();
 		}
-		
+
 		if (find_adapter != null)
 		{
 			find_adapter.notifyDataSetChanged();
@@ -594,7 +605,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	//DB가 완료되면 주변 정류장을 찾아 리스트를 뿌려줘야함.
 	class BusStopAdapter extends ArrayAdapter<BusStopInfo>{
 		ArrayList<BusStopInfo> arrlist;
-		
+
 		BusStopAdapter(ArrayList<BusStopInfo> _list){
 			super(StationSetting.this,R.layout.busstop_row,R.id.stop_name, _list);
 			arrlist = _list;
@@ -604,21 +615,21 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		public View getView(int position, View convertView, ViewGroup parent){
 
 			LayoutInflater inflater = getLayoutInflater();
-			
+
 			View row = inflater.inflate(R.layout.busstop_row, parent, false);
-			
+
 
 			TextView stop_name = (TextView)row.findViewById(R.id.stop_name);		
 			stop_name.setText(arrlist.get(position).getStop_name());			
-						
+
 			String spId = sPrefs.getString("START_STOP", "");
 			String destId = sPrefs.getString("DEST_STOP", "");
-			
+
 			String spId_2 = sPrefs.getString("START_STOP_2", "");
 			String destId_2 = sPrefs.getString("DEST_STOP_2", "");
-			
+
 			TextView state = (TextView)row.findViewById(R.id.stop_state);
-			
+
 			String curId = arrlist.get(position).getStop_id();
 			if (spId.compareTo(curId) == 0)
 			{
@@ -631,7 +642,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				stop_name.setTextColor(0xFFDAA520);
 				state.setVisibility(View.VISIBLE);
 			}
-			
+
 			else if (spId_2.compareTo(curId) == 0)
 			{
 				state.setText("하교\n출발");
@@ -648,10 +659,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			{
 				state.setVisibility(View.INVISIBLE);
 			}
-			
+
 			TextView stop_num = (TextView)row.findViewById(R.id.stop_num);
 			stop_num.setText(arrlist.get(position).getNumber() + "");
-			
+
 			TextView distance = (TextView)row.findViewById(R.id.distance);
 			if (arrlist.get(position).getDistance() > -1)
 			{
@@ -659,13 +670,13 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			}
 			else
 				distance.setText("");
-			
+
 			return row;
 
 		}
 	}
-	
-	class SP_ClickEvent implements ListView.OnItemClickListener {
+
+	/*class SP_ClickEvent implements ListView.OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
@@ -674,7 +685,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			//v.showContextMenu();
 
 		}
-		
+
 	}
 	class DEST_ClickEvent implements ListView.OnItemClickListener {
 
@@ -683,18 +694,33 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			setDestStop(dest_stop_arrlist.get(position).getStop_id(),dest_stop_arrlist.get(position).getStop_name());
 			//v.showContextMenu();		
 		}
-		
-	}
+
+	}*/
 	class CURR_ClickEvent implements ListView.OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
-			
+
 			v.showContextMenu();
-						
+
 		}
 	}
-	
+	class BUSLIST_ClickEvent implements ListView.OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> arg0, View v, int position,
+				long arg3) {
+			BusInfo bus = busList.get(position);
+			
+			Intent i = new Intent(StationSetting.this, RouteViewer.class);
+			i.putExtra("number", bus.getBus_number());
+			i.putExtra("id", bus.getBus_id());
+			
+			startActivity(i);		
+		}
+
+	}
+
+
 	public void setStartStop(String id,String name)
 	{
 		SharedPreferences.Editor ed = sPrefs.edit();
@@ -704,7 +730,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		ed.commit();
 		updateAdapter();
 	}
-	
+
 	public void setDestStop(String id,String name)
 	{
 		SharedPreferences.Editor ed = sPrefs.edit();
@@ -714,7 +740,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		ed.commit();	
 		updateAdapter();
 	}
-	
+
 	public void setStartStop_2(String id,String name)
 	{
 		SharedPreferences.Editor ed = sPrefs.edit();
@@ -724,7 +750,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		ed.commit();
 		updateAdapter();
 	}
-	
+
 	public void setDestStop_2(String id,String name)
 	{
 		SharedPreferences.Editor ed = sPrefs.edit();
@@ -734,37 +760,31 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		ed.commit();	
 		updateAdapter();
 	}
-	
+
 	public void onClick(View v) {
 		switch(v.getId())
 		{
 		case R.id.roh_btn_search_station:
-			
+
 			String station = et_stationNo.getText().toString();
 
 			FindStationTask findTask = new FindStationTask();
-			
+
 			findTask.execute(station);
 			break;
-			/* 에러방지용 임시 주석
-		case R.id.setup_start:
-			Intent startActivity = new Intent(this,MapViewer.class);
-			startActivity.putExtra("TYPE", 0);
-			startActivity(startActivity);
-			break;
-		case R.id.setup_dest:
-			Intent destActivity = new Intent(this,MapViewer.class);
-			destActivity.putExtra("TYPE", 1);
-			startActivity(destActivity);
-			break;
-			*/
+			
+		case R.id.roh_btn_search_bus:
+			
+			busList = dbA.getBusInfoByNumber(et_busNumber.getText().toString());
+			search_bus_List.setAdapter(new FindBusAdapter());
+			break;		
 		}
 	}
-	
+
 	class FindStationTask extends AsyncTask<String, Void, Void>
 	{
 		ProgressDialog dialog;
-		
+
 		@Override
 		protected void onPreExecute() {
 			dialog = new ProgressDialog(StationSetting.this);
@@ -796,14 +816,37 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			super.onPostExecute(result);
 		}
 	}
-	
+	class FindBusAdapter extends ArrayAdapter<BusInfo>{
+
+		FindBusAdapter(){
+			super(StationSetting.this, R.layout.bus_row ,R.id.row_busnumber, busList);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent){
+
+			LayoutInflater inflater = getLayoutInflater();
+
+			View row = inflater.inflate(R.layout.bus_row, parent, false);
+
+
+			TextView number = (TextView)row.findViewById(R.id.row_busnumber);
+			number.setText(busList.get(position).getBus_number());
+
+			TextView region = (TextView)row.findViewById(R.id.row_region);
+			region.setText(busList.get(position).getRegion());
+
+			return row;
+
+		}
+	}
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context arg0, Intent arg1) {
 			// TODO Auto-generated method stub
 			updateAdapter();
-			
+
 			Log.d("SmartTimeTable", "DB Download Completed.");
 		}
 	};
