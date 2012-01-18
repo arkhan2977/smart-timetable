@@ -12,14 +12,13 @@
             android:title="@string/loc_findBusStop" >
         </PreferenceScreen>
         
-        <!-- 
+        
         <PreferenceScreen
             android:key="find_bus"
             android:summary="버스의 경유 노선을 검색합니다."
             android:title="버스 검색" >
         </PreferenceScreen>
         
-         -->
         
         <PreferenceScreen
             android:key="db_version"
@@ -27,8 +26,7 @@
             android:title="GBus 노선정보 데이터베이스 버전" >
         </PreferenceScreen>
     </PreferenceCategory>
-    
-    <!-- 
+     
     <PreferenceCategory        
         android:key="start_location"
         android:title="위치 설정" >
@@ -48,6 +46,6 @@
             android:title="@string/loc_setDest" >
         </PreferenceScreen>
     </PreferenceCategory>
-     -->
+    
 
 </PreferenceScreen>

@@ -8,9 +8,10 @@
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:apiKey="0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ"
+        android:apiKey="0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow"
+        
         android:clickable="true" />
 </LinearLayout>
 
 
-<!-- 0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow -->
+<!-- 0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ -->
