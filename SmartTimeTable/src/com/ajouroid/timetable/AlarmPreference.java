@@ -46,7 +46,6 @@ public class AlarmPreference extends PreferenceActivity implements
 		morningcall.setOnPreferenceChangeListener(this);
 		task.setOnPreferenceChangeListener(this);
 
-		// üũ�ڽ��� ���� ��� �� �׸��� enable �Ӽ��� ������
 		if (prefs.getBoolean("alarm", false)) {
 			alarmtime.setEnabled(true);
 		}

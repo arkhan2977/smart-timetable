@@ -16,6 +16,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -45,6 +46,8 @@ public class GotoSchoolActivity extends Activity {
 	ArrayList<BusInfo>[] businfo;
 	//ArrayList<BusInfo> businfo_2;
 	
+	Resources r;
+	
 	BusAdapter adapter;
 	BusAdapter adapter_2;
 
@@ -72,6 +75,7 @@ public class GotoSchoolActivity extends Activity {
 		buslist_2 = (ListView)findViewById(R.id.buslist_2);
 		buslist_2.setSelector(R.drawable.stroke_bus);
 		
+		r = getResources();
 		/*
 		start_point = (TextView)findViewById(R.id.start_point);
 		destination = (TextView)findViewById(R.id.destination);
@@ -409,7 +413,7 @@ public class GotoSchoolActivity extends Activity {
 				switch(ERROR_CODE){
 
 				case -1:
-					Toast.makeText(GotoSchoolActivity.this, "데이터베이스가 존재하지 않습니다.\n데이터베이스를 다운로드해주세요.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GotoSchoolActivity.this, getResources().getString(R.string.dbdown_noDatabase), Toast.LENGTH_SHORT).show();
 					return;
 					
 				case 1: break;
@@ -459,7 +463,7 @@ public class GotoSchoolActivity extends Activity {
 				String addition_msg = "";
 				//error code에 해당하는 메시지를 띄운다.
 				if(ERROR_CODE == 4){
-					addition_msg += "\n버스운행시간이 아닐 수 있습니다.";
+					addition_msg += "\n" + getResources().getString(R.string.bus_noBus);
 				}
 				alert_dialog = new AlertDialog.Builder(GotoSchoolActivity.this)
 				.setTitle("Error!!")
@@ -524,12 +528,9 @@ public class GotoSchoolActivity extends Activity {
 			TextView bus_number = (TextView)row.findViewById(R.id.bus_number);	
 			TextView arrive_time = (TextView)row.findViewById(R.id.arrive_time);
 			
-			if(info.isEmpty()){
-				arrive_time.setText("현재 설정된 목적지행 버스가 존재하지 않습니다.");
-			}
 			
 			bus_number.setText(info.get(position).getBus_number());
-			arrive_time.setText(info.get(position).getArrive_time() + "분 후 도착.");
+			arrive_time.setText(info.get(position).getArrive_time() + r.getString(R.string.bus_later));
 			//arrive_time.setTextColor(0xFFFFFF);
 
 			return row;

@@ -85,7 +85,7 @@ public class OptionActivity extends PreferenceActivity
 
 			dbA.backup();
 
-			Toast.makeText(this, "데이터 백업이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.opt_backupComplete, Toast.LENGTH_SHORT).show();
 		}
 		else if (preference.getKey().compareTo("restore") == 0)
 		{
@@ -93,7 +93,7 @@ public class OptionActivity extends PreferenceActivity
 
 			dbA.restore("/sdcard/SmartTimeTable/backup.txt");
 			
-			Toast.makeText(this, "데이터 복구가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.opt_restoreComplete, Toast.LENGTH_SHORT).show();
 		}
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}

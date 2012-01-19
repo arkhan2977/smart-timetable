@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -33,12 +34,16 @@ public class AlarmService extends Service {
 	public final static int NOTIFY_DAY_TASK = 4;
 	public final static int NOTIFY_SILENT = 5;
 
-	final static String[] daysArr = { "월", "화", "수", "목", "금", "토", "일" };
+	String[] daysArr;
+	
+	Resources r;
 
 	@Override
 	public void onCreate() { 
 		am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		unregisterRestart();
+		r = getResources();
+		daysArr = r.getStringArray(R.array.days);
 		super.onCreate();
 	}
 

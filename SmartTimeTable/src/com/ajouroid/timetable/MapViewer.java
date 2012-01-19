@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -58,6 +59,7 @@ public class MapViewer extends MapActivity implements LocationListener {
 	private SharedPreferences mPrefs;
 	private int SEARCH_TYPE;  //출발지 검색인지 도착지 검색인지 여부 확인 
 
+	Resources r;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class MapViewer extends MapActivity implements LocationListener {
 			locationManager.requestLocationUpdates(best, 0, 0, this);	
 		}
 		else{
-			Toast toast = Toast.makeText(this, "현재위치를 찾을 수 없습니다.", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(this, r.getString(R.string.err_cannotFindLocation), Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.TOP, 0, 50 );
 			toast.show();
 		}
@@ -107,12 +109,12 @@ public class MapViewer extends MapActivity implements LocationListener {
 	//메뉴 구현부
 	public boolean onCreateOptionsMenu(Menu menu){
 		if(SEARCH_TYPE == 0){
-			menu.add(0, MENU_SET, 0, "출발지로 설정").setIcon(R.drawable.icon_loc_check);
-			menu.add(0, MENU_SEARCH, 0, "출발지 검색").setIcon(R.drawable.icon_loc_search);
+			menu.add(0, MENU_SET, 0, R.string.loc_setStart).setIcon(R.drawable.icon_loc_check);
+			menu.add(0, MENU_SEARCH, 0, R.string.loc_searchStart).setIcon(R.drawable.icon_loc_search);
 		}
 		else{
-			menu.add(0, MENU_SET, 0, "도착지로 설정").setIcon(R.drawable.icon_loc_check);
-			menu.add(0, MENU_SEARCH, 0, "도착지 검색").setIcon(R.drawable.icon_loc_search);
+			menu.add(0, MENU_SET, 0, R.string.loc_setDest).setIcon(R.drawable.icon_loc_check);
+			menu.add(0, MENU_SEARCH, 0, R.string.loc_searchDest).setIcon(R.drawable.icon_loc_search);
 		}
 		return(super.onCreateOptionsMenu(menu));
 	}

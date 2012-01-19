@@ -6,6 +6,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -43,12 +44,16 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 	boolean running = true;
 	int snoozeMinute;
 	
+	Resources r;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
+		r = getResources();
 		
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		sCpuWakeLock = pm.newWakeLock(
@@ -359,7 +364,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			Paint font = new Paint();
 			font.setTextSize(24);
 			font.setColor(Color.WHITE);
-			canvas.drawText(remain + "개 남음!", 50, bottom + 50, font);
+			canvas.drawText(remain + r.getString(R.string.alarmview_remain), 50, bottom + 50, font);
 			
 			fillPaint.setColor(Color.WHITE);
 			fillPaint.setAlpha(0xFF);
@@ -371,7 +376,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			font.setColor(Color.BLACK);
 			font.setTextAlign(Align.CENTER);
 			if (!snooze)
-				canvas.drawText("Snooze", snoozeX + 50, snoozeBottom-10, font);
+				canvas.drawText(r.getString(R.string.alarmview_snooze), snoozeX + 50, snoozeBottom-10, font);
 			else
 			{
 				String timeStr = snoozeMinute / 60 + ":" + snoozeMinute%60;
@@ -413,7 +418,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 				if ((x>=snoozeX && x<=snoozeRight) && (y>=snoozeY && y<=snoozeBottom))
 				{
 					goSnooze();
-					Toast.makeText(ctx, "5분 후 알람이 다시 울립니다.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ctx, r.getString(R.string.alarmview_snoozeMsg), Toast.LENGTH_SHORT).show();
 				}
 			}
 			

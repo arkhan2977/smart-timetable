@@ -13,6 +13,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -117,6 +118,7 @@ public class TimeTable extends View {
 	final String[] days = getResources().getStringArray(R.array.days);
 
 	Context context;
+	Resources r;
 
 	public TimeTable(Context context) {
 		super(context);
@@ -142,6 +144,7 @@ public class TimeTable extends View {
 		SharedPreferences prefs = this.getContext().getSharedPreferences(
 				"com.ajouroid.timetable_preferences", 0);
 
+		r = context.getResources();
 		// DB 초기화
 		dbA = new DBAdapter(this.getContext());
 
@@ -354,7 +357,7 @@ public class TimeTable extends View {
 		p.setAlpha(0xFF);
 		p.setTextSize(30);
 		if (addingMode) {
-			canvas.drawText("[" + selectedSubject + "] 시간 추가중...", width / 2,
+			canvas.drawText("[" + selectedSubject + "] " + r.getString(R.string.table_adding), width / 2,
 					height / 2, p);
 			canvas.drawText(getResources().getString(R.string.pressBackBtn),
 					width / 2, height / 2 - p.ascent() + p.descent(), p);
@@ -563,7 +566,7 @@ public class TimeTable extends View {
 	public void selectAdder(String subject) {
 		addingMode = true;
 		selectedSubject = subject;
-		Toast.makeText(context, "추가하고 싶은 시간을 선택하세요.", Toast.LENGTH_SHORT)
+		Toast.makeText(context, R.string.table_selectTime, Toast.LENGTH_SHORT)
 				.show();
 		invalidate();
 	}

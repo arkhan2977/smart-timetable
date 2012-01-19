@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -18,21 +19,25 @@ public class NotifyReceiver extends BroadcastReceiver{
 	int ID1 = 0;
 	int ID2 = 5000;
 	public static final String TAG = "SmartTimeTable.ClassNotification";
+	
+	Resources r;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
 		NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			 
+		
+		r = context.getResources();
+		
 		if (intent.getAction().compareTo("com.ajouroid.timetable.NOTIFY_CLASS") == 0)
 		{
 			String past_minute = prefs.getString("alarm_time", "5");
 			String subject = intent.getStringExtra("subject");
 			
-			Notification notice = new Notification(R.drawable.alarmclockicon, "[" + subject + "] "+ past_minute + " 분 전 입니다.", System.currentTimeMillis());
+			Notification notice = new Notification(R.drawable.alarmclockicon, "[" + subject + "] "+ past_minute + r.getString(R.string.alarm_beforeMinute), System.currentTimeMillis());
 						
-			String Title = "수업 알림";
-			String Text  = "[" + subject + "] "+ past_minute + " 분 전 입니다.";
+			String Title = r.getString(R.string.alarm_notifyClass);
+			String Text  = "[" + subject + "] "+ past_minute + r.getString(R.string.alarm_beforeMinute);
 			
 			Intent i = new Intent(context, MainActivity.class);
 			
@@ -47,24 +52,33 @@ public class NotifyReceiver extends BroadcastReceiver{
 		}
 		else if(intent.getAction().compareTo("com.ajouroid.timetable.NOTIFY_TASK") == 0)
 		{
-			final String[] tasksubject = {"과제", "시험", "보강", "기타" };
+			final String[] tasksubject = r.getStringArray(R.array.tasks);
 			String subject = intent.getStringExtra("subject");
 			String title = intent.getStringExtra("title");
 			int type = intent.getIntExtra("type", 0);
-			Notification tNotice = new Notification(R.drawable.alarmtaskicon, tasksubject[type]+" 한시간 전입니다.", System.currentTimeMillis());
 			
 			int mins = Integer.parseInt(prefs.getString("task_time", "60"));
+	
+			String notifyTitle = tasksubject[type] + " ";
+			
 			String Text;
 			if (mins < 60)
 			{
-				Text = mins + "분 후에 ";
+				notifyTitle += mins + r.getString(R.string.alarm_beforeMinute);
+				Text = mins + r.getString(R.string.alarm_afterMinute);
 			}
 			else
 			{
-				Text = (mins/60) + "시간 후에 ";
+				notifyTitle += (mins/60) + r.getString(R.string.alarm_beforeHour);
+				Text = (mins/60) + r.getString(R.string.alarm_afterHour);
 			}
+			
+			
+			Notification tNotice = new Notification(R.drawable.alarmtaskicon, notifyTitle, System.currentTimeMillis());
+			
+			
 			String Title = tasksubject[type];
-			Text += title + "(" + subject + ") 일정이 있습니다.";
+			Text += title + "(" + subject + ") " + r.getString(R.string.alarm_taskAlert);
 			
 			Intent i = new Intent(context, MainActivity.class);
 			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -80,9 +94,9 @@ public class NotifyReceiver extends BroadcastReceiver{
 			ArrayList<String> subjectList = intent.getStringArrayListExtra("subject");
 			ArrayList<String> titleList = intent.getStringArrayListExtra("title");
 
-			Notification nNotice = new Notification(R.drawable.alarmtaskicon, "오늘의 일정이 있습니다.", System.currentTimeMillis());
+			Notification nNotice = new Notification(R.drawable.alarmtaskicon, r.getString(R.string.alarm_todayTaskTitle), System.currentTimeMillis());
 			
-			String Title = "오늘의 일정";
+			String Title = r.getString(R.string.alarm_todayTask);
 			String Text = "";
 			
 			for (int i=0; i<subjectList.size(); i++)

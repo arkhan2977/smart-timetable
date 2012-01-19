@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -39,7 +40,9 @@ public class AddTaskDialog extends Activity implements View.OnClickListener, Che
 	
 	int _id=-1;
 	
-	String[] spin = {"과제", "시험", "보강", "기타" };
+	Resources r;
+	
+	String[] spin;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,6 +51,11 @@ public class AddTaskDialog extends Activity implements View.OnClickListener, Che
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.addtask);
+		
+		r = getResources();
+		
+		spin = r.getStringArray(R.array.tasks);
+		
 		addBtn = (Button)findViewById(R.id.addtask_addBtn);
 		
 		type = (Spinner)findViewById(R.id.addtask_type);

@@ -100,6 +100,8 @@ public class AddDialog extends Activity implements OnClickListener {
 	int _id=-1;
 	
 	final static int ID_EDIT_TIME = 1;
+	
+	Resources r;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,7 @@ public class AddDialog extends Activity implements OnClickListener {
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		setContentView(R.layout.adddialog);
 
+		r = getResources();
 		timeListView = (ListView) findViewById(R.id.add_timelist);
 
 		LayoutInflater li = getLayoutInflater();
@@ -214,7 +217,7 @@ public class AddDialog extends Activity implements OnClickListener {
 			}
 			else
 			{
-				Toast.makeText(this, "과목 정보를 읽어오는 중 오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, r.getString(R.string.add_subjectError), Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		}
@@ -446,7 +449,7 @@ public class AddDialog extends Activity implements OnClickListener {
 					{
 						dbHelper.close();
 						Toast.makeText(this,
-								"과목 이름이 중복됩니다.",
+								r.getString(R.string.add_duplicateName),
 								Toast.LENGTH_SHORT).show();
 					}
 					else
@@ -471,7 +474,7 @@ public class AddDialog extends Activity implements OnClickListener {
 				{
 					dbHelper.close();
 					Toast.makeText(this,
-							"과목 이름이 중복됩니다.",
+							r.getString(R.string.add_duplicateName),
 							Toast.LENGTH_SHORT).show();
 				}
 				break;

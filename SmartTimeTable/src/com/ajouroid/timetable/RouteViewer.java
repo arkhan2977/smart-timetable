@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,6 +43,8 @@ public class RouteViewer extends Activity {
 	DBAdapterBus dbA;
 	 
 	SharedPreferences sPrefs;
+	
+	Resources r;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +137,7 @@ public class RouteViewer extends Activity {
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("START_STOP",id); 
 		ed.putString("START_STOP_NAME", name);
-		Toast.makeText(this, "등교 출발 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_start1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 	}
 	
@@ -143,7 +146,7 @@ public class RouteViewer extends Activity {
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("DEST_STOP",id); 
 		ed.putString("DEST_STOP_NAME", name);
-		Toast.makeText(this, "등교 도착 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_dest1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 	}
 	
@@ -152,7 +155,7 @@ public class RouteViewer extends Activity {
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("START_STOP_2",id); 
 		ed.putString("START_STOP_NAME_2", name);
-		Toast.makeText(this, "하교 출발 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_start2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 	}
 	
@@ -161,7 +164,7 @@ public class RouteViewer extends Activity {
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("DEST_STOP_2",id); 
 		ed.putString("DEST_STOP_NAME_2", name);
-		Toast.makeText(this, "하교 도착 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_dest2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 	}
 	
@@ -183,8 +186,8 @@ public class RouteViewer extends Activity {
 		protected void onPreExecute() {
 			dbA.open();
 			dialog = new ProgressDialog(RouteViewer.this);
-			dialog.setTitle("노선 정보 검색중");
-			dialog.setMessage("노선 정보를 검색중 입니다. \n잠시만 기다려 주세요.");
+			dialog.setTitle(R.string.bus_findingRoute);
+			dialog.setMessage(r.getString(R.string.bus_findingRouteMsg));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(true);
 			dialog.show();
@@ -216,9 +219,9 @@ public class RouteViewer extends Activity {
 			TextView stop_updown = (TextView)row.findViewById(R.id.route_updown);		
 			String updown = stationArr.get(position).getUpdown();
 			if (updown.compareTo("정") == 0)
-				updown = "상행";
+				updown = r.getString(R.string.bus_up);
 			else
-				updown = "하행"; 
+				updown = r.getString(R.string.bus_down); 
 			stop_updown.setText(updown);
 			
 			TextView stop_name = (TextView)row.findViewById(R.id.route_name);
@@ -236,25 +239,25 @@ public class RouteViewer extends Activity {
 			String curId = stationArr.get(position).getStop_id();
 			if (spId.compareTo(curId) == 0)
 			{
-				state.setText("등교\n출발");
+				state.setText(R.string.bus_st1);
 				stop_name.setTextColor(0xFFDAA520);
 				state.setVisibility(View.VISIBLE);
 			}
 			else if (destId.compareTo(curId) == 0){
-				state.setText("등교\n도착");
+				state.setText(R.string.bus_ds1);
 				stop_name.setTextColor(0xFFDAA520);
 				state.setVisibility(View.VISIBLE);
 			}
 			
 			else if (spId_2.compareTo(curId) == 0)
 			{
-				state.setText("하교\n출발");
+				state.setText(R.string.bus_st2);
 				stop_name.setTextColor(0xFFFF0000);
 				state.setVisibility(View.VISIBLE);
 			}
 			else if(destId_2.compareTo(curId) == 0)
 			{
-				state.setText("하교\n도착");
+				state.setText(R.string.bus_ds2);
 				stop_name.setTextColor(0xFFFF0000);
 				state.setVisibility(View.VISIBLE);
 			}

@@ -47,6 +47,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 	int color;
 	int id;
 	
+	Resources r;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		deleteSubject = (Button)findViewById(R.id.info_deleteSubject);
 		sendEmail = (Button)findViewById(R.id.info_sendEmail);
 
+		r = getResources();
 	}
 	
 	
@@ -89,7 +91,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		}
 		else
 		{
-			Toast.makeText(this, "과목 정보를 읽어오는 중 오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, r.getString(R.string.add_subjectError), Toast.LENGTH_SHORT).show();
 			finish();
 		}
 		((LinearLayout)findViewById(R.id.info_title)).setBackgroundColor(subject.getColor());

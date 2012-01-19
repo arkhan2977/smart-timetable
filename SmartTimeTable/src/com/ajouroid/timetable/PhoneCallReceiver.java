@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
@@ -24,15 +25,18 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 	Context ctx;
 	
 	static int ID = 0;
+	
+	Resources r;
 
 	@Override
 	public synchronized void onReceive(Context context, Intent intent) {
 		ctx = context;
+		r = ctx.getResources();
 		SharedPreferences sPref = PreferenceManager
 				.getDefaultSharedPreferences(ctx);
 		boolean reject = sPref.getBoolean("usereject", false);
 		final String message = sPref.getString("message",
-				"수업중입니다. 나중에 다시 연락드리겠습니다.");
+				r.getString(R.string.call_defMessage));
 		final String resttime = sPref.getString("resttime", "0:15");
 		
 		Log.d("PhoneCallReceiver", "Calling Message Received.");
@@ -81,9 +85,9 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 										if (telephonyService.endCall())
 										{
 										NotificationManager nm = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
-										Notification tNotice = new Notification(R.drawable.icon_rejectcall, "수업중 전화가 있습니다.", System.currentTimeMillis());
+										Notification tNotice = new Notification(R.drawable.icon_rejectcall, r.getString(R.string.call_title), System.currentTimeMillis());
 										
-										String Title = "수업중 전화가 있습니다.";
+										String Title = r.getString(R.string.call_title);
 										String Text = incomingNumber;
 										
 										Uri number = Uri.parse("tel:" + incomingNumber);
@@ -99,7 +103,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									Log.d("PhoneCallReceiver", "수업시간입니다.");
+									Log.d("PhoneCallReceiver", "Call in Class Time.");
 								}
 								dbA.close();
 							}

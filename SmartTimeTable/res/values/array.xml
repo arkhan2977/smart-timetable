@@ -74,6 +74,13 @@
         <item>일</item>
     </string-array>
     
+    <string-array name="tasks">
+        <item>과제</item>
+        <item>시험</item>
+        <item>보강</item>
+        <item>기타</item>
+    </string-array>
+    
     <string-array name="bustimes">
         <item>15분 후 도착</item>
         <item>10분 후 도착</item>

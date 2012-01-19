@@ -14,6 +14,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_gravity="right"
+			android:textColor="#000000"
 			android:text="Since 2011.11.7" />
 
 		<LinearLayout android:layout_width="fill_parent"
@@ -23,7 +24,8 @@
 
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:layout_marginRight="10dp"
-				android:layout_gravity="center_horizontal" android:textSize="22sp"
+				android:layout_gravity="center_horizontal" android:textSize="16sp"
+				android:textColor="#000000"
 				android:text=" 아주대학교 정보컴퓨터공학부\n\n조준영, bsoul87@gmail.com\n강병우, koolkb@naver.com\n노건욱, kuroh@naver.com" />
 		</LinearLayout>
 		

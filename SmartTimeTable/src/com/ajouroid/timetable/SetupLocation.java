@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -28,6 +29,8 @@ public class SetupLocation extends PreferenceActivity {
 	private String msg;
 	private double distance = 0;
 	
+	Resources r;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -37,6 +40,7 @@ public class SetupLocation extends PreferenceActivity {
 		show_version = (PreferenceScreen) findPreference("db_version");
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
+		r = getResources();
 		/*
 		Editor edit = mPrefs.edit();
 		edit.remove("db_complete");
@@ -48,10 +52,10 @@ public class SetupLocation extends PreferenceActivity {
 		if (validDb)
 		{
 				String ver = mPrefs.getString("db_version", "-1");
-				show_version.setSummary("버전: " + ver);
+				show_version.setSummary(r.getString(R.string.version) + ": " + ver);
 		}
 		else
-			show_version.setSummary("DB가 존재하지 않습니다. 다운로드하시려면 클릭하세요.");
+			show_version.setSummary(R.string.dbdown_noDatabase);
 		registerReceiver(receiver, new IntentFilter("com.ajouroid.timetable.DOWNLOAD_COMPLETE"));
 	}
 	
@@ -97,10 +101,10 @@ public class SetupLocation extends PreferenceActivity {
 			if (validDb)
 			{
 					String ver = mPrefs.getString("db_version", "-1");
-					show_version.setSummary("버전: " + ver);
+					show_version.setSummary(r.getString(R.string.version) + ": " + ver);
 			}
 			else
-				show_version.setSummary("DB가 존재하지 않습니다. 다운로드하시려면 클릭하세요.");
+				show_version.setSummary(R.string.dbdown_noDatabase);
 			
 			Log.d("SmartTimeTable", "DB Download Completed.");
 		}

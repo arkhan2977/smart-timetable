@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -84,6 +85,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	ArrayList<BusStopInfo> current_stop_arrlist;	
 	ArrayList<BusStopInfo> stopList;
 	ArrayList<BusInfo> busList;
+	
+	Resources r;
 
 	private LocationManager locManager;
 	boolean bGetteringGPS = false;
@@ -130,7 +133,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		String best = locManager.getBestProvider(criteria, true);
 
 		if (best == null){
-			Toast toast = Toast.makeText(this, "현재위치를 찾을 수 없습니다.", Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(this, R.string.err_cannotFindLocation, Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.TOP, 0, 50 );
 			toast.show();		
 		}			
@@ -141,6 +144,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			geoCoder = new Geocoder(this, Locale.KOREAN); 
 		}   
 		//----------------위치 탐색 끝-------------------------
+		
+		r = getResources();
 	}
 
 	@Override
@@ -206,9 +211,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		if (!sPrefs.getBoolean("db_complete", false)){
 			@SuppressWarnings("unused")
 			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
-			.setTitle("DB 다운로드")
-			.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
-					"\n설치를 원하지 않으면 취소를 클릭하시오.\n(단, 버스 관련 서비스를 이용할 수 없습니다.")
+			.setTitle(R.string.dbdown_title)
+			.setMessage(R.string.dbdown_alert)
 					.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
 					{
 						public void onClick(DialogInterface dialog, int which)
@@ -248,7 +252,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		if(tabId.compareToIgnoreCase("tab주변지도") == 0){
 			Log.d("StationSetting", tabId + " find and map start");
 			//setMap();
-			Toast.makeText(getApplicationContext(), "현재위치와 다소 오차가 발생할 수 있습니다.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.loc_noExact, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -467,7 +471,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		around_station = new AroundStation(marker, this);
 
 		OverlayItem overlayitem = 
-				new OverlayItem(getPoint(current_lat, current_lng), "내 위치","내 현재위치");
+				new OverlayItem(getPoint(current_lat, current_lng), "내 위치", "내 현재위치");
 
 		around_station.addOverlay(overlayitem,drawable);
 
@@ -635,25 +639,25 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			String curId = arrlist.get(position).getStop_id();
 			if (spId.compareTo(curId) == 0)
 			{
-				state.setText("등교\n출발");
+				state.setText(R.string.bus_st1);
 				stop_name.setTextColor(0xFFDAA520);
 				state.setVisibility(View.VISIBLE);
 			}
 			else if (destId.compareTo(curId) == 0){
-				state.setText("등교\n도착");
+				state.setText(R.string.bus_ds1);
 				stop_name.setTextColor(0xFFDAA520);
 				state.setVisibility(View.VISIBLE);
 			}
 
 			else if (spId_2.compareTo(curId) == 0)
 			{
-				state.setText("하교\n출발");
+				state.setText(R.string.bus_st2);
 				stop_name.setTextColor(0xFFFF0000);
 				state.setVisibility(View.VISIBLE);
 			}
 			else if(destId_2.compareTo(curId) == 0)
 			{
-				state.setText("하교\n도착");
+				state.setText(R.string.bus_ds2);
 				stop_name.setTextColor(0xFFFF0000);
 				state.setVisibility(View.VISIBLE);
 			}
@@ -734,7 +738,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("START_STOP",id); 
 		ed.putString("START_STOP_NAME", name);
-		Toast.makeText(this, "출발 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_start1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 		updateAdapter();
 	}
@@ -744,7 +748,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("DEST_STOP",id); 
 		ed.putString("DEST_STOP_NAME", name);
-		Toast.makeText(this, "도착 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_dest1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();	
 		updateAdapter();
 	}
@@ -754,7 +758,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("START_STOP_2",id); 
 		ed.putString("START_STOP_NAME_2", name);
-		Toast.makeText(this, "출발 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_start2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();
 		updateAdapter();
 	}
@@ -764,7 +768,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		SharedPreferences.Editor ed = sPrefs.edit();
 		ed.putString("DEST_STOP_2",id); 
 		ed.putString("DEST_STOP_NAME_2", name);
-		Toast.makeText(this, "도착 정류장이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, r.getString(R.string.bus_dest2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
 		ed.commit();	
 		updateAdapter();
 	}
@@ -796,8 +800,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		@Override
 		protected void onPreExecute() {
 			dialog = new ProgressDialog(StationSetting.this);
-			dialog.setTitle("정류장 검색중");
-			dialog.setMessage("정류장을 검색중 입니다. \n잠시만 기다려 주세요.");
+			dialog.setTitle(R.string.bus_findingStation);
+			dialog.setMessage(r.getString(R.string.bus_findingStationMsg));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(true);
 			dialog.show();

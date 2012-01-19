@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -28,26 +29,29 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 	
 	final int bufsize=8192;
 	
+	Resources r;
+	
 	public DBDownloadTask(Context ctx)
 	{
 		context = ctx;
+		
+		r = ctx.getResources();
 	}
 	
 	public void run()
 	{
 		@SuppressWarnings("unused")
 		AlertDialog alert_dialog = new AlertDialog.Builder(context)
-		.setTitle("DB 다운로드")
-		.setMessage("버스기반정보를 업데이트 합니다.\nWi-Fi에서 다운로드를 권장합니다.(Size : 약10MB)" +
-				"\n설치를 원하지 않으면 취소를 클릭하시오.\n(단, 버스 관련 서비스를 이용할 수 없습니다.")
-		.setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
+		.setTitle(r.getString(R.string.dbdown_title))
+		.setMessage(r.getString(R.string.dbdown_alert))
+		.setPositiveButton(r.getString(R.string.ok), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int which)
 			{
 				dialog.dismiss();
 				DBDownloadTask.this.execute();
 			}
-		}).setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
+		}).setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int which)
 			{							
@@ -61,8 +65,8 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 		
 
 		Dialog = new ProgressDialog(context);
-		Dialog.setTitle("DB 다운로드중 ...");
-		Dialog.setMessage("GBus 데이터베이스 파일을 다운로드중입니다...");
+		Dialog.setTitle(r.getString(R.string.dbdown_downloading));
+		Dialog.setMessage(r.getString(R.string.dbdown_downMsg));
 		Dialog.setIndeterminate(true);
 		Dialog.setCancelable(false);
 		Dialog.show();
@@ -160,7 +164,7 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onProgressUpdate(Integer... values) {
-		Dialog.setMessage("GBus 데이터베이스 파일을 다운로드중입니다...\n" + values[0]/1024 + "kb / " + values[1]/1024 + "kb");
+		Dialog.setMessage(r.getString(R.string.dbdown_downMsg) + "\n" + values[0]/1024 + "kb / " + values[1]/1024 + "kb");
 		super.onProgressUpdate(values);
 	}
 

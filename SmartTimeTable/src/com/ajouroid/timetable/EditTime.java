@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,8 @@ public class EditTime extends Activity implements OnClickListener {
 
 	String subject;
 	int day;
+	
+	Resources r;
 
 	ArrayList<ClassTime> timeList;
 	int position;
@@ -36,6 +39,7 @@ public class EditTime extends Activity implements OnClickListener {
 				WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.edittime);
 
+		r = getResources();
 		dayBtn = new Button[7];
 		dayBtn[0] = (Button) findViewById(R.id.edit_mon);
 		dayBtn[1] = (Button) findViewById(R.id.edit_tue);
@@ -128,7 +132,7 @@ public class EditTime extends Activity implements OnClickListener {
 					endPicker.getCurrentMinute());
 
 			if (endTime.before(startTime)) {
-				Toast.makeText(this, "종료시간이 시작시간보다 전에 있습니다.",
+				Toast.makeText(this, r.getString(R.string.add_beforeStartTime),
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
