@@ -210,27 +210,11 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 		if (!sPrefs.getBoolean("db_complete", false)){
 			@SuppressWarnings("unused")
-			AlertDialog alert_dialog = new AlertDialog.Builder(StationSetting.this)
-			.setTitle(R.string.dbdown_title)
-			.setMessage(R.string.dbdown_alert)
-					.setPositiveButton(StationSetting.this.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
-					{
-						public void onClick(DialogInterface dialog, int which)
-						{
-							dialog.dismiss();
-							DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
-							down_task.execute();
-						}
-					}).setNegativeButton(StationSetting.this.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-					{
-						public void onClick(DialogInterface dialog, int which)
-						{							
-							dialog.dismiss();
-						}
-					}).show();
+			VersionCheckTask down_task = new VersionCheckTask(StationSetting.this);
+			down_task.execute();
 		}
-
-	}	
+	}
+	
 	public void registTab(String labelId, int drawableId, int id)
 	{
 		TabHost.TabSpec spec = tabHost.newTabSpec("tab" + labelId);
@@ -323,10 +307,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		switch(item.getItemId())
 		{
 		case R.id.menu_station_update:
-
-			DBDownloadTask down_task = new DBDownloadTask(StationSetting.this);
-			down_task.run();
-
+			VersionCheckTask ver_task = new VersionCheckTask(StationSetting.this);
+			ver_task.execute();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -480,7 +462,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 					new OverlayItem(getPoint(current_stop_arrlist.get(i).getLatitude(),
 							current_stop_arrlist.get(i).getLongitude()),
 							current_stop_arrlist.get(i).getStop_name(),
-							current_stop_arrlist.get(i).getStop_id());
+							current_stop_arrlist.get(i).getNumber()+"");
 
 			around_station.addOverlay(overlayitem1);
 			mapOverlays.add(around_station);
@@ -534,7 +516,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		protected boolean onTap(int index) {
 			OverlayItem item = mOverlays.get(index);
 			Toast.makeText
-			(mContext, item.getSnippet() + "   " + item.getTitle(), Toast.LENGTH_SHORT).show();
+			(mContext, item.getSnippet() + ", " + item.getTitle(), Toast.LENGTH_SHORT).show();
 			return true;
 		}
 

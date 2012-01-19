@@ -112,10 +112,13 @@
     <string name="alarm_todayTaskTitle">오늘의 일정이 있습니다.</string>
     
     <string name="dbdown_title">데이터베이스 다운로드</string>
-    <string name="dbdown_alert">버스기반정보를 업데이트 합니다. (Size : 약3MB)\n설치를 원하지 않으면 취소를 클릭하세요.\n(미설치시 버스 관련 서비스를 이용할 수 없습니다.)</string>
+    <string name="dbdown_alert">버스기반정보를 업데이트합니다. 설치를 원하지 않으면 취소를 클릭하세요.\n(다운로드 용량: 약 3MB)</string>
     
     <string name="dbdown_downloading">데이터베이스 다운로드중...</string>
     <string name="dbdown_downMsg">GBus 데이터베이스를 다운로드중입니다...</string>
+    <string name="dbdown_checking">데이터베이스 버전 검사중</string>
+    <string name="dbdown_checkMsg">데이터베이스의 버전을 검사중입니다...</string>
+    <string name="dbdown_newestDB">데이터베이스가 최신버전입니다.</string>
     
     <string name="call_title">수업중 전화가 있습니다.</string>
     <string name="call_defMessage">수업중입니다. 나중에 다시 연락드리겠습니다.</string>

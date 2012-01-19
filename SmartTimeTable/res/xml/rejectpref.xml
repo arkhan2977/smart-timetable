@@ -9,7 +9,7 @@
 			android:key="usereject" android:summary="수업중 걸려온 전화를 자동으로 거절하고 SMS 메시지를 전송합니다."
 			android:title="수업중 수신거부 사용" />
 
-		<EditTextPreference android:defaultValue="수업중입니다. 나중에 다시 연락드리겠습니다."
+		<EditTextPreference android:defaultValue="@string/call_defMessage"
 			android:enabled="false" android:key="message" android:summary="전화 수신시 전송할 메시지를 설정합니다"
 			android:title="수신거부 메시지 설정" />
 

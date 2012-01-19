@@ -31,6 +31,8 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 	
 	Resources r;
 	
+	String new_version;
+	
 	public DBDownloadTask(Context ctx)
 	{
 		context = ctx;
@@ -38,8 +40,9 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 		r = ctx.getResources();
 	}
 	
-	public void run()
+	public void run(String version)
 	{
+		new_version = version;
 		@SuppressWarnings("unused")
 		AlertDialog alert_dialog = new AlertDialog.Builder(context)
 		.setTitle(r.getString(R.string.dbdown_title))
@@ -173,7 +176,7 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 		Dialog.dismiss();
 		SharedPreferences.Editor ed = PreferenceManager.getDefaultSharedPreferences(context).edit();
 		ed.putBoolean("db_complete", true);
-		ed.putString("db_version", "1");
+		ed.putString("db_version", new_version);
 		ed.commit();
 		Intent intent = new Intent();
 		intent.setAction("com.ajouroid.timetable.DOWNLOAD_COMPLETE");
