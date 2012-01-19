@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -47,10 +51,16 @@ public class AlarmView extends Activity {
 	
 	Resources r;
 	
+	NotificationManager nm;
+	
+	final int NOTIFY_ID = 198781;
+	final String TAG = "SmartTimeTable_Alarm";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		nm = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
@@ -104,6 +114,13 @@ public class AlarmView extends Activity {
 
 	public void playAlarm()
 	{
+		Notification notice = new Notification(R.drawable.alarmclockicon, "똑똑한시간표 모닝콜", System.currentTimeMillis());
+		Intent i = new Intent(this, AlarmView.class);
+		PendingIntent pendingintent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+		notice.setLatestEventInfo(this, "똑똑한시간표 모닝콜", "일어나세요!", pendingintent);
+		notice.flags += Notification.FLAG_ONGOING_EVENT;
+		nm.notify(TAG, NOTIFY_ID, notice);
+		
 		mp = new MediaPlayer();
 		try {
 			vibe = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -183,6 +200,7 @@ public class AlarmView extends Activity {
 			sCpuWakeLock.release();
 		}
 		running = false;
+		nm.cancel(TAG, NOTIFY_ID);
 		finish();
 	}
 	
