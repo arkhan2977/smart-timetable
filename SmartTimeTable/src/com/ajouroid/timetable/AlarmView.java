@@ -54,7 +54,7 @@ public class AlarmView extends Activity {
 	NotificationManager nm;
 	
 	final int NOTIFY_ID = 198781;
-	final String TAG = "SmartTimeTable_Alarm";
+	final String TAG = "com.ajouroid.timetable.AlarmView";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -159,10 +159,13 @@ public class AlarmView extends Activity {
 	
 	public void goSnooze()
 	{
-		pauseAlarm();
-		snooze = true;
-		snoozeMinute=300;
-		handler.sendEmptyMessage(1);
+		if (!snooze)
+		{
+			pauseAlarm();
+			snooze = true;
+			snoozeMinute=300;
+			handler.sendEmptyMessage(1);
+		}
 	}
 	
 	Handler handler = new Handler() {

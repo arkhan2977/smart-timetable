@@ -18,7 +18,7 @@ public class NotifyReceiver extends BroadcastReceiver{
 	int ID = 10000;
 	int ID1 = 0;
 	int ID2 = 5000;
-	public static final String TAG = "SmartTimeTable.ClassNotification";
+	public static final String TAG = "com.ajouroid.timetable.NotifyReceiver";
 	
 	Resources r;
 	@Override
