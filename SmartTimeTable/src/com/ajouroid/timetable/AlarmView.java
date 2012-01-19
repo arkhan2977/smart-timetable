@@ -359,7 +359,7 @@ public class AlarmView extends Activity {
 			canvas.drawRect(new Rect(0,0,width,height), fillPaint);
 			
 			fillPaint.setColor(targetColor);
-			canvas.drawRoundRect(new RectF(0,10,width, 100), 8, 8, fillPaint);
+			canvas.drawRoundRect(new RectF(0,50,width, 100), 8, 8, fillPaint);
 			
 			for (int i=0; i<10; i++)
 			{
