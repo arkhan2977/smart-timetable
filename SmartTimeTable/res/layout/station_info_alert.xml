@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="280dp"
+    android:layout_height="358dp"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:background="@drawable/stroke_dialog"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="5dp"    
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/sta_station_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="유신고,아주대입구,아주대삼거리"                    
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/sta_station_num"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="03-127" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/close_img_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="8dip"
+                android:paddingTop="8dip"
+                android:src="@drawable/balloon_overlay_close" />
+
+        </LinearLayout>
+
+        <com.google.android.maps.MapView
+            android:id="@+id/mapview_alert"
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:apiKey="0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow"
+            android:clickable="true" >
+        </com.google.android.maps.MapView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bus_gotoschool"/>
+
+                <Button
+                    android:id="@+id/btn_set_start1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_button"
+                    android:text="@string/bus_set_start" />
+
+                <Button
+                    android:id="@+id/btn_set_dest1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/stroke_button"
+                    android:text="@string/bus_set_dest" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:orientation="vertical" >
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bus_gotohome"/>
+
+                <Button
+                    android:id="@+id/btn_set_start2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_button"
+                    android:text="@string/bus_set_start" />
+
+                <Button
+                    android:id="@+id/btn_set_dest2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/stroke_button"
+                    android:text="@string/bus_set_start" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

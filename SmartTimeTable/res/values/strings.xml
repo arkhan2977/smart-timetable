@@ -128,10 +128,15 @@
     <string name="bus_noBus">버스 운행시간이 아닐 수 있습니다.</string>
     <string name="bus_later">분 후 도착</string>
     
+    <string name="bus_gotoschool">등교</string>
+    <string name="bus_gotohome">하교</string>
+    <string name="bus_set_start">출발정류장 설정</string>
+    <string name="bus_set_dest">도착정류장 설정</string>
     <string name="bus_start1">등교 출발 정류장</string>
     <string name="bus_dest1">등교 도착 정류장</string>
     <string name="bus_start2">하교 출발 정류장</string>
     <string name="bus_dest2">하교 도착 정류장</string>
+    
     
     <string name="bus_findingRoute">노선 정보 검색중...</string>
     <string name="bus_findingRouteMsg">노선 정보를 검색중입니다.\n잠시만 기다려주세요.</string>
