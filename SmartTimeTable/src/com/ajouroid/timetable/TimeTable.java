@@ -351,7 +351,7 @@ public class TimeTable extends View {
 		 */
 		p.setTextAlign(Align.CENTER);
 		p.setColor(timeFontColor);
-		p.setAlpha(0xAA);
+		p.setAlpha(0xFF);
 		p.setTextSize(30);
 		if (addingMode) {
 			canvas.drawText("[" + selectedSubject + "] 시간 추가중...", width / 2,

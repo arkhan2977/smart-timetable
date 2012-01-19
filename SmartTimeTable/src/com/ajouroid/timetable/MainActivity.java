@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	TimeTable timeTable;
 	ListView listview_subject;
 	Button addBtn;
-	SlidingDrawer drawer;
+	SlidingDrawer drawer; 
 
 
 	public final static int OPTION_ACTIVITY = 0;

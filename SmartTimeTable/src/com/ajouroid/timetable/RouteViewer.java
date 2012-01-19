@@ -40,7 +40,7 @@ public class RouteViewer extends Activity {
 	ListView stationList;
 	ArrayList<BusStopInfo> stationArr;
 	DBAdapterBus dbA;
-	
+	 
 	SharedPreferences sPrefs;
 	
 	@Override

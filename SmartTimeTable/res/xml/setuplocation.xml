@@ -27,6 +27,7 @@
         </PreferenceScreen>
     </PreferenceCategory>
      
+    <!-- 
     <PreferenceCategory        
         android:key="start_location"
         android:title="위치 설정" >
@@ -46,6 +47,6 @@
             android:title="@string/loc_setDest" >
         </PreferenceScreen>
     </PreferenceCategory>
-    
+    -->
 
 </PreferenceScreen>

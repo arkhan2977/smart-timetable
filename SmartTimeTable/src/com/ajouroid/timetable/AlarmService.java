@@ -36,7 +36,7 @@ public class AlarmService extends Service {
 	final static String[] daysArr = { "월", "화", "수", "목", "금", "토", "일" };
 
 	@Override
-	public void onCreate() {
+	public void onCreate() { 
 		am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		unregisterRestart();
 		super.onCreate();
@@ -215,9 +215,9 @@ public class AlarmService extends Service {
 		Time beforeTime = new Time(); // beforetime함수 선언.
 		beforeTime.setHour(today.get(Calendar.HOUR_OF_DAY)); 						// beforeTime 함수에// 오늘의 시간을 넣어줌
 		beforeTime.setMinute(today.get(Calendar.MINUTE)); 							// beforeTime 함수에 오늘의 			// 분을 넣어줌
-		beforeTime.addTime(t_beforeTime); 													// beforeTime에 몇분전 time함수를 더해준다.
+		beforeTime.addTime(t_beforeTime); 				// beforeTime에 몇분전 time함수를 더해준다.
 
-		t = dbA.getNextClassTime(day, beforeTime); 										// starttime을 time으로 가져온다.
+		t = dbA.getNextClassTime(day, beforeTime);							// starttime을 time으로 가져온다.
 
 		if (t != null) { 																					// 그 알람 타임이 널이 아니면. notification을 보낼수 있다는
 			int diffday = t.getDay() - day; 											// 날의 차이 가져온.. nextClasstime의 요일을 가져오고, 오늘의 요일을 뺀다.
@@ -235,6 +235,7 @@ public class AlarmService extends Service {
 			today.set(Calendar.MINUTE, time.getMinute()); 													// 타임에서 분을 셋
 			today.set(Calendar.SECOND, 0); 											// 초를 0으로 // 그러면 이시간에 notification을	// 보내는 거구나?
 			Intent intentNext = new Intent(this, NotifyReceiver.class); 						// 인텐트 만들고
+			intentNext.putExtra("subject", t.getSubject());
 			intentNext.setAction("com.ajouroid.timetable.NOTIFY_CLASS");
 			PendingIntent notifySender = PendingIntent.getBroadcast(this,
 					NOTIFY_RECEIVER, intentNext, PendingIntent.FLAG_UPDATE_CURRENT); // pending intent를 broadcast로

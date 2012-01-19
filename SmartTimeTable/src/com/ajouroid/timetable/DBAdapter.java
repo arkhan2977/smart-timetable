@@ -608,12 +608,14 @@ public class DBAdapter {
 				today = false;
 		}
 
+		int iSubject = c.getColumnIndex("subject");
 		int iDay = c.getColumnIndex("day");
 		int iStart = c.getColumnIndex("starttime");
 		AlarmTime t = null;
 		if (c.moveToFirst()) {
 			t = new AlarmTime(c.getInt(iDay), c.getInt(iStart));
 			t.setIsToday(today);
+			t.setSubject(c.getString(iSubject));
 		}
 		c.close();
 		return t;

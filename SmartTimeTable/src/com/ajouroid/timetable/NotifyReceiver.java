@@ -22,16 +22,17 @@ public class NotifyReceiver extends BroadcastReceiver{
 	public void onReceive(Context context, Intent intent) {
 		
 		NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-			
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			 
 		if (intent.getAction().compareTo("com.ajouroid.timetable.NOTIFY_CLASS") == 0)
 		{
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			String past_minute = prefs.getString("alarm_time", "5");
+			String subject = intent.getStringExtra("subject");
 			
-			Notification notice = new Notification(R.drawable.alarmclockicon, "수업 "+past_minute+" 분 전입니다", System.currentTimeMillis());
-	
-			String Title = "수업 "+ past_minute + " 분 전";
-			String Text  = "수업 "+ past_minute + " 분 전 입니다.";
+			Notification notice = new Notification(R.drawable.alarmclockicon, "[" + subject + "] "+ past_minute + " 분 전 입니다.", System.currentTimeMillis());
+						
+			String Title = "수업 알림";
+			String Text  = "[" + subject + "] "+ past_minute + " 분 전 입니다.";
 			
 			Intent i = new Intent(context, MainActivity.class);
 			
@@ -52,8 +53,18 @@ public class NotifyReceiver extends BroadcastReceiver{
 			int type = intent.getIntExtra("type", 0);
 			Notification tNotice = new Notification(R.drawable.alarmtaskicon, tasksubject[type]+" 한시간 전입니다.", System.currentTimeMillis());
 			
+			int mins = Integer.parseInt(prefs.getString("task_time", "60"));
+			String Text;
+			if (mins < 60)
+			{
+				Text = mins + "분 후에 ";
+			}
+			else
+			{
+				Text = (mins/60) + "시간 후에 ";
+			}
 			String Title = tasksubject[type];
-			String Text = "1시간 후에 " + title + "(" + subject + ") 일정이 있습니다.";
+			Text += title + "(" + subject + ") 일정이 있습니다.";
 			
 			Intent i = new Intent(context, MainActivity.class);
 			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -76,7 +76,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	Button btn_setup_start;
 	Button btn_setup_dest;
 	SharedPreferences sPrefs;
-
+ 
 	AlertDialog error_dialog;
 	AlertDialog alert_dialog;
 	ArrayList<BusStopInfo> sp_stop_arrlist;
@@ -156,7 +156,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		setContentView(R.layout.stationsetting);
 
 
-		dalvik.system.VMRuntime.getRuntime().setTargetHeapUtilization(0.7f);
 		tabHost = (TabHost)findViewById(R.id.tabhost);
 
 		/* 에러방지용 임시 주석

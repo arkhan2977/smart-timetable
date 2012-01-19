@@ -381,14 +381,13 @@ containing a value of this type.
         public static final int row=0x7f030010;
         public static final int row2=0x7f030011;
         public static final int search_address=0x7f030012;
-        public static final int setuplocation=0x7f030013;
-        public static final int simple_list_row=0x7f030014;
-        public static final int simple_spinner_row=0x7f030015;
-        public static final int stationsetting=0x7f030016;
-        public static final int subjectlist=0x7f030017;
-        public static final int subjectselector=0x7f030018;
-        public static final int tab_indicator=0x7f030019;
-        public static final int widget_layout=0x7f03001a;
+        public static final int simple_list_row=0x7f030013;
+        public static final int simple_spinner_row=0x7f030014;
+        public static final int stationsetting=0x7f030015;
+        public static final int subjectlist=0x7f030016;
+        public static final int subjectselector=0x7f030017;
+        public static final int tab_indicator=0x7f030018;
+        public static final int widget_layout=0x7f030019;
     }
     public static final class menu {
         public static final int mainmenu=0x7f090000;
@@ -515,7 +514,8 @@ containing a value of this type.
         public static final int alarmpref=0x7f040000;
         public static final int option=0x7f040001;
         public static final int rejectpref=0x7f040002;
-        public static final int widget_config=0x7f040003;
+        public static final int setuplocation=0x7f040003;
+        public static final int widget_config=0x7f040004;
     }
     public static final class styleable {
         /** Attributes that can be used with a TimePickerPreference.

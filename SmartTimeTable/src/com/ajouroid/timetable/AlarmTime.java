@@ -1,8 +1,8 @@
 package com.ajouroid.timetable;
 
 public class AlarmTime {
+	String subject;
 	int day;
-
 	Time startTime;
 	
 	boolean today = false;
@@ -19,6 +19,14 @@ public class AlarmTime {
 	{
 		day = _day;
 		startTime = new Time(_starttime);
+	}
+	
+	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	public int getDay() {
 		return day;
