@@ -130,6 +130,7 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 			fos.close();
 			
 			ZipFile zf = new ZipFile("/data/data/com.ajouroid.timetable/databases/timetable_bus.zip");
+			
 			Enumeration e = zf.entries();
 			while (e.hasMoreElements())
 			{
@@ -156,6 +157,9 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 				}
 				fos.flush();
 				fos.close();
+				
+				ins.close();
+				
 			}
 			
 		} catch (IOException e) {

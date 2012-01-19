@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -31,7 +32,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 //Alarm View
-public class AlarmView extends Activity implements MediaPlayer.OnCompletionListener{
+public class AlarmView extends Activity {
 
 	MediaPlayer mp = null;
 	String uri;
@@ -110,7 +111,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			vibe.vibrate(pattern, 0);
 			mp.setDataSource(this, Uri.parse(uri));
 			mp.setAudioStreamType(AudioManager.STREAM_ALARM);
-			mp.setOnCompletionListener(this);
+			mp.setLooping(true);
 			mp.prepare();
 			mp.start();
 		} catch (IllegalArgumentException e) {
@@ -132,8 +133,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 	{
 		if (mp != null)
 		{
-			mp.stop();
-			mp.release();
+			mp.pause();
 		}
 		
 		if(vibe != null)
@@ -142,6 +142,7 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 	
 	public void goSnooze()
 	{
+		pauseAlarm();
 		snooze = true;
 		snoozeMinute=300;
 		handler.sendEmptyMessage(1);
@@ -155,7 +156,6 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			{
 				if (snoozeMinute > 0)
 				{
-					pauseAlarm();
 					snoozeMinute--;
 					sendEmptyMessageDelayed(1,1000);
 					gameView.invalidate();
@@ -185,16 +185,6 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 		running = false;
 		finish();
 	}
-
-	public void onCompletion(MediaPlayer mp) {
-		// TODO Auto-generated method stub
-		if (mp!=null)
-		{
-			mp.seekTo(0);
-			mp.start();
-		}
-	}
-	
 	
 	public class AlarmGame extends View
 	{
@@ -344,8 +334,11 @@ public class AlarmView extends Activity implements MediaPlayer.OnCompletionListe
 			int x;
 			int y;
 			
+			fillPaint.setColor(Color.BLACK);
+			canvas.drawRect(new Rect(0,0,width,height), fillPaint);
+			
 			fillPaint.setColor(targetColor);
-			canvas.drawRoundRect(new RectF(0,0,width, 100), 8, 8, fillPaint);
+			canvas.drawRoundRect(new RectF(0,10,width, 100), 8, 8, fillPaint);
 			
 			for (int i=0; i<10; i++)
 			{
