@@ -210,6 +210,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal" />
+        <com.cauly.android.ad.AdView
+			xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+			android:id="@+id/ad"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_alignParentBottom="true"
+			app:appcode="CAULY"
+			app:adtype="CPC"
+			app:gender="all"
+			app:age="20"
+			app:gps="off"
+			app:effect="circle"
+			app:allowcall="yes"
+			app:reloadInterval="30"
+			app:dynamicReloadInterval="true" />
     </LinearLayout>
 
 </TabHost>
