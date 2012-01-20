@@ -57,6 +57,7 @@ public class RouteViewer extends Activity {
 		bus_region = (TextView)findViewById(R.id.findbus_region);
 		bus_name = (TextView)findViewById(R.id.findbus_name);
 		
+		r = getResources();
 		registerForContextMenu(stationList);
 		
 		dbA = new DBAdapterBus(this);
