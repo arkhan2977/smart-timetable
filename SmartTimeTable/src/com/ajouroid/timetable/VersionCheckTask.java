@@ -100,5 +100,4 @@ public class VersionCheckTask extends AsyncTask<Void, Void, String> {
 		dialog.show();
 		super.onPreExecute();
 	}
-
 }

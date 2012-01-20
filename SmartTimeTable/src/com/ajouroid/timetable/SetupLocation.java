@@ -15,8 +15,6 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 
 public class SetupLocation extends PreferenceActivity {
-
-
 	AlertDialog alert;
 	private SharedPreferences mPrefs;
 	PreferenceScreen show_version;
