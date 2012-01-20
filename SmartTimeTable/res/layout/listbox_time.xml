@@ -1,13 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:background="#FFFFFF" >
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1"
+        android:stretchColumns="3"
         android:padding="10dp" >
         <TableRow>
         <TextView
@@ -17,30 +17,31 @@
             android:text="요일"
             android:background="@drawable/stroke_box"
             android:textColor="#000000"
-            android:textSize="12pt" />
+            android:textSize="24sp" />
         <TextView
             android:id="@+id/timelist_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:text="시작시간"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:text="시작"
             android:textColor="#000000"
-            android:textSize="8pt" />
+            android:textSize="16sp" />
         <TextView
             android:text=" ~ "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_vertical"
             android:textColor="#000000"
-            android:textSize="6pt" />
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/timelist_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="종료시간"
+            android:layout_gravity="center_vertical"
+            android:text="종료"
             android:textColor="#000000"
-            android:textSize="8pt" />
+            android:textSize="16sp" />
         
         <ImageView
             android:id="@+id/timelist_edit"

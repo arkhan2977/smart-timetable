@@ -212,7 +212,8 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 				if (dist<0)
 				{
 					title.setTextColor(Color.LTGRAY);
-					remain.setText("");
+					remain.setTextColor(Color.LTGRAY);
+					remain.setText("지난 일정");
 				}
 				else
 				{
