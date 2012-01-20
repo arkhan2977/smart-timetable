@@ -49,10 +49,8 @@ public class OptionActivity extends PreferenceActivity
 		endtime.setSummary(getResources().getString(R.string.opt_current) + " " + new Time(prefs.getString("end", "18:00")).to12Hour());
 		basetime.setSummary(getResources().getString(R.string.opt_current) + " " + new Time(prefs.getString("base", "1:30")).toString());
 		
-		
 		starttime.setOnPreferenceChangeListener(this);
 		endtime.setOnPreferenceChangeListener(this);
-
 	}
 
 	@Override

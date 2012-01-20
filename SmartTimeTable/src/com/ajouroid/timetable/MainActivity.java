@@ -149,7 +149,18 @@ public class MainActivity extends Activity {
 			}
 			break;
 		case R.id.menu_toImage:
-			timeTable.toBitmap();
+			String path = timeTable.toBitmap();
+			if (path != null)
+			{
+				Toast.makeText(
+						this,
+						getResources().getString(R.string.exportcomplete) + "\n" + path,
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				Toast.makeText(this, R.string.exportfail, Toast.LENGTH_SHORT).show();
+			}
 			break;
 
 		case R.id.menu_add:

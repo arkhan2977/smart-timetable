@@ -467,8 +467,8 @@ containing a value of this type.
         public static final int cmenu_add=0x7f070009;
         public static final int cmenu_delete=0x7f07000a;
         public static final int cmenu_edit=0x7f070008;
-        public static final int dateformat=0x7f0700a3;
-        public static final int daylater=0x7f0700a1;
+        public static final int dateformat=0x7f0700a4;
+        public static final int daylater=0x7f0700a2;
         public static final int dbdown_alert=0x7f070068;
         public static final int dbdown_checkMsg=0x7f07006c;
         public static final int dbdown_checking=0x7f07006b;
@@ -477,7 +477,7 @@ containing a value of this type.
         public static final int dbdown_newestDB=0x7f07006d;
         public static final int dbdown_noDatabase=0x7f070070;
         public static final int dbdown_title=0x7f070067;
-        public static final int deleteMsg=0x7f07009d;
+        public static final int deleteMsg=0x7f07009e;
         public static final int detail=0x7f070092;
         public static final int end=0x7f070090;
         public static final int err_cannotFindLocation=0x7f070031;
@@ -486,7 +486,8 @@ containing a value of this type.
         public static final int err_nullDays=0x7f070030;
         public static final int err_nullSubjectName=0x7f07002e;
         public static final int exportcomplete=0x7f07009c;
-        public static final int hourlater=0x7f0700a0;
+        public static final int exportfail=0x7f07009d;
+        public static final int hourlater=0x7f0700a1;
         public static final int info_assign=0x7f070085;
         public static final int info_etc=0x7f070088;
         public static final int info_extra=0x7f070087;
@@ -526,7 +527,7 @@ containing a value of this type.
         public static final int menu_option=0x7f070006;
         public static final int menu_share=0x7f070004;
         public static final int menu_toImage=0x7f070005;
-        public static final int minlater=0x7f07009f;
+        public static final int minlater=0x7f0700a0;
         public static final int ok=0x7f07008b;
         public static final int opt_aboutus=0x7f070023;
         public static final int opt_alarm=0x7f070011;
@@ -565,11 +566,11 @@ containing a value of this type.
         public static final int save=0x7f07008d;
         public static final int search=0x7f070091;
         public static final int searching=0x7f070097;
-        public static final int seclater=0x7f07009e;
+        public static final int seclater=0x7f07009f;
         public static final int start=0x7f07008f;
         public static final int table_adding=0x7f07000b;
         public static final int table_selectTime=0x7f07000c;
-        public static final int today=0x7f0700a2;
+        public static final int today=0x7f0700a3;
         public static final int unset=0x7f070094;
         public static final int version=0x7f070098;
         public static final int waitforcomplete=0x7f070099;

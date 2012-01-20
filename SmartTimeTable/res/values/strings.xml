@@ -178,6 +178,7 @@
     
     <string name="pressBackBtn">끝내시려면 Back 버튼을 누르세요.</string>
     <string name="exportcomplete">이미지 추출 완료: </string>
+    <string name="exportfail">이미지 추출에 실패했습니다.</string>
     
     <string name="deleteMsg">정말 삭제하시겠습니까?</string>
 

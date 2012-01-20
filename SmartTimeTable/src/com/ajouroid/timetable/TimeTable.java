@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
@@ -329,7 +330,7 @@ public class TimeTable extends View {
 
 		// 시간표 이미지를 가져옴
 		Bitmap bitmap = getImage(width, height, topmost, leftmost, rightmargin,
-				bottommargin);
+				bottommargin, true);
 
 		Paint p = new Paint();
 		canvas.drawBitmap(bitmap, 0, 0, p);
@@ -582,9 +583,15 @@ public class TimeTable extends View {
 
 	public String toBitmap(String filename) {
 
-		Bitmap bitmap = getImage(width, height, 5, 5, 5, 5);
+		Bitmap bitmap = getImage(width, height, 5, 5, 5, 5, false);
 
-		Canvas c = new Canvas(bitmap);
+		Canvas c = new Canvas(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
+		Paint blackPaint = new Paint();
+		blackPaint.setColor(Color.BLACK);
+		blackPaint.setStyle(Style.FILL);
+		c.drawRect(new Rect(0,0,width,height), blackPaint);
+		
+		c.drawBitmap(bitmap, 0, 0, new Paint());
 		c.clipRect(new Rect(0, 0, width - rightmargin, height - bottommargin));
 
 		File file = new File("/sdcard/SmartTimeTable");
@@ -608,11 +615,6 @@ public class TimeTable extends View {
 			 * Environment.getExternalStorageDirectory()) .toString())));
 			 */
 
-			Toast.makeText(
-					context,
-					(new StringBuilder(getResources().getString(
-							R.string.exportcomplete))).append(path).toString(),
-					Toast.LENGTH_SHORT).show();
 			fos.close();
 			return path;
 		} catch (Exception e) {
@@ -646,7 +648,7 @@ public class TimeTable extends View {
 
 	// 시간표를 그림
 	public Bitmap getImage(int width, int height, int topMargin,
-			int leftMargin, int rightMargin, int bottomMargin) {
+			int leftMargin, int rightMargin, int bottomMargin, boolean showCurTime) {
 		Bitmap bitmap = Bitmap.createBitmap(width, height,
 				Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
@@ -681,6 +683,7 @@ public class TimeTable extends View {
 		linePaint.setColor(lineColor);
 		linePaint.setAlpha(0xFF);
 		linePaint.setStyle(Style.STROKE);
+		linePaint.setAntiAlias(true);
 
 		/*
 		 * 반투명 채색 페인트
@@ -693,6 +696,7 @@ public class TimeTable extends View {
 		 */
 		Paint fillPaint = new Paint();
 		fillPaint.setStyle(Style.FILL);
+		fillPaint.setAntiAlias(true);
 
 		/*
 		 * 그림자 페인트
@@ -825,6 +829,7 @@ public class TimeTable extends View {
 		Paint subjectPaint = new Paint();
 		subjectPaint.setStrokeWidth(1);
 		subjectPaint.setAlpha(0xFF);
+		subjectPaint.setAntiAlias(true);
 
 		if (alphaValue == 0) {
 			subjectPaint.setStyle(Style.STROKE);
@@ -850,6 +855,7 @@ public class TimeTable extends View {
 
 		Paint taskPaint = new Paint();
 		taskPaint.setStyle(Style.FILL);
+		taskPaint.setAntiAlias(true);
 
 		int taskRadius = boxwidth / 20;
 
@@ -922,7 +928,7 @@ public class TimeTable extends View {
 				// int timeWidth = eX - sX;
 				float timeHeight = eY - sY;
 
-				if (selectedTime.isNow(nowDay, nowT)) {
+				if (selectedTime.isNow(nowDay, nowT) && showCurTime) {
 					nowSubject = new Subject(subject.getName(),
 							subject.getClassRoom(), subject.getProfessor(),
 							subject.getEmail(), subject.getColor());
@@ -933,6 +939,7 @@ public class TimeTable extends View {
 					nowRect = new RectF(nSX, nSY, nEX, nEY);
 					shadowRect = new RectF(nSX + 5, nSY + 5, nEX + 5, nEY + 5);
 					shadowPaint = new Paint();
+					shadowPaint.setAntiAlias(true);
 					shadowPaint.setColor(shadowColor);
 					shadowPaint.setAlpha(127);
 					continue;
@@ -1021,7 +1028,7 @@ public class TimeTable extends View {
 			}
 		}
 
-		if (nowSubject != null) {
+		if (showCurTime && nowSubject != null) {
 			float timeHeight = nEY - nSY;
 			float timeWidth = nEX - nSX;
 
@@ -1151,7 +1158,7 @@ public class TimeTable extends View {
 	}
 
 	public void getWidgetImage(int width, int height) {
-		Bitmap bitmap = getImage(width, height, 10, 10, 10, 10);
+		Bitmap bitmap = getImage(width, height, 10, 10, 10, 10, true);
 
 		SharedPreferences prefs = this.getContext().getSharedPreferences(
 				"com.ajouroid.timetable_preferences", 0);
@@ -1165,6 +1172,7 @@ public class TimeTable extends View {
 					Bitmap.Config.ARGB_8888);
 			Canvas c = new Canvas(transBitmap);
 			Paint tP = new Paint();
+			tP.setAntiAlias(true);
 			int alpha = (int) (255 * op);
 			tP.setAlpha(alpha);
 			c.drawBitmap(bitmap, 0, 0, tP);
