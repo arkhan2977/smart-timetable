@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="출발지 버스 도착정보"
+                android:text="등교 버스 도착정보"
                 android:textColor="#000000"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="도착지 버스 도착정보"
+                android:text="하교 버스 도착정보"
                 android:textColor="#000000"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -142,5 +142,22 @@
             android:text="정류장설정"
             android:textSize="6pt" />
     </LinearLayout>
+    
+    <com.cauly.android.ad.AdView
+			xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+			android:id="@+id/ad"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_alignParentBottom="true"
+			app:appcode="CAULY"
+			app:adtype="CPC"
+			app:gender="all"
+			app:age="20"
+			app:gps="off"
+			app:effect="circle"
+			app:allowcall="yes"
+			app:reloadInterval="30"
+			app:dynamicReloadInterval="true" />
 
 </LinearLayout>

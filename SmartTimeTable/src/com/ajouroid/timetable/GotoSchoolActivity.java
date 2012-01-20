@@ -109,7 +109,7 @@ public class GotoSchoolActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(GotoSchoolActivity.this, SetupLocation.class);
+				Intent intent = new Intent(GotoSchoolActivity.this, StationSetting.class);
 				startActivity(intent);
 			}
 			
@@ -495,7 +495,7 @@ public class GotoSchoolActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case 1:
-			Intent intent = new Intent(this, SetupLocation.class);
+			Intent intent = new Intent(this, StationSetting.class);
 			startActivity(intent);
 			return(true);
 		case 2:	
