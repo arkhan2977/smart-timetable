@@ -135,7 +135,7 @@
 
                     <EditText
                         android:id="@+id/roh_input_search_station"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
@@ -176,7 +176,7 @@
 
                     <EditText
                         android:id="@+id/roh_input_search_bus"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"

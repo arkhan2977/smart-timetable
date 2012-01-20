@@ -2,11 +2,7 @@ package com.ajouroid.timetable;
 
 import java.util.ArrayList;
 
-import com.ajouroid.timetable.StationSetting.BUSLIST_ClickEvent;
-import com.ajouroid.timetable.StationSetting.BusStopAdapter;
-
 import android.app.Activity;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;

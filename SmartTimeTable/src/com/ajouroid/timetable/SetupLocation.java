@@ -3,15 +3,12 @@ package com.ajouroid.timetable;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.location.Location;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -23,11 +20,6 @@ public class SetupLocation extends PreferenceActivity {
 	AlertDialog alert;
 	private SharedPreferences mPrefs;
 	PreferenceScreen show_version;
-
-	private String addr_sp;
-	private String addr_dest;
-	private String msg;
-	private double distance = 0;
 	
 	Resources r;
 	

@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import com.ajouroid.timetable.FindBusActivity.FindBusAdapter;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -20,7 +19,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;

@@ -13,8 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import kankan.wheel.widget.*;
-import kankan.wheel.widget.adapters.NumericWheelAdapter;
 
 public class EditTime extends Activity implements OnClickListener {
 
@@ -30,9 +28,7 @@ public class EditTime extends Activity implements OnClickListener {
 
 	ArrayList<ClassTime> timeList;
 	int position;
-	
-	WheelView hours;
-	WheelView mins;
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -45,13 +41,7 @@ public class EditTime extends Activity implements OnClickListener {
 		this.setContentView(R.layout.edittime);
 
 		r = getResources();
-		
-		hours = (WheelView)findViewById(R.id.edit_scrollStartHour);
-		hours.setViewAdapter(new NumericWheelAdapter(this, 0, 23));
-		mins = (WheelView)findViewById(R.id.edit_scrollStartMin);
-		mins.setViewAdapter(new NumericWheelAdapter(this, 0, 59, "%02d"));
-		mins.setCyclic(true);
-		
+
 		dayBtn = new Button[7];
 		dayBtn[0] = (Button) findViewById(R.id.edit_mon);
 		dayBtn[1] = (Button) findViewById(R.id.edit_tue);
@@ -79,12 +69,9 @@ public class EditTime extends Activity implements OnClickListener {
 		Time start = curTime.getStartTime();
 		Time end = curTime.getEndTime();
 
+		
 		startPicker.setCurrentHour(start.getHour());
 		startPicker.setCurrentMinute(start.getMinute());
-		
-		hours.setCurrentItem(start.getHour());
-		mins.setCurrentItem(start.getMinute());
-
 		endPicker.setCurrentHour(end.getHour());
 		endPicker.setCurrentMinute(end.getMinute());
 

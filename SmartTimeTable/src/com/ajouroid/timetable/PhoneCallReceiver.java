@@ -28,6 +28,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 	
 	Resources r;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public synchronized void onReceive(Context context, Intent intent) {
 		ctx = context;

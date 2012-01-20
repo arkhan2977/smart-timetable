@@ -76,6 +76,7 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 		super.onPreExecute();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	protected Void doInBackground(Void... params) {
 		URL url;
