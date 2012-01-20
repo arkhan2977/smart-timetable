@@ -209,7 +209,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		this.registerReceiver(receiver, new IntentFilter("com.ajouroid.timetable.DOWNLOAD_COMPLETE"));
 
 		if (!sPrefs.getBoolean("db_complete", false)){
-			@SuppressWarnings("unused")
 			VersionCheckTask down_task = new VersionCheckTask(StationSetting.this);
 			down_task.execute();
 		}
