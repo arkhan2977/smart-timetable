@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -124,7 +125,14 @@ public class RouteViewer extends Activity {
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
 
-			v.showContextMenu();
+			//v.showContextMenu();
+			
+			Intent i = new Intent(RouteViewer.this, StationInfoAlert.class);
+			BusStopInfo info = stationArr.get(position);
+			
+			i.putExtra("id", info.getStop_id());
+			
+			startActivity(i);
 
 		}
 	}	
