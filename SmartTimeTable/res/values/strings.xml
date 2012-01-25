@@ -142,6 +142,8 @@
     <string name="bus_findingRouteMsg">노선 정보를 검색중입니다.\n잠시만 기다려주세요.</string>
     <string name="bus_findingStation">정류장 검색중&#8230;</string>
     <string name="bus_findingStationMsg">정류장 정보를 검색중입니다.\n잠시만 기다려주세요.</string>
+    <string name="location_change">현재위치 탐색중&#8230;</string>
+    <string name="location_changeMsg">현재위치를 탐색중입니다. \nGPS나 3g 신호가 약할 경우 \n수신이 되지 않을 수 있습니다.</string>
     
     <string name="bus_up">상행</string>
     <string name="bus_down">하행</string>

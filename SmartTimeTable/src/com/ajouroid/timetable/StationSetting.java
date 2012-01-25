@@ -165,9 +165,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				geoCoder = new Geocoder(StationSetting.this, Locale.KOREAN); 
 			}
 			super.onPostExecute(result);
-		}
-		
-		
+		}		
 	}
 
 	@Override
@@ -181,7 +179,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 		setContentView(R.layout.stationsetting);
 
-
+		r = getResources();
 		tabHost = (TabHost)findViewById(R.id.tabhost);
 
 		/* 에러방지용 임시 주석
@@ -260,7 +258,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		if(tabId.compareToIgnoreCase("tab주변지도") == 0){
 			Log.d("StationSetting", tabId + " find and map start");
 			//setMap();
-			Toast.makeText(getApplicationContext(), R.string.loc_noExact, Toast.LENGTH_SHORT).show();
+			
+			Toast toast = Toast.makeText(getApplicationContext(), R.string.loc_noExact, Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.BOTTOM, 0, 150 );
+			toast.show();
 		}
 	}
 
@@ -426,7 +427,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		
 		LocationChangeTask lctask = new LocationChangeTask();
 		lctask.execute(location);
-		
 
 		/*if(bGetteringGPS == false) {
 
@@ -490,8 +490,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		@Override
 		protected void onPreExecute() {
 			dialog = new ProgressDialog(StationSetting.this);
-			dialog.setTitle("현재위치 탐색중...");
-			dialog.setMessage("현재위치를 탐색중입니다. GPS나 3g 신호가 약할 경우 수신이 되지 않을 수 있습니다.");
+			dialog.setTitle(R.string.location_change);
+			dialog.setMessage(r.getString(R.string.location_changeMsg));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(true);
 			dialog.show();
