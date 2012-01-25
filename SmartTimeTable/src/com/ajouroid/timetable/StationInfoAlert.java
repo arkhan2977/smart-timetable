@@ -2,8 +2,6 @@ package com.ajouroid.timetable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -27,7 +25,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import android.widget.TextView;

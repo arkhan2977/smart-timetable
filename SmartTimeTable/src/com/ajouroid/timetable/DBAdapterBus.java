@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.location.Location;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class DBAdapterBus {
 
@@ -416,6 +417,8 @@ public class DBAdapterBus {
 		String sql = "SELECT * FROM station " +
 				"WHERE (LAT > '" + lessLat + "' AND LAT < '" + bigLat + "' AND LNG > '" + lessLong + "' AND LNG < '" + bigLong + "')";
 		
+		Log.d("Bus Database", sql);
+		
 		c = mDb.rawQuery(sql, null);
 		
 		int iId = c.getColumnIndex("STATION_ID");
@@ -443,7 +446,7 @@ public class DBAdapterBus {
 	public Boolean findBus(String sp_route_id, String dest_bs_id )
 	{		
 		String sql = "select ROUTE_ID, STATION_ID from routestation where ROUTE_ID = '" + sp_route_id+ "' AND STATION_ID = '" + dest_bs_id  + "'";
-		
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		if(c.getCount() > 0){
@@ -452,6 +455,26 @@ public class DBAdapterBus {
 		else{
 			return false;
 		}
+	}
+	
+	public ArrayList<String> findBuses(String sp_route_id, String dest_route_id)
+	{
+		String sql = "select a.route_nm 'ROUTE_NM'" +
+				" from routestation a, routestation b" +
+				" where a.route_nm = b.route_nm and a.updown = b.updown" +
+				" and a.sta_order < b.sta_order" +
+				" and a.station_id='" + sp_route_id + "' and b.station_id='" + dest_route_id + "';";
+		Log.d("Bus Database", sql);
+		Cursor c = mDb.rawQuery(sql, null);
+		
+		ArrayList<String> retVal = new ArrayList<String>();
+		
+		while(c.moveToNext())
+		{
+			retVal.add(c.getString(0));
+		}
+		
+		return retVal;
 	}
 	
 	public int calc_distance(double a_lat, double a_lng, double b_lat, double b_lng){
@@ -478,6 +501,7 @@ public class DBAdapterBus {
 		BusStopInfo info = null;
 
 		String sql = "SELECT * FROM station WHERE STATION_NO = '" + number + "'";
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		while(c.moveToNext())
@@ -519,6 +543,7 @@ public class DBAdapterBus {
 		BusStopInfo info = null;
 
 		String sql = "SELECT * FROM station WHERE STATION_ID = '" + id + "'";
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		if (c.getCount() > 0)
@@ -563,6 +588,7 @@ public class DBAdapterBus {
 		BusStopInfo info = null;
 
 		String sql = "SELECT * FROM station WHERE STATION_NM LIKE '%" + name + "%'";
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		while(c.moveToNext())
@@ -606,6 +632,7 @@ public class DBAdapterBus {
 		BusInfo info = null;
 
 		String sql = "SELECT * FROM route WHERE ROUTE_ID = '" + id + "'";
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		if (c.getCount() > 0)
@@ -654,6 +681,7 @@ public class DBAdapterBus {
 		BusInfo info = null;
 
 		String sql = "SELECT * FROM route WHERE ROUTE_NM LIKE '" + number + "%' ORDER BY ROUTE_NM ASC";
+		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
 		while (c.moveToNext())
@@ -678,9 +706,10 @@ public class DBAdapterBus {
 	
 	public ArrayList<BusStopInfo> getBusStopOfBus(String busId)
 	{
-		String sql2 = "SELECT STATION_ID, STATION_NM, UPDOWN, STA_ORDER FROM routestation WHERE ROUTE_ID = '" + busId + "' ORDER BY STA_ORDER ASC";
+		String sql = "SELECT STATION_ID, STATION_NM, UPDOWN, STA_ORDER FROM routestation WHERE ROUTE_ID = '" + busId + "' ORDER BY STA_ORDER ASC";
+		Log.d("Bus Database", sql);
 		
-		Cursor lineC = mDb.rawQuery(sql2, null);
+		Cursor lineC = mDb.rawQuery(sql, null);
 		
 		int iStopNo = lineC.getColumnIndex("STATION_ID");
 		int iStopName = lineC.getColumnIndex("STATION_NM");

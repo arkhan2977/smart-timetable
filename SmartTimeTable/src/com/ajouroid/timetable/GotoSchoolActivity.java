@@ -350,12 +350,14 @@ public class GotoSchoolActivity extends Activity {
 				
 				/* 필요없는 버스 지우기 */
 				int index = temp.size()-1;
+				
+				ArrayList<String> validBus = dbA.findBuses(sp_stationID, dest_stationID);
 
 				while(true){
 					if(index<0){
 						break;
 					}
-					if(!dbA.findBus(temp.get(index).getBus_id(),dest_stationID)){
+					if(!validBus.contains(temp.get(index).getBus_number())){
 						Log.d("SmartTimeTable", type + ") " + temp.get(index).getBus_number() + " removed.");
 						try {
 							temp.remove(index);
