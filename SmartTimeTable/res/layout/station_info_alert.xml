@@ -49,12 +49,15 @@
                 android:src="@drawable/balloon_overlay_close" />
 
         </LinearLayout>
-
+        
+        <!-- 조준영 사무실: 0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g -->
+		<!-- 조준영 노트북: 0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ -->
+        <!-- 노건욱 사무실: 0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow -->
         <com.google.android.maps.MapView
             android:id="@+id/mapview_alert"
             android:layout_width="fill_parent"
             android:layout_height="180dp"
-            android:apiKey="0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g"
+            android:apiKey="0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow"
             android:clickable="true" >
         </com.google.android.maps.MapView>
 
