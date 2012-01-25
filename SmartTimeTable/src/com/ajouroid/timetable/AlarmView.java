@@ -378,7 +378,7 @@ public class AlarmView extends Activity {
 			Paint font = new Paint();
 			font.setTextSize(24);
 			font.setColor(Color.WHITE);
-			canvas.drawText(remain + r.getString(R.string.alarmview_remain), 50, bottom + 50, font);
+			canvas.drawText(remain + r.getString(R.string.alarmview_remain), 50, bottom + 100, font);
 			
 			fillPaint.setColor(Color.WHITE);
 			fillPaint.setAlpha(0xFF);
@@ -390,7 +390,7 @@ public class AlarmView extends Activity {
 			font.setColor(Color.BLACK);
 			font.setTextAlign(Align.CENTER);
 			if (!snooze)
-				canvas.drawText(r.getString(R.string.alarmview_snooze), snoozeX + 50, snoozeBottom-10, font);
+				canvas.drawText(r.getString(R.string.alarmview_snooze), snoozeX + 50, snoozeBottom-15, font);
 			else
 			{
 				String timeStr = snoozeMinute / 60 + ":" + snoozeMinute%60;
