@@ -60,7 +60,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		btn_set_start1 = (Button) findViewById(R.id.btn_set_start1);
 		btn_set_dest1 = (Button) findViewById(R.id.btn_set_dest1);
 		btn_set_start2 = (Button) findViewById(R.id.btn_set_start2);
-		btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest1);
+		btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest2);
 		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
 		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
 		btn_close = (ImageView) findViewById(R.id.close_img_button);
@@ -118,7 +118,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		around_station = new AroundStation(marker, this);
 
 		OverlayItem overlayitem = 
-				new OverlayItem(getPoint(station_lat, station_lng), "아주대", "03-127");
+				new OverlayItem(getPoint(station_lat, station_lng), info.getStop_name(), info.getNumber()+"");
 
 		around_station.addOverlay(overlayitem);
 		mapOverlays.add(around_station);		
