@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -93,7 +94,40 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		sPref = PreferenceManager.getDefaultSharedPreferences(this);
+		checkSelected();
 		super.onResume();
+	}
+	
+	private void checkSelected()
+	{
+		String id_start1 = sPref.getString("START_STOP", "-1");
+		String id_dest1 = sPref.getString("DEST_STOP", "-1");
+		String id_start2 = sPref.getString("START_STOP_2", "-1");
+		String id_dest2 = sPref.getString("DEST_STOP_2", "-1");
+		
+		if (id_start1.compareTo(info.getStop_id()) == 0)
+		{
+			btn_set_start1.setTextColor(Color.RED);
+		}
+		else btn_set_start1.setTextColor(Color.BLACK);
+		
+		if (id_start2.compareTo(info.getStop_id()) == 0)
+		{
+			btn_set_start2.setTextColor(Color.RED);
+		}
+		else btn_set_start2.setTextColor(Color.BLACK);
+		
+		if (id_dest1.compareTo(info.getStop_id()) == 0)
+		{
+			btn_set_dest1.setTextColor(Color.RED);
+		}
+		else btn_set_dest1.setTextColor(Color.BLACK);
+		
+		if (id_dest2.compareTo(info.getStop_id()) == 0)
+		{
+			btn_set_dest2.setTextColor(Color.RED);
+		}
+		else btn_set_dest2.setTextColor(Color.BLACK);
 	}
 
 	@Override
@@ -202,6 +236,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		
 		ed.commit();
 		
+		checkSelected();
 	}		
 }
 
