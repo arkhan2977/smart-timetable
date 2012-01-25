@@ -479,7 +479,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 					new OverlayItem(getPoint(current_stop_arrlist.get(i).getLatitude(),
 							current_stop_arrlist.get(i).getLongitude()),
 							current_stop_arrlist.get(i).getStop_name(),
-							current_stop_arrlist.get(i).getNumber()+"");
+							current_stop_arrlist.get(i).getStop_id()+"");
 
 			around_station.addOverlay(overlayitem1);
 		}
@@ -529,8 +529,12 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		@Override
 		protected boolean onTap(int index) {
 			OverlayItem item = mOverlays.get(index);
-			Toast.makeText
-			(mContext, item.getSnippet() + ", " + item.getTitle(), Toast.LENGTH_SHORT).show();
+			
+			//Toast.makeText(mContext, item.getSnippet() + ", " + item.getTitle(), Toast.LENGTH_SHORT).show();
+			
+			Intent i = new Intent(StationSetting.this, StationInfoAlert.class);
+			i.putExtra("id", item.getSnippet());
+			startActivity(i);
 			return true;
 		}
 
