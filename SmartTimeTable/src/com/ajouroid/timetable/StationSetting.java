@@ -165,7 +165,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				geoCoder = new Geocoder(StationSetting.this, Locale.KOREAN); 
 			}
 			super.onPostExecute(result);
-		}		
+		}
 	}
 
 	@Override
@@ -182,10 +182,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		r = getResources();
 		tabHost = (TabHost)findViewById(R.id.tabhost);
 
-		/* 에러방지용 임시 주석
-		sp_stop_list = (ListView)findViewById(R.id.roh_sp_stop_list);
-		dest_stop_list = (ListView)findViewById(R.id.roh_dest_stop_list);
-		 */
 		current_station_list = (ListView)findViewById(R.id.roh_current_stop_list);
 		search_station_list = (ListView)findViewById(R.id.roh_search_station_list);
 		et_stationNo = (EditText)findViewById(R.id.roh_input_search_station);
@@ -194,20 +190,12 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		btn_search_bus = (Button)findViewById(R.id.roh_btn_search_bus);
 		search_bus_List = (ListView)findViewById(R.id.roh_search_bus_list);
 
-		/* 에러방지용 임시 주석
-		myloc_sp = (TextView) findViewById(R.id.roh_my_location_sp);
-		myloc_dest = (TextView) findViewById(R.id.roh_my_location_dest);
-		 */
 		myloc_current = (TextView) findViewById(R.id.roh_my_location_current); //주변정류장 내위치 표시
 
 		btn_search_station = (Button) findViewById(R.id.roh_btn_search_station);
 
 		myloc_current1 = (TextView) findViewById(R.id.roh_my_location_current1); //주변지도 내위치표시
 
-		/* 에러방지용 임시 주석
-		btn_setup_start = (Button)findViewById(R.id.setup_start);
-		btn_setup_dest = (Button)findViewById(R.id.setup_dest);
-		 */
 
 		tabHost.setup();
 
@@ -216,8 +204,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		registTab("주변지도", R.drawable.tab_map, R.id.tab_view2);
 		registTab("정류장검색", R.drawable.tab_search, R.id.tab_view3);
 		registTab("버스검색", R.drawable.tab_search, R.id.tab_view4);
-		//registTab("주변지도", R.drawable.tab_dest, R.id.tab_view2); //에러방지용 임시 주석
-		//registTab("버스검색", R.drawable.tab_search, R.id.tab_view4); //에러방지용 임시 주석
+
 		tabHost.setOnTabChangedListener(this);
 
 		tabHost.setCurrentTab(0);
@@ -269,38 +256,17 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	boolean destEnable;
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
-		/*myloc_sp.setText(sPrefs.getString("START_ADDRESS", "출발지 미설정"));
-		startEnable = sPrefs.contains("START_ADDRESS");
-		myloc_sp.setSelected(true);
-		SP_LAT = Double.parseDouble(sPrefs.getString("SP_LAT", "-1"));
-		SP_LNG = Double.parseDouble(sPrefs.getString("SP_LNG", "-1"));	
-
-		myloc_dest.setText(sPrefs.getString("DEST_ADDRESS", "도착지 미설정"));
-		destEnable = sPrefs.contains("DEST_ADDRESS");
-		myloc_dest.setSelected(true);
-		DEST_LAT = Double.parseDouble(sPrefs.getString("DEST_LAT", "-1"));
-		DEST_LNG = Double.parseDouble(sPrefs.getString("DEST_LNG", "-1"));*/
-
-		//sp_stop_list.setOnItemClickListener(clickListener);
-		//dest_stop_list.setOnItemClickListener(clickListener);	
+		
 		current_station_list.setOnItemClickListener(new CURR_ClickEvent());
 		search_station_list.setOnItemClickListener(new SEARCH_ClickEvent());
 		search_bus_List.setOnItemClickListener(new BUSLIST_ClickEvent());
 		btn_search_station.setOnClickListener(this);
 		btn_search_bus.setOnClickListener(this);
 
-
-		//btn_setup_start.setOnClickListener(this);
-		//btn_setup_dest.setOnClickListener(this);
-
-		//registerForContextMenu(sp_stop_list);
-		//registerForContextMenu(dest_stop_list);
 		registerForContextMenu(current_station_list);
 		registerForContextMenu(search_station_list);
-
-		setAdapter();
 	}
 
 	@Override
@@ -427,40 +393,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		
 		LocationChangeTask lctask = new LocationChangeTask();
 		lctask.execute(location);
-
-		/*if(bGetteringGPS == false) {
-
-			current_lat = location.getLatitude();
-			current_lng = location.getLongitude();
-
-			Log.d("StationSetting", "Current Location : " + current_lat + ", " + current_lng);			
-			String myloc = null;
-			try {
-				// 위도,경도를 이용하여 현재 위치의 주소를 가져온다. 
-				List<Address> addresses = null;
-				addresses = geoCoder.getFromLocation(current_lat, current_lng, 1);
-				myloc = addresses.get(0).getAddressLine(0).toString();
-
-			} catch (IOException e) {
-				myloc = current_lat + ", " + current_lng ;
-			}
-			finally{
-				if (dbA.isOpen())
-				{
-					current_stop_arrlist = dbA.findNearStops(current_lat, current_lng);
-					curr_adapter = new BusStopAdapter(current_stop_arrlist);
-					current_station_list.setAdapter(curr_adapter);
-					myloc_current.setText(myloc);
-					myloc_current1.setText(myloc);
-					myloc_current.setSelected(true);
-					myloc_current1.setSelected(true);
-					locManager.removeUpdates(this);	
-					bGetteringGPS = true;
-					setMap();
-					Log.d("StationSetting"," call setMap()");
-				}
-			}
-		}*/
 	}
 	
 	class LocationChangeTask extends AsyncTask<Location, Void, Void>
@@ -620,47 +552,11 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 
 
-
-	//	BusStopAdapter sp_adapter;
-	//	BusStopAdapter dest_adapter;
 	BusStopAdapter curr_adapter;
 	BusStopAdapter find_adapter;
 
-	public void setAdapter(){
-		/*if(SP_LAT != -1 && SP_LNG != -1){
-			sp_stop_arrlist = dbA.findNearStops(SP_LAT, SP_LNG);
-			if (sp_stop_arrlist != null)
-			{
-			sp_adapter = new BusStopAdapter(sp_stop_arrlist);
-			sp_stop_list.setAdapter(sp_adapter);
-			}
-		}
-		else{
-			Toast.makeText(StationSetting.this, "출발지가 설정되어있지 않습니다.", Toast.LENGTH_SHORT).show();
-		}
-		if(DEST_LAT != -1 && DEST_LNG != -1){
-			dest_stop_arrlist = dbA.findNearStops(DEST_LAT, DEST_LNG);
-			if (dest_stop_arrlist != null)
-			{
-				dest_adapter = new BusStopAdapter(dest_stop_arrlist);
-				dest_stop_list.setAdapter(dest_adapter);
-			}
-		}
-		else{
-			Toast.makeText(StationSetting.this, "도착지가 설정되어있지 않습니다.", Toast.LENGTH_SHORT).show();
-		}*/
-	}
-
 	public void updateAdapter()
 	{
-		/*if (sp_adapter != null)
-		{
-			sp_adapter.notifyDataSetChanged();
-		}
-		if (dest_adapter != null)
-		{
-			dest_adapter.notifyDataSetChanged();
-		}*/
 		if (curr_adapter != null)
 		{
 			curr_adapter.notifyDataSetChanged();
@@ -746,32 +642,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		}
 	}
 
-	/*class SP_ClickEvent implements ListView.OnItemClickListener {
-
-		public void onItemClick(AdapterView<?> arg0, View v, int position,
-				long arg3) {
-
-			setStartStop(sp_stop_arrlist.get(position).getStop_id(),sp_stop_arrlist.get(position).getStop_name());
-			//v.showContextMenu();
-
-		}
-
-	}
-	class DEST_ClickEvent implements ListView.OnItemClickListener {
-
-		public void onItemClick(AdapterView<?> arg0, View v, int position,
-				long arg3) {
-			setDestStop(dest_stop_arrlist.get(position).getStop_id(),dest_stop_arrlist.get(position).getStop_name());
-			//v.showContextMenu();		
-		}
-
-	}*/
 	class CURR_ClickEvent implements ListView.OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
-
-			//v.showContextMenu();
 			
 			Intent i = new Intent(StationSetting.this, StationInfoAlert.class);
 			BusStopInfo info = current_stop_arrlist.get(position);

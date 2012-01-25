@@ -191,8 +191,7 @@ public class RouteViewer extends Activity {
 		protected void onPostExecute(Void result) {
 			dbA.close();
 			dialog.dismiss();
-			//adapter = new BusStopAdapter();
-			//RouteViewer.this.setListAdapter(adapter);
+
 			adapter = new BusStopAdapter();
 			stationList.setAdapter(adapter);
 			
