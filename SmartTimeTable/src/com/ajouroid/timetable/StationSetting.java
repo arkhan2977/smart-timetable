@@ -255,11 +255,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		DEST_LAT = Double.parseDouble(sPrefs.getString("DEST_LAT", "-1"));
 		DEST_LNG = Double.parseDouble(sPrefs.getString("DEST_LNG", "-1"));*/
 
-		CURR_ClickEvent clickListener = new CURR_ClickEvent();
 		//sp_stop_list.setOnItemClickListener(clickListener);
 		//dest_stop_list.setOnItemClickListener(clickListener);	
-		current_station_list.setOnItemClickListener(clickListener);
-		search_station_list.setOnItemClickListener(clickListener);
+		current_station_list.setOnItemClickListener(new CURR_ClickEvent());
+		search_station_list.setOnItemClickListener(new SEARCH_ClickEvent());
 		search_bus_List.setOnItemClickListener(new BUSLIST_ClickEvent());
 		btn_search_station.setOnClickListener(this);
 		btn_search_bus.setOnClickListener(this);
@@ -462,14 +461,11 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 							current_stop_arrlist.get(i).getNumber()+"");
 
 			around_station.addOverlay(overlayitem1);
-			mapOverlays.add(around_station);
 		}
-
-
-
-
-
+		
+		mapOverlays.add(around_station);
 	}
+	
 	private GeoPoint getPoint(double lat, double lon) {
 		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
 	}	
@@ -686,8 +682,27 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long arg3) {
 
-			v.showContextMenu();
+			//v.showContextMenu();
+			
+			Intent i = new Intent(StationSetting.this, StationInfoAlert.class);
+			BusStopInfo info = current_stop_arrlist.get(position);
 
+			i.putExtra("id", info.getStop_id());
+			
+			startActivity(i);
+		}
+	}
+	
+	class SEARCH_ClickEvent implements ListView.OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent i = new Intent(StationSetting.this, StationInfoAlert.class);
+			BusStopInfo info = stopList.get(arg2);
+			
+			i.putExtra("id", info.getStop_id());
+			
+			startActivity(i);
 		}
 	}
 	class BUSLIST_ClickEvent implements ListView.OnItemClickListener {
