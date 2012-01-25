@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 	Button btn_set_dest2;
 	TextView sia_station_name;
 	TextView sia_station_num;
-	ImageView btn_close;
+	ImageButton btn_close;
 	
 	SharedPreferences sPref;
 	BusStopInfo info;
@@ -64,7 +65,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest2);
 		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
 		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
-		btn_close = (ImageView) findViewById(R.id.close_img_button);
+		btn_close = (ImageButton) findViewById(R.id.close_img_button);
 		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
 		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
 		Intent i = getIntent();
@@ -152,7 +153,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		around_station = new AroundStation(marker, this);
 
 		OverlayItem overlayitem = 
-				new OverlayItem(getPoint(station_lat, station_lng), info.getStop_name(), info.getNumber()+"");
+				new OverlayItem(getPoint(station_lat, station_lng), info.getStop_name(), info.getNumber() + "");
 
 		around_station.addOverlay(overlayitem);
 		mapOverlays.add(around_station);		
