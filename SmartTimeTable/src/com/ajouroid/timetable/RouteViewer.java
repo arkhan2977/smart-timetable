@@ -1,6 +1,14 @@
 package com.ajouroid.timetable;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -10,6 +18,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -38,6 +47,8 @@ public class RouteViewer extends Activity {
 	ListView stationList;
 	ArrayList<BusStopInfo> stationArr;
 	DBAdapterBus dbA;
+	
+	ArrayList<String> locationList;
 	 
 	SharedPreferences sPrefs;
 	
@@ -179,6 +190,10 @@ public class RouteViewer extends Activity {
 		
 		BusInfo info;
 		
+		int statusCode;
+		
+		String url = "http://openapi.gbis.go.kr/ws/rest/buslocationservice";
+		
 		@Override
 		protected void onPostExecute(Void result) {
 			dbA.close();
@@ -216,6 +231,81 @@ public class RouteViewer extends Activity {
 		protected Void doInBackground(String... params) {
 			stationArr = dbA.getBusStopOfBus(params[0]);
 			info = dbA.getBusInfo(params[0]);
+			
+			try {
+				String key = URLEncoder.encode(Keyring.BUS_KEY, "UTF-8");
+				// key = URLEncoder.encode(KEY, "UTF-8");
+				XmlPullParserFactory baseparser = XmlPullParserFactory
+						.newInstance();
+				baseparser.setNamespaceAware(true);
+				XmlPullParser xpp = baseparser.newPullParser();
+
+				String urlStr = url + "?serviceKey=" + key + "&routeId=" + params[0];
+
+				Log.d("SmartTimeTable", "Requesting Bus Location Information...");
+				Log.d("SmartTimeTable", "URL: " + urlStr);
+				URL requestURL = new URL(urlStr);
+				InputStream input = requestURL.openStream();
+				xpp.setInput(input, "UTF-8");
+
+				int parserEvent = xpp.getEventType();
+				parserEvent = xpp.next();// 파싱한 자료에서 다음 라인으로 이동
+				boolean check = true;
+
+				locationList = new ArrayList<String>();
+
+				while (parserEvent != XmlPullParser.END_DOCUMENT) {
+					if (!check) {
+						break;
+					}
+
+					switch (parserEvent) {
+					case XmlPullParser.END_TAG: 
+						break;
+					case XmlPullParser.START_TAG: 
+						if (xpp.getName().compareToIgnoreCase("returnCode") == 0) 
+						{
+							xpp.next();
+							String tempCode = xpp.getText();
+							statusCode = Integer.parseInt(tempCode);
+							xpp.next();
+							check = false;
+						} else if (xpp.getName().compareToIgnoreCase(
+								"resultCode") == 0) // <returnCode> 인 경우.
+						{
+							xpp.next();
+							String tempCode = xpp.getText();
+							statusCode = Integer.parseInt(tempCode);
+							xpp.next();
+							
+						} else if (xpp.getName().compareTo("msgBody") == 0) {
+							parserEvent = xpp.next();
+							while (true) {
+								if (parserEvent == XmlPullParser.START_TAG) {
+									String tag = xpp.getName();
+									if (tag.compareTo("stationId") == 0) {
+										xpp.next();
+										locationList.add(xpp.getText());
+									}
+								} else if (parserEvent == XmlPullParser.END_TAG) {
+									if (xpp.getName().compareTo(
+											"msgBody") == 0) {
+										break;
+									}
+								}
+
+								parserEvent = xpp.next();
+							}
+						}
+					}
+					parserEvent = xpp.next(); // 다음 태그를 읽어 들입니다.
+				}
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				Log.d("sibal", "xml exception");
+			} catch (IOException e) {
+				Log.d("sibal", "io exception");
+			}
 			return null;
 		}
 		
@@ -246,6 +336,13 @@ public class RouteViewer extends Activity {
 			TextView stop_name = (TextView)row.findViewById(R.id.route_name);
 			stop_name.setText(stationArr.get(position).getStop_name());
 			
+			
+			String id = stationArr.get(position).getStop_id();
+			if (locationList.contains(id))
+			{
+				TextView current = (TextView)row.findViewById(R.id.route_current);
+				current.setVisibility(View.VISIBLE);
+			}
 			
 			String spId = sPrefs.getString("START_STOP", "");
 			String destId = sPrefs.getString("DEST_STOP", "");
