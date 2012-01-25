@@ -163,16 +163,20 @@ public class GotoSchoolActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		if (requestTask != null)
-			requestTask.cancel(true);
-		if (requestTask_2 != null)
-			requestTask_2.cancel(true);
-		dbA.close();
+		Log.d("GotoSchoolActivity", "onPause()");
+		
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop() {
+		Log.d("GotoSchoolActivity", "onStop()");
+		
+		if (requestTask != null)
+			requestTask.cancel(true);
+		if (requestTask_2 != null)
+			requestTask_2.cancel(true);
+		dbA.close();
 		super.onStop();
 	}
 
