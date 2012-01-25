@@ -91,6 +91,13 @@ public class GotoSchoolActivity extends Activity {
 
 		setupBtn = (Button) findViewById(R.id.bus_setup_station);
 
+		dbA = new DBAdapterBus(GotoSchoolActivity.this);
+		dbA.open();
+
+		// Regist_bus();
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		
 		// asynctask 실행.
 		businfo = new ArrayList[2];
 
@@ -118,12 +125,6 @@ public class GotoSchoolActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-
-		dbA = new DBAdapterBus(GotoSchoolActivity.this);
-		dbA.open();
-
-		// Regist_bus();
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		update_btn.setOnClickListener(new UpdateClickListener());
 		update_btn_2.setOnClickListener(new UpdateClickListener());
