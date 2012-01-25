@@ -47,8 +47,8 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		btn_set_dest1 = (Button) findViewById(R.id.btn_set_dest1);
 		btn_set_start2 = (Button) findViewById(R.id.btn_set_start2);
 		btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest1);
-		sia_station_name = (TextView) findViewById(R.id.sta_station_name);
-		sia_station_num = (TextView) findViewById(R.id.sta_station_num);
+		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
+		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
 		
 		Intent i = getIntent();
 		DBAdapterBus dbA = new DBAdapterBus(this);
