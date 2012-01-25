@@ -37,7 +37,7 @@
         android:textSize="16sp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
-        android:textColor="#DAA520"
+        android:textColor="#339900"
         android:visibility="gone"
         android:layout_margin="5dp"
         android:text = "이 정류장을 지나가고 있습니다."/>

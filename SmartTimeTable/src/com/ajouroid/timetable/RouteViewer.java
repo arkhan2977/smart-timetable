@@ -72,6 +72,8 @@ public class RouteViewer extends Activity {
 		r = getResources();
 		registerForContextMenu(stationList);
 		
+		locationList = new ArrayList<String>();
+		
 		dbA = new DBAdapterBus(this);
 		
 		sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -87,16 +89,7 @@ public class RouteViewer extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		stationList.setOnItemClickListener(new List_ClickEvent());
-//		bus_name.setText(getIntent().getStringExtra("number"));
-//		bus_region.setText(getIntent().getStringExtra("region"));
-//		upfirst_time.setText(getIntent().getStringExtra("upfirst"));
-//		uplast_time.setText(getIntent().getStringExtra("uplast"));
-//		downfirst_time.setText(getIntent().getStringExtra("downfirst"));
-//		downlast_time.setText(getIntent().getStringExtra("downlast"));
-//		bus_term_peek.setText(getIntent().getStringExtra("term_peek"));
-//		bus_term_npeek.setText(getIntent().getStringExtra("term_npeek"));
-		
+		stationList.setOnItemClickListener(new List_ClickEvent());		
 	}
 	
 	@Override

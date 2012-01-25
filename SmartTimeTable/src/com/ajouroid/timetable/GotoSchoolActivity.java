@@ -126,6 +126,9 @@ public class GotoSchoolActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 
+		if (!dbA.isOpen())
+			dbA.open();
+		
 		update_btn.setOnClickListener(new UpdateClickListener());
 		update_btn_2.setOnClickListener(new UpdateClickListener());
 
