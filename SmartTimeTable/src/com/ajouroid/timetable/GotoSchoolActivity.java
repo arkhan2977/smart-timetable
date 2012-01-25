@@ -208,6 +208,23 @@ public class GotoSchoolActivity extends Activity {
 				break;
 			}
 		}
+		
+		
+
+		@Override
+		protected void onCancelled() {
+			switch (this.type) {
+			case 0:
+				prog_bar.setVisibility(View.INVISIBLE);
+				update_btn.setVisibility(View.VISIBLE);
+				break;
+			case 1:
+				prog_bar_2.setVisibility(View.INVISIBLE);
+				update_btn_2.setVisibility(View.VISIBLE);
+				break;
+			}
+			super.onCancelled();
+		}
 
 		@Override
 		protected void onPreExecute() {
