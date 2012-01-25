@@ -118,6 +118,10 @@
         
         <activity android:name=".StationSetting" />
         
+        <activity
+            android:name=".StationInfoAlert"
+             android:theme="@android:style/Theme.Translucent" />
+        
         <activity android:name=".AlarmView"
             android:screenOrientation = "portrait" />
         
