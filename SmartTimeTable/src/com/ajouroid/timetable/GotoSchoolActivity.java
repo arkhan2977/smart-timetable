@@ -257,7 +257,10 @@ public class GotoSchoolActivity extends Activity {
 			}
 			
 			
-			try {
+			try {	
+				
+				ArrayList<String> validBus = dbA.findBuses(sp_stationID, dest_stationID);
+				
 				String key = URLEncoder.encode(Keyring.BUS_KEY, "UTF-8");
 				//key = URLEncoder.encode(KEY, "UTF-8");
 				XmlPullParserFactory baseparser = XmlPullParserFactory.newInstance();
@@ -279,6 +282,9 @@ public class GotoSchoolActivity extends Activity {
 				//businfo[type].clear();
 				ArrayList<BusInfo> temp = new ArrayList<BusInfo>();
 				BusInfo bus=null;
+				boolean skip=false;
+				
+				
 				while(parserEvent != XmlPullParser.END_DOCUMENT){
 					if(!check){break;}
 
@@ -317,10 +323,17 @@ public class GotoSchoolActivity extends Activity {
 									{
 										xpp.next();
 										String id = xpp.getText();
-										bus.setBus_id(id);		
-										BusInfo info = dbA.getBusInfo(id);
-										bus.setBus_number(info.getBus_number());
 										
+										if (validBus.contains(id))
+										{
+											bus.setBus_id(id);
+											BusInfo info = dbA.getBusInfo(id);
+											bus.setBus_number(info.getBus_number());
+										}
+										else
+										{
+											skip = true;
+										}
 									}
 									else if (tag.compareTo("predictTime1") == 0)
 									{
@@ -332,8 +345,12 @@ public class GotoSchoolActivity extends Activity {
 								{
 									if (xpp.getName().compareTo("busArrivalList") == 0)
 									{
-										temp.add(bus);
-										Log.d("SmartTimeTable", type + ") " + bus.getBus_number() + " (" + bus.getArrive_time() + ") added.");
+										if (!skip)
+										{
+											temp.add(bus);
+											Log.d("SmartTimeTable", type + ") " + bus.getBus_number() + " (" + bus.getArrive_time() + ") added.");
+										}
+										skip = false;
 									}
 									else if (xpp.getName().compareTo("msgBody") == 0)
 									{
@@ -348,10 +365,9 @@ public class GotoSchoolActivity extends Activity {
 					parserEvent = xpp.next(); //다음 태그를 읽어 들입니다.
 				}	
 				
-				/* 필요없는 버스 지우기 */
-				int index = temp.size()-1;
 				
-				ArrayList<String> validBus = dbA.findBuses(sp_stationID, dest_stationID);
+				/* 필요없는 버스 지우기 
+				int index = temp.size()-1;
 
 				while(true){
 					if(index<0){
@@ -369,6 +385,7 @@ public class GotoSchoolActivity extends Activity {
 					}
 					index--;				
 				}
+				*/
 				publishProgress(temp);
 			} catch (XmlPullParserException e) {
 				// TODO Auto-generated catch block	

@@ -459,7 +459,7 @@ public class DBAdapterBus {
 	
 	public ArrayList<String> findBuses(String sp_route_id, String dest_route_id)
 	{
-		String sql = "select a.route_nm 'ROUTE_NM'" +
+		String sql = "select a.route_id 'ROUTE_ID'" +
 				" from routestation a, routestation b" +
 				" where a.route_nm = b.route_nm and a.updown = b.updown" +
 				" and a.sta_order < b.sta_order" +
