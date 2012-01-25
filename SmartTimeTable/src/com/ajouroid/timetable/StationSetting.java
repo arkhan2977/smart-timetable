@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import com.ajouroid.timetable.RouteViewer.BusStopAdapter;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
@@ -393,11 +394,73 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		}
 		return super.onContextItemSelected(item);
 	}
-	public void onLocationChanged(Location location) {
+	public void onLocationChanged(final Location location) {
 		// TODO Auto-generated method stub
-		Log.d("StationSetting", "Location changed.");		
+		Log.d("StationSetting", "Location changed.");
+		
+		LocationChangeTask lctask = new LocationChangeTask();
+		lctask.execute();
+		
+		
+		class LocationChangeTask extends AsyncTask<Void, Void, Void>
+		{
+			ProgressDialog dialog;
+			String myloc = null;
+			@Override
+			protected void onPostExecute(Void result) {
+				if (dbA.isOpen())
+				{
+					current_stop_arrlist = dbA.findNearStops(current_lat, current_lng);
+					curr_adapter = new BusStopAdapter(current_stop_arrlist);
+					current_station_list.setAdapter(curr_adapter);
+					myloc_current.setText(myloc);
+					myloc_current1.setText(myloc);
+					myloc_current.setSelected(true);
+					myloc_current1.setSelected(true);
+					locManager.removeUpdates(StationSetting.this);	
+					bGetteringGPS = true;
+					setMap();
+					Log.d("StationSetting"," call setMap()");
+				}
+				dialog.dismiss();				
+				super.onPostExecute(result);
+			}
 
-		if(bGetteringGPS == false) {
+			@Override
+			protected void onPreExecute() {
+				dialog = new ProgressDialog(StationSetting.this);
+				dialog.setTitle("현재위치 탐색중...");
+				dialog.setMessage("현재위치를 탐색중입니다. GPS나 3g 신호가 약할 경우 수신이 되지 않을 수 있습니다.");
+				dialog.setIndeterminate(true);
+				dialog.setCancelable(true);
+				dialog.show();
+				super.onPreExecute();
+			}
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				if(bGetteringGPS == false) {
+
+					current_lat = location.getLatitude();
+					current_lng = location.getLongitude();
+
+					Log.d("StationSetting", "Current Location : " + current_lat + ", " + current_lng);					
+					try {
+						// 위도,경도를 이용하여 현재 위치의 주소를 가져온다. 
+						List<Address> addresses = null;
+						addresses = geoCoder.getFromLocation(current_lat, current_lng, 1);
+						myloc = addresses.get(0).getAddressLine(0).toString();
+
+					} catch (IOException e) {
+						myloc = current_lat + ", " + current_lng ;
+					}
+				}
+				return null;
+			}
+			
+		}
+
+		/*if(bGetteringGPS == false) {
 
 			current_lat = location.getLatitude();
 			current_lng = location.getLongitude();
@@ -429,7 +492,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 					Log.d("StationSetting"," call setMap()");
 				}
 			}
-		}
+		}*/
 	}
 
 	public void setMap(){
