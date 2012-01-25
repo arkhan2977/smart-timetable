@@ -77,14 +77,14 @@ public class RouteViewer extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		stationList.setOnItemClickListener(new List_ClickEvent());
-		bus_name.setText(getIntent().getStringExtra("number"));
-		bus_region.setText(getIntent().getStringExtra("region"));
-		upfirst_time.setText(getIntent().getStringExtra("upfirst"));
-		uplast_time.setText(getIntent().getStringExtra("uplast"));
-		downfirst_time.setText(getIntent().getStringExtra("downfirst"));
-		downlast_time.setText(getIntent().getStringExtra("downlast"));
-		bus_term_peek.setText(getIntent().getStringExtra("term_peek"));
-		bus_term_npeek.setText(getIntent().getStringExtra("term_npeek"));
+//		bus_name.setText(getIntent().getStringExtra("number"));
+//		bus_region.setText(getIntent().getStringExtra("region"));
+//		upfirst_time.setText(getIntent().getStringExtra("upfirst"));
+//		uplast_time.setText(getIntent().getStringExtra("uplast"));
+//		downfirst_time.setText(getIntent().getStringExtra("downfirst"));
+//		downlast_time.setText(getIntent().getStringExtra("downlast"));
+//		bus_term_peek.setText(getIntent().getStringExtra("term_peek"));
+//		bus_term_npeek.setText(getIntent().getStringExtra("term_npeek"));
 		
 	}
 	
@@ -176,6 +176,9 @@ public class RouteViewer extends Activity {
 	class FindRouteTask extends AsyncTask<String, Void, Void>
 	{
 		ProgressDialog dialog;
+		
+		BusInfo info;
+		
 		@Override
 		protected void onPostExecute(Void result) {
 			dbA.close();
@@ -184,6 +187,16 @@ public class RouteViewer extends Activity {
 			//RouteViewer.this.setListAdapter(adapter);
 			adapter = new BusStopAdapter();
 			stationList.setAdapter(adapter);
+			
+			bus_name.setText(info.getBus_number());
+			bus_region.setText(info.getRegion());
+			upfirst_time.setText(info.getUpFirstTime());
+			uplast_time.setText(info.getUpLastTime());
+			downfirst_time.setText(info.getDownFirstTime());
+			downlast_time.setText(info.getDownLastTime());
+			bus_term_peek.setText(info.getPeek_term());
+			bus_term_npeek.setText(info.getNpeek_term());
+			
 			super.onPostExecute(result);
 		}
 
@@ -202,6 +215,7 @@ public class RouteViewer extends Activity {
 		@Override
 		protected Void doInBackground(String... params) {
 			stationArr = dbA.getBusStopOfBus(params[0]);
+			info = dbA.getBusInfo(params[0]);
 			return null;
 		}
 		
