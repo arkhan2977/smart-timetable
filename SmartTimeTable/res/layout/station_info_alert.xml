@@ -26,14 +26,14 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/sta_station_name"
+                    android:id="@+id/sia_station_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="유신고,아주대입구,아주대삼거리"                    
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/sta_station_num"
+                    android:id="@+id/sia_station_num"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="03-127" />

@@ -338,8 +338,8 @@ containing a value of this type.
         public static final int row_text1=0x7f0a0088;
         public static final int search_addr=0x7f0a0085;
         public static final int selector_list=0x7f0a00a0;
-        public static final int sta_station_name=0x7f0a0089;
-        public static final int sta_station_num=0x7f0a008a;
+        public static final int sia_station_name=0x7f0a0089;
+        public static final int sia_station_num=0x7f0a008a;
         public static final int starttime=0x7f0a0029;
         public static final int stop_name=0x7f0a003a;
         public static final int stop_num=0x7f0a003b;
