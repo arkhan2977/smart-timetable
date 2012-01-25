@@ -116,35 +116,58 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	private MapController mc;
 
 	public void setLocation(){
-		//----------------위치 탐색 시작-------------------------
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Iterator<String> providers = locManager.getAllProviders().iterator();
-
-		// GPS 정보를 얻기위한 프로바이더 검색
-		while(providers.hasNext()) {
-			Log.d("StationSetting", "Provider : " + providers.next());
+		SetLocation setTask = new SetLocation();
+		
+		setTask.execute();
+	}
+	
+	class SetLocation extends AsyncTask<Void, Void, Void>
+	{
+		
+		String best = null;
+		
+		@Override
+		protected void onPreExecute() {
+			locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			super.onPreExecute();
 		}
 
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+		@Override
+		protected Void doInBackground(Void... params) {
+			
+			Iterator<String> providers = locManager.getAllProviders().iterator();
 
-		String best = locManager.getBestProvider(criteria, true);
+			// GPS 정보를 얻기위한 프로바이더 검색
+			while(providers.hasNext()) {
+				Log.d("StationSetting", "Provider : " + providers.next());
+			}
 
-		if (best == null){
-			Toast toast = Toast.makeText(this, R.string.err_cannotFindLocation, Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.TOP, 0, 50 );
-			toast.show();		
-		}			
-		else
-		{
-			locManager.requestLocationUpdates(best, 0, 0, this);
-			// 주소를 확인하기 위한 Geocoder KOREA 와 KOREAN 둘다 가능
-			geoCoder = new Geocoder(this, Locale.KOREAN); 
-		}   
-		//----------------위치 탐색 끝-------------------------
+			Criteria criteria = new Criteria();
+			criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+			criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+
+			best = locManager.getBestProvider(criteria, true);
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			if (best == null){
+				Toast toast = Toast.makeText(StationSetting.this, R.string.err_cannotFindLocation, Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.TOP, 0, 50 );
+				toast.show();		
+			}			
+			else
+			{
+				locManager.requestLocationUpdates(best, 0, 0, StationSetting.this);
+				// 주소를 확인하기 위한 Geocoder KOREA 와 KOREAN 둘다 가능
+				geoCoder = new Geocoder(StationSetting.this, Locale.KOREAN); 
+			}
+			super.onPostExecute(result);
+		}
 		
-		r = getResources();
+		
 	}
 
 	@Override
@@ -212,6 +235,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		}
 		
 		setLocation();
+		
+		r = getResources();
 	}
 	
 	public void registTab(String labelId, int drawableId, int id)
