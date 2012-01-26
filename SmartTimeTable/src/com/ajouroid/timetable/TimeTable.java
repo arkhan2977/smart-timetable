@@ -324,18 +324,16 @@ public class TimeTable extends View {
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-
+		
 		Paint fill = new Paint();
 		fill.setColor(bgColor);
 		fill.setAlpha(0xFF);
 		canvas.drawRect(0, 0, width, height, fill);
 
 		// 시간표 이미지를 가져옴
-		Bitmap bitmap = getImage(width, height, topmost, leftmost, rightmargin,
-				bottommargin, true);
-
 		Paint p = new Paint();
-		canvas.drawBitmap(bitmap, 0, 0, p);
+		canvas.drawBitmap(getImage(width, height, topmost, leftmost, rightmargin,
+				bottommargin, true), 0, 0, p);
 
 		/*
 		 * ====================== 선택영역 그림 ======================

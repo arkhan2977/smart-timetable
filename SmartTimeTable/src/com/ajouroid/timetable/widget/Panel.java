@@ -478,12 +478,14 @@ public class Panel extends LinearLayout {
 	};
 
 	private void postProcess() {
+		
 		if (mIsShrinking && mClosedHandle != null) {
 			mHandle.setBackgroundDrawable(mClosedHandle);
 		} else
 		if (!mIsShrinking && mOpenedHandle != null) {
 			mHandle.setBackgroundDrawable(mOpenedHandle);
 		}
+		
 		// invoke listener if any
 		if (panelListener != null) {
 			if (mIsShrinking) {

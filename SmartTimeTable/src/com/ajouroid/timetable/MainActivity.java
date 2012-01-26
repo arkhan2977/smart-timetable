@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
 		drawer = (Panel) findViewById(R.id.topPanel);
-		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 	}
 
 	@Override
@@ -232,7 +232,7 @@ public class MainActivity extends Activity {
 			drawer.setOpen(false, true);
 		
 		// 시간 추가모드일경우 취소
-		if (timeTable.isAddingMode()) {
+		else if (timeTable.isAddingMode()) {
 			timeTable.endAddingMode();
 		} 
 		

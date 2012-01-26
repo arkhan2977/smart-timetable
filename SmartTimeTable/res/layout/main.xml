@@ -28,7 +28,7 @@
 				    panel:handle="@+id/panelHandle"
 				    panel:content="@+id/panelContent"
 				    panel:position="top"
-				    panel:animationDuration="1000"
+				    panel:animationDuration="800"
 				    panel:linearFlying="true"
 				    panel:openedHandle="@drawable/top_switcher_expanded_background"
 				    panel:closedHandle="@drawable/top_switcher_collapsed_background" >
@@ -37,8 +37,8 @@
                         android:id="@id/panelHandle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity = "center_horizontal"
-                        android:src="@drawable/slidingdrawer_tab" />
+                        android:layout_gravity = "center_horizontal" />
+                    
                     <LinearLayout
                         android:id="@id/panelContent"
                         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
 			app:gender="all"
 			app:age="20"
 			app:gps="off"
-			app:effect="circle"
+			app:effect="none"
 			app:allowcall="yes"
 			app:reloadInterval="30"
 			app:dynamicReloadInterval="true" />
