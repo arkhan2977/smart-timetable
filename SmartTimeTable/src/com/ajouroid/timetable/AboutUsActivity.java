@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class AboutUsActivity extends Activity implements OnClickListener {
 
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);

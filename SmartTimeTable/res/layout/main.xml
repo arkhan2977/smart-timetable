@@ -2,6 +2,7 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:panel="http://schemas.android.com/apk/res/com.ajouroid.timetable"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
@@ -19,22 +20,27 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
 
-                <SlidingDrawer
-                    android:id="@+id/subjectDrawer"
-                    android:layout_width="242dip"
-                    android:layout_height="292dip"
-                    android:layout_gravity="top|right"
-                    android:content="@+id/content"
-                    android:handle="@+id/handle"
-                    android:orientation="horizontal" >
+                <com.ajouroid.timetable.widget.Panel
+				    android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:id="@+id/topPanel" 
+				    android:paddingBottom="4dip"
+				    panel:handle="@+id/panelHandle"
+				    panel:content="@+id/panelContent"
+				    panel:position="top"
+				    panel:animationDuration="1000"
+				    panel:linearFlying="true"
+				    panel:openedHandle="@drawable/top_switcher_expanded_background"
+				    panel:closedHandle="@drawable/top_switcher_collapsed_background" >
 
-                    <ImageView
-                        android:id="@id/handle"
+                    <Button
+                        android:id="@id/panelHandle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity = "center_horizontal"
                         android:src="@drawable/slidingdrawer_tab" />
                     <LinearLayout
-                        android:id="@id/content"
+                        android:id="@id/panelContent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/slidingdrawer"
@@ -56,7 +62,7 @@
 					        android:layout_margin="10dp"
 					        android:text="@string/addNewSubject" />
                     </LinearLayout>
-                </SlidingDrawer>
+                </com.ajouroid.timetable.widget.Panel>
             </FrameLayout>
 		<com.cauly.android.ad.AdView
 			xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"

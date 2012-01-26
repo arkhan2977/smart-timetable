@@ -39,11 +39,11 @@ public class TimeTable extends View {
 	int height;
 
 	// 여백
-	int topmost = 10;
+	int topmost = 50;
 	int leftmost = 10;
 
 	int bottommargin = 10;
-	int rightmargin = 50;
+	int rightmargin = 10;
 
 	// 한 칸의 길이
 	int boxwidth;
@@ -300,6 +300,8 @@ public class TimeTable extends View {
 		height = measure(heightMeasureSpec);
 
 		setMeasuredDimension(width, height);
+		
+		Log.d("SmartTimeTable", "Widget Size: W" + width + ", H" + height);
 		// TODO Auto-generated method stub
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
@@ -722,8 +724,8 @@ public class TimeTable extends View {
 
 		fillPaint.setAlpha(alphaValue);
 
-		RectF bgRect = new RectF(leftMargin / 2, topMargin / 2, rightside
-				+ leftMargin / 2, bottom + topMargin / 2);
+		RectF bgRect = new RectF(leftMargin -5, topMargin -5, rightside
+				+ 5, bottom + 5);
 
 		// 배경색
 		canvas.drawRoundRect(bgRect, 10, 10, fillPaint);
@@ -782,7 +784,7 @@ public class TimeTable extends View {
 		font.setTextAlign(Align.CENTER);
 		for (int i = 0; i < day; i++) {
 			canvas.drawText(days[i], timeleft + boxwidth * i + boxwidth / 2,
-					timetop / 2 + 9, font);
+					topmost + (timetop - topmost)/2 , font);
 		}
 
 		/*

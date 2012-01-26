@@ -6,6 +6,10 @@ import java.util.Locale;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import com.ajouroid.timetable.interpolator.BounceInterpolator;
+import com.ajouroid.timetable.interpolator.EasingType.Type;
+import com.ajouroid.timetable.widget.Panel;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,7 +34,7 @@ public class MainActivity extends Activity {
 	TimeTable timeTable;
 	ListView listview_subject;
 	Button addBtn;
-	SlidingDrawer drawer; 
+	Panel drawer; 
 
 
 	public final static int OPTION_ACTIVITY = 0;
@@ -52,7 +56,8 @@ public class MainActivity extends Activity {
 		timeTable = (TimeTable) findViewById(R.id.timetable);
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
-		drawer = (SlidingDrawer) findViewById(R.id.subjectDrawer);
+		drawer = (Panel) findViewById(R.id.topPanel);
+		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 	}
 
 	@Override
@@ -81,7 +86,7 @@ public class MainActivity extends Activity {
 		addBtn.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				drawer.animateClose();
+				drawer.setOpen(false, true);
 				Intent addDialog = new Intent(MainActivity.this,
 						AddDialog.class);
 				startActivityForResult(addDialog, 0);
@@ -223,11 +228,11 @@ public class MainActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// 드로워가 열려있으면 닫음
-		if (drawer.isOpened())
-			drawer.animateClose();
+		if (drawer.isOpen())
+			drawer.setOpen(false, true);
 		
 		// 시간 추가모드일경우 취소
-		else if (timeTable.isAddingMode()) {
+		if (timeTable.isAddingMode()) {
 			timeTable.endAddingMode();
 		} 
 		
@@ -239,7 +244,7 @@ public class MainActivity extends Activity {
 		implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 		// 과목을 클릭했을 때
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			drawer.animateClose();
+			//drawer.animateClose();
 			
 			// 과목 정보 액티비티를 실행한다.
 			c.moveToPosition(arg2);
@@ -262,7 +267,7 @@ public class MainActivity extends Activity {
 			c.moveToPosition(arg2);
 			//과목 추가모드를 시작한다.
 			timeTable.selectAdder(c.getString(iName));
-			drawer.animateClose();
+			drawer.setOpen(false, true);
 
 			return true;
 		}
