@@ -216,6 +216,8 @@ public class DBCreator {
 						}
 						dbStmt.executeUpdate(query);
 						// System.out.println(query);
+						
+						f.delete();
 					}
 				} catch (SQLException e) {
 					System.out.println("In Query: " + query);
@@ -227,6 +229,7 @@ public class DBCreator {
 				}
 				
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("gen\\timetable_bus.zip"));
+				
 				FileInputStream in = new FileInputStream("gen\\timetable_bus.db");
 				
 				byte[] byteBuf = new byte[bufsize];
@@ -239,6 +242,7 @@ public class DBCreator {
 				in.close();
 				zos.closeEntry();
 				zos.close();
+
 			}
 		} catch (Exception e) {
 			System.out.println("In Query: " + query);

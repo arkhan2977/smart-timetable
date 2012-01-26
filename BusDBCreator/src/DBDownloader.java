@@ -1,8 +1,11 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -87,10 +90,12 @@ public class DBDownloader {
 
 			}
 			File verF = new File("gen\\version.txt");
-			FileOutputStream verFos = new FileOutputStream(verF);
-			verFos.write(Byte.parseByte(version + ""));
-			verFos.flush();
-			verFos.close();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(verF));
+			String verStr = Integer.toString(version);
+			bw.write(verStr);
+			bw.flush();
+			bw.close();
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
