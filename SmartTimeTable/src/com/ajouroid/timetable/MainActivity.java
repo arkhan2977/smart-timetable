@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
 		drawer = (Panel) findViewById(R.id.topPanel);
-		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 	}
 
 	@Override

@@ -21,35 +21,37 @@
                     android:layout_height="fill_parent" />
 
                 <com.ajouroid.timetable.widget.Panel
-				    android:layout_width="fill_parent" 
+				    android:layout_width="250dp" 
 				    android:layout_height="wrap_content" 
 				    android:id="@+id/topPanel" 
 				    android:paddingBottom="4dip"
+				    android:layout_gravity="left"
 				    panel:handle="@+id/panelHandle"
 				    panel:content="@+id/panelContent"
 				    panel:position="top"
 				    panel:animationDuration="800"
-				    panel:linearFlying="true"
+				    panel:linearFlying="false"
 				    panel:openedHandle="@drawable/top_switcher_expanded_background"
 				    panel:closedHandle="@drawable/top_switcher_collapsed_background" >
 
                     <Button
                         android:id="@id/panelHandle"
+                        android:text="Subject"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity = "center_horizontal" />
+                        android:layout_gravity = "left" />
                     
                     <LinearLayout
                         android:id="@id/panelContent"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/slidingdrawer"
                         android:orientation="vertical" >
 
                         <ListView
                             android:id="@+id/subjectList"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_margin="10dip"
                             android:layout_weight="1"
                             android:cacheColorHint="#00000000" />
@@ -58,9 +60,43 @@
 					        android:layout_width="match_parent"
 					        android:layout_height="wrap_content"
 					        android:layout_gravity="right"
+					        android:layout_weight="0"
 					        android:background="@drawable/stroke_button"
 					        android:layout_margin="10dp"
 					        android:text="@string/addNewSubject" />
+                    </LinearLayout>
+                </com.ajouroid.timetable.widget.Panel>
+                
+                <com.ajouroid.timetable.widget.Panel
+				    android:layout_width="250dp" 
+				    android:layout_height="wrap_content" 
+				    android:id="@+id/topPanel2" 
+				    android:paddingBottom="4dip"
+				    android:layout_gravity="right"
+				    panel:handle="@+id/panelHandle2"
+				    panel:content="@+id/panelContent2"
+				    panel:position="top"
+				    panel:animationDuration="800"
+				    panel:linearFlying="false"
+				    panel:openedHandle="@drawable/top_switcher_expanded_background"
+				    panel:closedHandle="@drawable/top_switcher_collapsed_background" >
+
+                    <Button
+                        android:id="@id/panelHandle2"
+                        android:text="Bus Arrival"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity = "right" />
+                    
+                    <LinearLayout
+                        android:id="@id/panelContent2"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@drawable/slidingdrawer"
+                        android:orientation="vertical" >
+
+                        
+                        
                     </LinearLayout>
                 </com.ajouroid.timetable.widget.Panel>
             </FrameLayout>
