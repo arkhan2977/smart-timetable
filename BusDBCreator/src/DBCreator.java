@@ -19,7 +19,7 @@ public class DBCreator {
 		String query = null;
 
 		try {
-			String dbPath = "timetable_bus.db";
+			String dbPath = "gen\\timetable_bus.db";
 
 			File dbFile = new File(dbPath);
 			if (dbFile.exists()) {
@@ -226,12 +226,11 @@ public class DBCreator {
 					dbStmt.executeUpdate("COMMIT;");
 				}
 				
-				//ZipFile zf = new ZipFile("timetable_bus.zip");
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("timetable_bus.zip"));
-				FileInputStream in = new FileInputStream("timetable_bus.db");
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("gen\\timetable_bus.zip"));
+				FileInputStream in = new FileInputStream("gen\\timetable_bus.db");
 				
 				byte[] byteBuf = new byte[bufsize];
-				zos.putNextEntry(new ZipEntry("timetable_bus.db"));
+				zos.putNextEntry(new ZipEntry("gen\\timetable_bus.db"));
 				int n;
 				while((n=in.read(byteBuf)) > 0)
 				{
