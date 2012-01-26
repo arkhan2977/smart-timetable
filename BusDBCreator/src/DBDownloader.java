@@ -106,8 +106,6 @@ public class DBDownloader {
 		int length = node.getChildNodes().getLength();
 		if (length > 0)
 		{
-			System.out.println(node.getNodeName() + " has " + length + " children.");
-			
 			switch(node.getNodeName())
 			{
 			case "areaDownloadUrl":
