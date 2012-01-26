@@ -1,6 +1,5 @@
 import java.io.File;
 
-
 public class Main {
 
 	public static void main(String[] args)
@@ -18,6 +17,8 @@ public class Main {
 		int version = dbD.checkVersion();
 		
 		System.out.println("Current Version: " + version);
+
+		
 		dbC.dbDownloader(fileName);
 	}
 }

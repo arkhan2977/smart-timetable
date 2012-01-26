@@ -86,6 +86,7 @@ public class DBDownloader {
 				}
 				System.out.println("Download Complete.");
 				is.close();
+				fos.flush();
 				fos.close();
 				
 			} catch (FileNotFoundException e) {
@@ -99,6 +100,23 @@ public class DBDownloader {
 				e.printStackTrace();
 			}
 		}
+		try {
+			File verF = new File("gen\\version.txt");
+			FileOutputStream verFos = new FileOutputStream(verF);
+			verFos.write(Byte.parseByte(version + ""));
+			verFos.flush();
+			verFos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void parse(Node node)
