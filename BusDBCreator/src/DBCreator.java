@@ -154,14 +154,15 @@ public class DBCreator {
 								continue;
 							}
 							query += "route(ROUTE_ID, ROUTE_NM, " +
-									//"ROUTE_TP, ST_STA_ID, ST_STA_NM, ST_STA_NO, ED_STA_ID, ED_STA_NM, ED_STA_NO, " +
+									//"ROUTE_TP, " + 
+									//ST_STA_ID, ST_STA_NM, ST_STA_NO, ED_STA_ID, ED_STA_NM, ED_STA_NO, " +
 									"UP_FIRST_TIME, UP_LAST_TIME, DOWN_FIRST_TIME, DOWN_LAST_TIME, PEEK_ALLOC, NPEEK_ALLOC, " +
 									//"COMPANY_ID, COMPANY_NM, TEL_NO, " +
 									"REGION_NAME" +
 									//",DISTRICT_CD " +
 									") \r\n";
 							query += "values (" + 
-									"'" + parts[0] + "', '" + parts[1] + "', '" + 
+									"'" + parts[0] + "', '" + parts[1] + "', '" + //parts[2] + "', '" +
 									parts[9] + "', '" + parts[10] + "', '" + parts[11] + "', '" + parts[12] + "', '" + 
 									parts[13] + "', '" + parts[14] + "', '" + 
 									parts[18] + "'";
