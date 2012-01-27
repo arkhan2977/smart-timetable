@@ -459,11 +459,13 @@ public class DBAdapterBus {
 	
 	public ArrayList<String> findBuses(String sp_route_id, String dest_route_id)
 	{
+		Long startTime = System.currentTimeMillis();
+		Log.d("Bus Database", "Starting find bus...");
 		String sql = "select a.route_id 'ROUTE_ID'" +
-				" from routestation a, routestation b" +
-				" where a.route_nm = b.route_nm and a.updown = b.updown" +
-				" and a.sta_order < b.sta_order" +
-				" and a.station_id='" + sp_route_id + "' and b.station_id='" + dest_route_id + "';";
+				" from routestation a inner join routestation b" +
+				" where a.station_id='" + sp_route_id + "' and b.station_id='" + dest_route_id + "'" +
+				" and a.updown = b.updown" +
+				" and a.sta_order < b.sta_order and a.route_nm = b.route_nm;";
 		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
@@ -473,6 +475,9 @@ public class DBAdapterBus {
 		{
 			retVal.add(c.getString(0));
 		}
+		
+		Long endTime = System.currentTimeMillis();
+		Log.d("Bus Database", "Finding Bus: " + (endTime - startTime) + "ms");
 		
 		return retVal;
 	}

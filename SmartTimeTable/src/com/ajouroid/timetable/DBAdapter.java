@@ -437,7 +437,7 @@ public class DBAdapter {
 	public Cursor getTaskCursor() {
 		Cursor cursor;
 
-		cursor = mDb.rawQuery("SELECT * FROM tasks", null);
+		cursor = mDb.rawQuery("SELECT * FROM tasks ORDER BY taskdate asc", null);
 
 		return cursor;
 	}
@@ -446,7 +446,7 @@ public class DBAdapter {
 		Cursor cursor;
 
 		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE subject = '" + subject
-				+ "' ORDER BY taskdate desc", null);
+				+ "' ORDER BY taskdate asc", null);
 
 		return cursor;
 	}
@@ -518,6 +518,9 @@ public class DBAdapter {
 	}
 
 	public boolean isOpen() {
+		if (mDb == null)
+			return false;
+		
 		return mDb.isOpen();
 	}
 

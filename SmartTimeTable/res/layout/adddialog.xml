@@ -53,7 +53,7 @@
         app:allowcall="yes"
         app:appcode="CAULY"
         app:dynamicReloadInterval="true"
-        app:effect="circle"
+        app:effect="none"
         app:gender="all"
         app:gps="off"
         app:reloadInterval="30" />

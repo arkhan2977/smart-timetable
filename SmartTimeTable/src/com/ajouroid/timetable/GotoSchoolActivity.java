@@ -276,10 +276,6 @@ public class GotoSchoolActivity extends Activity {
 			}
 
 			try {
-
-				ArrayList<String> validBus = dbA.findBuses(sp_stationID,
-						dest_stationID);
-
 				String key = URLEncoder.encode(Keyring.BUS_KEY, "UTF-8");
 				// key = URLEncoder.encode(KEY, "UTF-8");
 				XmlPullParserFactory baseparser = XmlPullParserFactory
@@ -303,6 +299,8 @@ public class GotoSchoolActivity extends Activity {
 				// businfo[type].clear();
 				ArrayList<BusInfo> temp = new ArrayList<BusInfo>();
 				BusInfo bus = null;
+				
+				ArrayList<String> validBus = dbA.findBuses(sp_stationID,dest_stationID);
 				boolean skip = false;
 
 				while (parserEvent != XmlPullParser.END_DOCUMENT) {

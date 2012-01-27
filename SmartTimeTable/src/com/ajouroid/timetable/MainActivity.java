@@ -102,7 +102,8 @@ public class MainActivity extends Activity {
 
 		dbA = new DBAdapter(this);
 
-		dbA.open();
+		if (!dbA.isOpen())
+			dbA.open();
 
 		c = dbA.getSubjectCursor();
 
@@ -405,6 +406,8 @@ public class MainActivity extends Activity {
 			if (list.size()==1)
 			{
 				Intent addIntent = new Intent(MainActivity.this, InfoList.class);
+				if (!dbA.isOpen())
+					dbA.open();
 				int id = dbA.getIdFromTitle(list.get(0));
 				addIntent.putExtra("id", id);
 				MainActivity.this.startActivityForResult(addIntent, INFOLIST_ACTIVITY);

@@ -39,10 +39,10 @@ public class TimeTable extends View {
 	int height;
 
 	// 여백
-	int topmost = 10;
+	int topmost = 20;
 	int leftmost = 10;
 
-	int bottommargin = 10;
+	int bottommargin = 20;
 	int rightmargin = 40;
 
 	// 한 칸의 길이

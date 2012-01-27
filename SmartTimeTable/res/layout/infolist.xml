@@ -83,6 +83,7 @@
         android:id="@+id/infolistbox"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_weight="1"
         android:background="@drawable/stroke_box"
         android:layout_margin="5dp"
         android:cacheColorHint="#00000000" />
@@ -91,8 +92,25 @@
         android:id="@+id/info_addtask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
         android:text="@string/addtask" />
+    
+    <com.cauly.android.ad.AdView
+        xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
+        android:id="@+id/ad"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        app:adtype="CPC"
+        app:age="20"
+        app:allowcall="yes"
+        app:appcode="CAULY"
+        app:dynamicReloadInterval="true"
+        app:effect="none"
+        app:gender="all"
+        app:gps="off"
+        app:reloadInterval="30" />
 
 </LinearLayout>
