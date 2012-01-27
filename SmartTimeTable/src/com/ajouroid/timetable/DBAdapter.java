@@ -29,7 +29,7 @@ public class DBAdapter {
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb; // 데이터베이스를 저장
 
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 
 	private final Context mCtx;
 
@@ -47,37 +47,47 @@ public class DBAdapter {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE subject (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "name TEXT UNIQUE,"
-					+ "classroom TEXT,"
-					+ "professor TEXT,"
-					+ "email TEXT," + "color INTEGER)");
+					+ "`name` TEXT UNIQUE,"
+					+ "`classroom` TEXT,"
+					+ "`professor` TEXT,"
+					+ "`email` TEXT," + "`color` INTEGER)");
 
 			db.execSQL("CREATE TABLE times ("
-					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "subject TEXT,"
-					+ "day INTEGER,"
-					+ "starttime INTEGER,"
-					+ "endtime INTEGER, "
+					+ "`_id` INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "`subject` TEXT,"
+					+ "`day` INTEGER,"
+					+ "`starttime` INTEGER,"
+					+ "`endtime` INTEGER, "
 					+ "FOREIGN KEY(subject) REFERENCES subject(name) ON DELETE CASCADE ON UPDATE CASCADE)");
 
 			db.execSQL("CREATE TABLE tasks ("
-					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "subject TEXT,"
-					+ "type INTEGER,"
-					+ "title TEXT,"
-					+ "desc TEXT,"
-					+ "taskdate TEXT,"
-					+ "usetime INTEGER,"
+					+ "`_id` INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "`subject` TEXT,"
+					+ "`type` INTEGER,"
+					+ "`title` TEXT,"
+					+ "`desc` TEXT,"
+					+ "`taskdate` TEXT,"
+					+ "`usetime` INTEGER,"
 					+ "FOREIGN KEY(subject) REFERENCES subject(name) ON DELETE CASCADE ON UPDATE CASCADE)");
+			
+			db.execSQL("CREATE TABLE stations ("
+					+ "`_id` INTEGER PRIMARY KEY, "
+					+ "`station_nm` text, "
+					+ "`station_number` int, "
+					+ "`start` integer)");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			// TODO Auto-generated method stub
+			backup("upgrade.db", db);
+
 			db.execSQL("DROP TABLE IF EXISTS subject");
 			db.execSQL("DROP TABLE IF EXISTS times");
 			db.execSQL("DROP TABLE IF EXISTS tasks");
+			db.execSQL("DROP TABLE IF EXISTS stations");
 			onCreate(db);
+			
+			restore("upgrade.db", db);
 		}
 	}
 
@@ -85,10 +95,9 @@ public class DBAdapter {
 		this.mCtx = ctx;
 	}
 
-	public DBAdapter open() throws SQLException {
+	public void open() throws SQLException {
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
-		return this;
 	}
 
 	public void close() {
@@ -408,6 +417,7 @@ public class DBAdapter {
 		mDb.execSQL("DROP TABLE IF EXISTS subject");
 		mDb.execSQL("DROP TABLE IF EXISTS times");
 		mDb.execSQL("DROP TABLE IF EXISTS tasks");
+		mDb.execSQL("DROP TABLE IF EXISTS stations");
 
 		mDbHelper.onCreate(mDb);
 		close();
@@ -653,9 +663,8 @@ public class DBAdapter {
 	
 	
 	public static final String SEP = "\n";
-	public void backup()
+	public void backup(String filename, SQLiteDatabase db)
 	{
-		open();
 		String dir = "/sdcard/SmartTimeTable";
 		File dirFile = new File(dir);
 		if (!dirFile.exists())
@@ -664,7 +673,7 @@ public class DBAdapter {
 		}
 		
 		//String file = dir + "/backup" + System.currentTimeMillis() + ".txt";
-		String file = dir + "/backup.txt";
+		String file = dir + "/" + filename;
 		File output = new File(file);
 		
 		try {
@@ -672,7 +681,7 @@ public class DBAdapter {
 			
 			
 			// 과목 정보 입력
-			Cursor subjectCursor = mDb.rawQuery("SELECT * FROM subject", null);
+			Cursor subjectCursor = db.rawQuery("SELECT * FROM subject", null);
 			
 			int iId = subjectCursor.getColumnIndex("_id");
 			int iName = subjectCursor.getColumnIndex("name");
@@ -702,7 +711,7 @@ public class DBAdapter {
 			}
 			subjectCursor.close();
 
-			Cursor timeCursor = mDb.rawQuery("SELECT * FROM times", null);
+			Cursor timeCursor = db.rawQuery("SELECT * FROM times", null);
 			
 			iId = timeCursor.getColumnIndex("_id");
 			int iSubject = timeCursor.getColumnIndex("subject");
@@ -726,7 +735,7 @@ public class DBAdapter {
 			}
 			timeCursor.close();
 
-			Cursor taskCursor = mDb.rawQuery("SELECT * FROM tasks", null);
+			Cursor taskCursor = db.rawQuery("SELECT * FROM tasks", null);
 			
 			iId = taskCursor.getColumnIndex("_id");
 			iSubject = taskCursor.getColumnIndex("subject");
@@ -766,14 +775,19 @@ public class DBAdapter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void backup(String filename)
+	{
+		open();
+		backup(filename, mDb);
 		close();
 	}
 	
-	public void restore(String filename)
+	public void restore(String filename, SQLiteDatabase db)
 	{
-		init();
-		open();
-		File file = new File(filename);
+		mDb = db;
+		File file = new File("/sdcard/SmartTimeTable/" + filename);
 		try {
 			FileInputStream fis = new FileInputStream(file);
 			byte[] buffer = new byte[8192];
@@ -880,6 +894,13 @@ public class DBAdapter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void restore(String filename)
+	{
+		init();
+		open();
+		restore(filename, mDb);
 		close();
 	}
 }

@@ -39,11 +39,11 @@ public class TimeTable extends View {
 	int height;
 
 	// 여백
-	int topmost = 50;
+	int topmost = 10;
 	int leftmost = 10;
 
 	int bottommargin = 10;
-	int rightmargin = 10;
+	int rightmargin = 40;
 
 	// 한 칸의 길이
 	int boxwidth;
@@ -586,6 +586,7 @@ public class TimeTable extends View {
 		Bitmap bitmap = getImage(width, height, 5, 5, 5, 5, false);
 
 		Canvas c = new Canvas(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
+		
 		Paint blackPaint = new Paint();
 		blackPaint.setColor(Color.BLACK);
 		blackPaint.setStyle(Style.FILL);
@@ -873,7 +874,7 @@ public class TimeTable extends View {
 		for (int i = 0; i < listSize; i++) {
 			Subject subject = subjectList.get(i);
 
-			int priority = checkTask(subject.getName());
+			int priority = taskTable.get(subject.getName());
 			switch (priority) {
 			case TaskAlert.HIGH:
 				taskPaint.setColor(0xFFFF0000);
@@ -952,6 +953,7 @@ public class TimeTable extends View {
 				if (priority > 0) {
 					float cX = sX + taskRadius * 2;
 					float cY = sY + taskRadius * 2;
+					canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
 					canvas.drawCircle(cX, cY, taskRadius, taskPaint);
 				}
 
@@ -1051,7 +1053,7 @@ public class TimeTable extends View {
 				canvas.drawRoundRect(nowRect, 5, 5, linePaint);
 			}
 
-			int priority = checkTask(nowSubject.getName());
+			int priority = taskTable.get(nowSubject.getName());
 			switch (priority) {
 			case TaskAlert.HIGH:
 				taskPaint.setColor(0xFFFF0000);
@@ -1189,7 +1191,6 @@ public class TimeTable extends View {
 				File nomedia = new File(abspath + "/.nomedia");
 				nomedia.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -1243,6 +1244,14 @@ public class TimeTable extends View {
 		}
 
 		c.close();
+		
+		int length = subjectList.size();
+		
+		for (int i=0; i<length; i++)
+		{
+			String subjectName = subjectList.get(i).getName();
+			taskTable.put(subjectName, checkTask(subjectName));
+		}
 		dbA.close();
 
 		invalidate();
@@ -1256,7 +1265,6 @@ public class TimeTable extends View {
 
 	public int checkTask(String subjectName) {
 		// 해당과목의 작업을 불러옴
-		dbA.open();
 		Cursor taskCursor = dbA.getTaskCursor(subjectName);
 		long remain = 0;
 
@@ -1332,7 +1340,6 @@ public class TimeTable extends View {
 				priority = TaskAlert.HIGH;
 			}
 		}
-		dbA.close();
 		return priority;
 	}
 }

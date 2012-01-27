@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 	TimeTable timeTable;
 	ListView listview_subject;
 	Button addBtn;
-	Panel drawer; 
+	SlidingDrawer drawer; 
 
 
 	public final static int OPTION_ACTIVITY = 0;
@@ -56,15 +56,15 @@ public class MainActivity extends Activity {
 		timeTable = (TimeTable) findViewById(R.id.timetable);
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
-		drawer = (Panel) findViewById(R.id.topPanel);
+		drawer = (SlidingDrawer) findViewById(R.id.subjectDrawer);
 		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		initWidgets();
 		initDB();
+		initWidgets();		
 		
 		registerReceiver(addReceiver, new IntentFilter("com.ajouroid.timetable.ADD_TIME"));
 
@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 		addBtn.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				drawer.setOpen(false, true);
+				drawer.animateClose();
 				Intent addDialog = new Intent(MainActivity.this,
 						AddDialog.class);
 				startActivityForResult(addDialog, 0);
@@ -228,8 +228,8 @@ public class MainActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// 드로워가 열려있으면 닫음
-		if (drawer.isOpen())
-			drawer.setOpen(false, true);
+		if (drawer.isOpened())
+			drawer.animateClose();
 		
 		// 시간 추가모드일경우 취소
 		else if (timeTable.isAddingMode()) {
@@ -267,7 +267,7 @@ public class MainActivity extends Activity {
 			c.moveToPosition(arg2);
 			//과목 추가모드를 시작한다.
 			timeTable.selectAdder(c.getString(iName));
-			drawer.setOpen(false, true);
+			drawer.animateClose();
 
 			return true;
 		}

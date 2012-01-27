@@ -78,7 +78,7 @@ public class OptionActivity extends PreferenceActivity
 		{
 			DBAdapter dbA = new DBAdapter(this);
 
-			dbA.backup();
+			dbA.backup("backup.txt");
 
 			Toast.makeText(this, R.string.opt_backupComplete, Toast.LENGTH_SHORT).show();
 		}
@@ -86,7 +86,7 @@ public class OptionActivity extends PreferenceActivity
 		{
 			DBAdapter dbA = new DBAdapter(this);
 
-			dbA.restore("/sdcard/SmartTimeTable/backup.txt");
+			dbA.restore("backup.txt");
 			
 			Toast.makeText(this, R.string.opt_restoreComplete, Toast.LENGTH_SHORT).show();
 		}
