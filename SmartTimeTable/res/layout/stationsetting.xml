@@ -222,7 +222,7 @@
 			app:gender="all"
 			app:age="20"
 			app:gps="off"
-			app:effect="circle"
+			app:effect="none"
 			app:allowcall="yes"
 			app:reloadInterval="30"
 			app:dynamicReloadInterval="true" />

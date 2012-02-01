@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 public class VersionCheckTask extends AsyncTask<Void, Void, String> {
@@ -76,7 +77,7 @@ public class VersionCheckTask extends AsyncTask<Void, Void, String> {
 		{
 			int cur_version = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("db_version", "-1"));
 			int new_version = Integer.parseInt(result);
-			
+			Log.d("Version Check", "Current Version: " + cur_version + ", New Version: " + new_version);
 			if (cur_version < new_version)
 			{
 				DBDownloadTask downTask = new DBDownloadTask(context);

@@ -172,7 +172,10 @@ public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onProgressUpdate(Integer... values) {
-		Dialog.setMessage(r.getString(R.string.dbdown_downMsg) + "\n" + values[0]/1024 + "kb / " + values[1]/1024 + "kb");
+		if (values[0] < values[1])
+			Dialog.setMessage(r.getString(R.string.dbdown_downMsg) + "\n" + values[0]/1024 + "kb / " + values[1]/1024 + "kb");
+		else
+			Dialog.setMessage(r.getString(R.string.dbdown_installMsg));
 		super.onProgressUpdate(values);
 	}
 

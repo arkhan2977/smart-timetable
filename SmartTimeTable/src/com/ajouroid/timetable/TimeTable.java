@@ -880,7 +880,7 @@ public class TimeTable extends View {
 				taskPaint.setColor(0xFFFF0000);
 				break;
 			case TaskAlert.MEDIUM:
-				taskPaint.setColor(0xFFFF6000);
+				taskPaint.setColor(0xFFFFAA00);
 				break;
 			case TaskAlert.LOW:
 				taskPaint.setColor(0xFFAAAAAA);
@@ -1059,7 +1059,7 @@ public class TimeTable extends View {
 				taskPaint.setColor(0xFFFF0000);
 				break;
 			case TaskAlert.MEDIUM:
-				taskPaint.setColor(0xFFFF6000);
+				taskPaint.setColor(0xFFFFAA00);
 				break;
 			case TaskAlert.LOW:
 				taskPaint.setColor(0xFFAAAAAA);
@@ -1071,6 +1071,7 @@ public class TimeTable extends View {
 			if (priority > 0) {
 				float cX = nSX + taskRadius * 2;
 				float cY = nSY + taskRadius * 2;
+				canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
 				canvas.drawCircle(cX, cY, taskRadius, taskPaint);
 			}
 

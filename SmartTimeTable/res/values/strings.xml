@@ -116,6 +116,7 @@
     
     <string name="dbdown_downloading">데이터베이스 다운로드중&#8230;</string>
     <string name="dbdown_downMsg">GBus 데이터베이스를 다운로드중입니다&#8230;</string>
+    <string name="dbdown_installMsg">GBus 데이터베이스를 설치하는 중입니다&#8230;</string>
     <string name="dbdown_checking">데이터베이스 버전 검사중</string>
     <string name="dbdown_checkMsg">데이터베이스의 버전을 검사중입니다&#8230;</string>
     <string name="dbdown_newestDB">데이터베이스가 최신버전입니다.</string>
