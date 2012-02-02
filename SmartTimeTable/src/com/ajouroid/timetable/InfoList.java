@@ -349,11 +349,13 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 					remain.setText("지난 일정");
 					title.setTextColor(Color.LTGRAY);
 					remain.setTextColor(Color.LTGRAY);
+					datetime.setTextColor(Color.LTGRAY);
 				}
 				else
 				{
 					title.setTextColor(Color.BLACK);
 					remain.setTextColor(Color.BLACK);
+					datetime.setTextColor(Color.BLACK);
 					dist = dist/1000;
 					if (dist > 86400) {
 						// 남은 일수를 계산
@@ -425,7 +427,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 					// TODO Auto-generated method stub
 					dialog.dismiss();
 				}
-			});
+			}); 
 			
 			(aDialog.create()).show();
 			

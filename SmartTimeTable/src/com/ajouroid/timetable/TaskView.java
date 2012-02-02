@@ -48,7 +48,15 @@ public class TaskView extends Activity implements OnClickListener{
 
 		btn_close = (Button) findViewById(R.id.taskview_close);
 		btn_edit = (Button)findViewById(R.id.taskview_edit);
+	}
+	
 
+	@Override
+	protected void onResume() {
+		btn_close.setOnClickListener(this);
+		btn_edit.setOnClickListener(this);
+		
+		tv_title.setSelected(true);
 		Intent intent = getIntent();
 		if (intent.hasExtra("id")) {
 			_id = intent.getIntExtra("id", -1);
@@ -92,13 +100,6 @@ public class TaskView extends Activity implements OnClickListener{
 			c.close();
 			dbA.close();
 		}
-	}
-	
-
-	@Override
-	protected void onResume() {
-		btn_close.setOnClickListener(this);
-		btn_edit.setOnClickListener(this);
 		super.onResume();
 	}
 
