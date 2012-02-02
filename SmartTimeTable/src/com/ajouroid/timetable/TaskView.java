@@ -10,12 +10,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class TaskView extends Activity {
+public class TaskView extends Activity implements OnClickListener{
 
 	int _id;
 
@@ -27,6 +28,7 @@ public class TaskView extends Activity {
 	TextView tv_date;
 
 	Button btn_close;
+	Button btn_edit;
 
 	Task task;
 
@@ -45,6 +47,7 @@ public class TaskView extends Activity {
 		tv_date = (TextView) findViewById(R.id.taskview_date);
 
 		btn_close = (Button) findViewById(R.id.taskview_close);
+		btn_edit = (Button)findViewById(R.id.taskview_edit);
 
 		Intent intent = getIntent();
 		if (intent.hasExtra("id")) {
@@ -60,10 +63,12 @@ public class TaskView extends Activity {
 			int iDesc = c.getColumnIndex("desc");
 			int iDate = c.getColumnIndex("taskdate");
 			int iUseTime = c.getColumnIndex("usetime");
+			
+			task = new Task(c.getString(iSubject), c.getString(iTitle), c.getString(iDate), c.getInt(iType));
+			task.setId(_id);
 
-			tv_type.setText(getResources().getStringArray(R.array.tasks)[c
-					.getInt(iType)]);
-			tv_title.setText(c.getString(iTitle));
+			tv_type.setText(getResources().getStringArray(R.array.tasks)[task.getType()]);
+			tv_title.setText(task.getName());
 			tv_desc.setText(c.getString(iDesc));
 
 			SimpleDateFormat form = new SimpleDateFormat(getResources()
@@ -87,6 +92,28 @@ public class TaskView extends Activity {
 			c.close();
 			dbA.close();
 		}
+	}
+	
 
+	@Override
+	protected void onResume() {
+		btn_close.setOnClickListener(this);
+		btn_edit.setOnClickListener(this);
+		super.onResume();
+	}
+
+
+	public void onClick(View v) {
+		switch(v.getId())
+		{
+		case R.id.taskview_edit:
+			Intent intent = new Intent(this, AddTaskDialog.class);
+			intent.putExtra("subject", task.getSubject());
+			intent.putExtra("id", task.getId());
+			startActivity(intent);
+			break;
+		case R.id.taskview_close:
+			finish();
+		}
 	}
 }

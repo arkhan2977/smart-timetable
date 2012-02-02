@@ -445,8 +445,8 @@ containing a value of this type.
         public static final int tableRow3=0x7f070009;
         public static final int tableRow4=0x7f07000b;
         public static final int taskview_close=0x7f0700ad;
-        public static final int taskview_date=0x7f0700ab;
-        public static final int taskview_desc=0x7f0700aa;
+        public static final int taskview_date=0x7f0700aa;
+        public static final int taskview_desc=0x7f0700ab;
         public static final int taskview_edit=0x7f0700ac;
         public static final int taskview_title=0x7f0700a9;
         public static final int taskview_type=0x7f0700a8;

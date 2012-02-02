@@ -17,6 +17,8 @@ public class Task implements Serializable {
 	
 	boolean usetime;
 	
+	long remain;
+	
 
 	public Task(String _subject, String title, String _taskDate, int _Type)
 	{
@@ -64,5 +66,13 @@ public class Task implements Serializable {
 	public void setUsetime(boolean usetime) {
 		this.usetime = usetime;
 	}
+	public long getRemain() {
+		return remain;
+	}
+	public void setRemain(long remain) {
+		this.remain = remain;
+	}
+	
+	
 	
 }

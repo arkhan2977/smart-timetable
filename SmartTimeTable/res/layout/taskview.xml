@@ -7,132 +7,86 @@
     android:background="@drawable/stroke_dialog"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="#222222"
+        android:padding="3dp"
+        android:text="일정 정보" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/taskview_type"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="#222222"
-            android:padding="3dp"
-            android:text="일정 정보" />
+            android:layout_margin="5dp"
+            android:background="@drawable/stroke_box"
+            android:text="과제"
+            android:textColor="#000000" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="1" >
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="종류"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/taskview_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/stroke_edittext"
-                    android:text="과제"
-                    android:layout_margin="5dp"
-                    android:textColor="#000000" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="제목"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/taskview_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/stroke_edittext"
-                    android:text="제목"
-                    android:layout_margin="5dp"
-                    android:textColor="#000000" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="내용"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/taskview_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/stroke_edittext"
-                    android:gravity="top"
-                    android:minLines="5"
-                    android:singleLine="false"
-                    android:text="내용"
-                    android:layout_margin="5dp"
-                    android:textColor="#000000" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="일시"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/taskview_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/stroke_edittext"
-                    android:layout_margin="5dp"
-                    android:text="2012/01/01" />
-            </TableRow>
-        </TableLayout>
+        <TextView
+            android:id="@+id/taskview_title"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/stroke_edittext"
+            android:focusable="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:text="제목"
+            android:textColor="#000000" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/taskview_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/stroke_edittext"
+        android:textColor="#000000"
+        android:text="2012/01/01" />
+
+    <TextView
+        android:id="@+id/taskview_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/stroke_edittext"
+        android:gravity="top"
+        android:minLines="5"
+        android:singleLine="false"
+        android:text="내용"
+        android:textColor="#000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0" >
-	    <Button
-	        android:id="@+id/taskview_edit"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="5dp"
-	        android:layout_marginTop="10dp"
-	        android:layout_weight="1"
-	        android:background="@drawable/stroke_button"
-	        android:text="편집" />
-	    <Button
-	        android:id="@+id/taskview_close"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="5dp"
-	        android:layout_marginTop="10dp"
-	        android:layout_weight="1"
-	        android:background="@drawable/stroke_button"
-	        android:text="닫기" />
+        android:layout_weight="0"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/taskview_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_button"
+            android:text="편집" />
+
+        <Button
+            android:id="@+id/taskview_close"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_button"
+            android:text="닫기" />
     </LinearLayout>
 
 </LinearLayout>

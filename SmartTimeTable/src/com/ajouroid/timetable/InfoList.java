@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -340,13 +341,14 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 					}
 				}
 				
-				dist =  DBAdapter.distance(taskTime, now);
+				dist = task.getRemain();
+				Log.d("SmartTimeTable", "[" + task.getName() + "] " + dist + "ms");
 				
 				if (dist<0)
 				{
 					remain.setText("지난 일정");
-					//title.setTextColor(Color.LTGRAY);
-					//remain.setTextColor(Color.LTGRAY);
+					title.setTextColor(Color.LTGRAY);
+					remain.setTextColor(Color.LTGRAY);
 				}
 				else
 				{
@@ -499,7 +501,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 
 
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent intent = new Intent(InfoList.this, AddTaskDialog.class);
+		Intent intent = new Intent(InfoList.this, TaskView.class);
 		intent.putExtra("subject", subject.getName());
 		//c.moveToPosition(arg2);
 		intent.putExtra("id", taskList.get(arg2).getId());

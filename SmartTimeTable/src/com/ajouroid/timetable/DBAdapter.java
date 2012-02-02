@@ -490,6 +490,16 @@ public class DBAdapter {
 				task.setUsetime(true);
 			else
 				task.setUsetime(false);
+			
+			try {
+				Date taskDate = form.parse(task.getTaskDate());
+				Long dist = taskDate.getTime() - System.currentTimeMillis();
+				task.setRemain(dist);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			taskList.add(task);
 		}
 		
@@ -507,6 +517,8 @@ public class DBAdapter {
 				task.setUsetime(true);
 			else
 				task.setUsetime(false);
+			
+			task.setRemain(-1);
 			
 			taskList.add(task);
 		}
