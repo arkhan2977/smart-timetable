@@ -98,6 +98,10 @@
             android:name=".AddDialog"
              android:theme="@android:style/Theme.Translucent" />
         
+        <activity
+            android:name=".TaskView"
+             android:theme="@android:style/Theme.Translucent" />
+        
         <activity android:name=".EditTime"
             android:theme="@android:style/Theme.Translucent" />
         

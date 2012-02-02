@@ -367,6 +367,7 @@ public class AlarmService extends Service {
 					intentTask.putExtra("subject", task.getSubject());
 					intentTask.putExtra("type", task.getType());
 					intentTask.putExtra("title", task.getName());
+					intentTask.putExtra("id", task.getId());
 					PendingIntent taskSender = PendingIntent.getBroadcast(this,
 							NOTIFY_TASK, intentTask, PendingIntent.FLAG_UPDATE_CURRENT); // pending intent를//
 														// broadcast로

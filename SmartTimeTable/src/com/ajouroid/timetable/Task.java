@@ -13,6 +13,10 @@ public class Task implements Serializable {
 	String name;
 	int Type;
 	
+	int _id;
+	
+	boolean usetime;
+	
 
 	public Task(String _subject, String title, String _taskDate, int _Type)
 	{
@@ -45,4 +49,20 @@ public class Task implements Serializable {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+	
+	public int getId()
+	{
+		return _id;
+	}
+	public void setId(int id)
+	{
+		_id = id;
+	}
+	public boolean isUsetime() {
+		return usetime;
+	}
+	public void setUsetime(boolean usetime) {
+		this.usetime = usetime;
+	}
+	
 }

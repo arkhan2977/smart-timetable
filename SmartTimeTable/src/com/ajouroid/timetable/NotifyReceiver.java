@@ -80,7 +80,8 @@ public class NotifyReceiver extends BroadcastReceiver{
 			String Title = tasksubject[type];
 			Text += title + "(" + subject + ") " + r.getString(R.string.alarm_taskAlert);
 			
-			Intent i = new Intent(context, MainActivity.class);
+			Intent i = new Intent(context, TaskView.class);
+			i.putExtra("id", intent.getIntExtra("id", -1));
 			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 			tNotice.setLatestEventInfo(context, Title, Text, pendingIntent);
 			

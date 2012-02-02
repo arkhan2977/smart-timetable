@@ -1,5 +1,6 @@
 package com.ajouroid.timetable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.text.ParseException;
@@ -16,10 +17,12 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
@@ -34,8 +37,9 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 	ListView infoList;
 	Button addBtn;
 	DBAdapter dbA;
-	Cursor c;
-	TaskAdapter adapter;
+	//Cursor c;
+	//TaskAdapter adapter;
+	TaskArrayAdapter arrAdapter;
 	
 	Button addTime;
 	Button editSubject;
@@ -99,10 +103,12 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		((TextView)findViewById(R.id.info_classroom)).setText(subject.getClassRoom());
 		
 		
-		c = dbA.getTaskCursor(subject.getName());
+		//c = dbA.getTaskCursor(subject.getName());
+		taskList = dbA.getTask(subject.getName());
+		arrAdapter = new TaskArrayAdapter();
 		
-		adapter = new TaskAdapter();
-		infoList.setAdapter(adapter);
+		//adapter = new TaskAdapter();
+		infoList.setAdapter(arrAdapter);
 		infoList.setOnItemClickListener(this);
 		
 		addBtn.setOnClickListener(new AddTaskListener());
@@ -119,7 +125,7 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 	{
 		super.onPause();
 		
-		c.close();
+		//c.close();
 		dbA.close();
 	}
 
@@ -129,12 +135,10 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		// TODO Auto-generated method stub
 		super.onStop();
 		
-		c.close();
+		//c.close();
 	}
 
-
-
-
+/*
 	class TaskAdapter extends CursorAdapter
 	{
 		int iSubject;
@@ -266,6 +270,133 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 			return View.inflate(context, R.layout.infolist_row, null);
 		}
 	}
+	*/
+	ArrayList<Task> taskList;
+	
+	class TaskArrayAdapter extends ArrayAdapter<Task>
+	{
+		Date now;
+		
+		DeleteListener listener;
+
+		public TaskArrayAdapter()
+		{
+			super(InfoList.this, R.id.info_title, taskList);
+
+			now = new Date(System.currentTimeMillis());
+			
+			listener = new DeleteListener();
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View v = convertView;
+			
+			if (v == null) {
+                LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.infolist_row, null);
+            }
+			
+			TextView type = (TextView)v.findViewById(R.id.info_type);
+			TextView title = (TextView)v.findViewById(R.id.info_title);
+			TextView datetime = (TextView)v.findViewById(R.id.info_datetime);
+			TextView remain = (TextView)v.findViewById(R.id.info_remain);
+			ImageView delete = (ImageView)v.findViewById(R.id.info_delete);
+			
+			Task task = taskList.get(position);
+			String typeStr=new String();
+			switch(task.getType())
+			{
+			case DBAdapter.TYPE_ASSIGNMENT:
+				typeStr = getResources().getString(R.string.info_assign);
+				break;
+			case DBAdapter.TYPE_TEST:
+				typeStr = getResources().getString(R.string.info_test);
+				break;
+			case DBAdapter.TYPE_EXTRA:
+				typeStr = getResources().getString(R.string.info_test);
+				break;
+			case DBAdapter.TYPE_ETC:
+				typeStr = getResources().getString(R.string.info_etc);
+				break;
+			}
+			type.setText(typeStr);
+			title.setText(task.getName());
+			
+			boolean useTime = task.isUsetime();
+			
+			long dist=0;
+			try {
+				Date taskTime = (new SimpleDateFormat(getResources().getString(R.string.dateformat), Locale.US)).parse(task.getTaskDate());
+				{
+					if (useTime)
+					{
+						datetime.setText(task.getTaskDate());
+					}
+					else
+					{
+						String date = task.getTaskDate().split(" ")[0];
+						datetime.setText(date);
+					}
+				}
+				
+				dist =  DBAdapter.distance(taskTime, now);
+				
+				if (dist<0)
+				{
+					remain.setText("지난 일정");
+					//title.setTextColor(Color.LTGRAY);
+					//remain.setTextColor(Color.LTGRAY);
+				}
+				else
+				{
+					title.setTextColor(Color.BLACK);
+					remain.setTextColor(Color.BLACK);
+					dist = dist/1000;
+					if (dist > 86400) {
+						// 남은 일수를 계산
+						dist = dist / 86400;
+						remain.setText(dist + getResources().getString(R.string.daylater));
+					}
+					//시간을 지정했다면 시간 단위 표시
+					else if (useTime) {
+						// 시간 단위 (1시간 : 3600초)
+						if (dist > 3600) {
+							dist = (dist + 1800) / (3600);
+							remain.setText(dist + getResources().getString(R.string.hourlater));
+							remain.setTextColor(0xFFFF6000); //오렌지색
+						}
+						//분 단위 (1분 : 60초)
+						else if (dist > 60) {
+							dist = (dist + 30)  / 60;
+							remain.setTextColor(Color.RED);
+							remain.setText(dist + getResources().getString(R.string.minlater));
+						}
+						//초 단위
+						else {
+							remain.setText(dist + getResources().getString(R.string.seclater));
+							remain.setTextColor(Color.RED);
+						}
+					}
+					else {
+						remain.setText(getResources().getString(R.string.today));
+						remain.setTextColor(Color.RED);
+					}
+				}
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			delete.setOnClickListener(listener);
+			delete.setTag(task.getId());
+			return v;
+		}
+
+	}
 	
 	class DeleteListener implements View.OnClickListener
 	{
@@ -282,8 +413,8 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 				public void onClick(DialogInterface dialog, int which) {
 					dbA.deleteTask(id);
 					
-					c.requery();
-					adapter.notifyDataSetChanged();
+					taskList = dbA.getTask(subject.getName());
+					arrAdapter.notifyDataSetChanged();
 				}
 			})
 			.setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -345,8 +476,8 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 				public void onClick(DialogInterface dialog, int which) {
 					dbA.deleteSubject(subject.getName());
 
-					c.requery();
-					adapter.notifyDataSetChanged();
+					taskList = dbA.getTask(subject.getName());
+					arrAdapter.notifyDataSetChanged();
 					finish();
 				}
 			})
@@ -370,8 +501,8 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent intent = new Intent(InfoList.this, AddTaskDialog.class);
 		intent.putExtra("subject", subject.getName());
-		c.moveToPosition(arg2);
-		intent.putExtra("id", c.getInt(0));
+		//c.moveToPosition(arg2);
+		intent.putExtra("id", taskList.get(arg2).getId());
 		startActivity(intent);
 	}
 }

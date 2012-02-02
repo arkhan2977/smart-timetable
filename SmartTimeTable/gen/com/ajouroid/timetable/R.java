@@ -315,13 +315,13 @@ containing a value of this type.
         public static final int buslist_2=0x7f070055;
         public static final int cancelButton=0x7f070032;
         public static final int close_img_button=0x7f070090;
-        public static final int cmenu_add=0x7f0700b6;
-        public static final int cmenu_delete=0x7f0700b7;
-        public static final int cmenu_edit=0x7f0700b5;
-        public static final int cmenu_end=0x7f0700b2;
-        public static final int cmenu_end_2=0x7f0700b4;
-        public static final int cmenu_start=0x7f0700b1;
-        public static final int cmenu_start_2=0x7f0700b3;
+        public static final int cmenu_add=0x7f0700bc;
+        public static final int cmenu_delete=0x7f0700bd;
+        public static final int cmenu_edit=0x7f0700bb;
+        public static final int cmenu_end=0x7f0700b8;
+        public static final int cmenu_end_2=0x7f0700ba;
+        public static final int cmenu_start=0x7f0700b7;
+        public static final int cmenu_start_2=0x7f0700b9;
         public static final int color1=0x7f07000f;
         public static final int color10=0x7f070021;
         public static final int color11=0x7f070023;
@@ -397,13 +397,13 @@ containing a value of this type.
         public static final int list_subjectTitle=0x7f0700a2;
         public static final int mapview=0x7f070070;
         public static final int mapview_alert=0x7f070091;
-        public static final int menu_add=0x7f0700aa;
-        public static final int menu_alarm=0x7f0700ab;
-        public static final int menu_exit=0x7f0700af;
-        public static final int menu_option=0x7f0700ae;
-        public static final int menu_share=0x7f0700ac;
-        public static final int menu_station_update=0x7f0700b0;
-        public static final int menu_toImage=0x7f0700ad;
+        public static final int menu_add=0x7f0700b0;
+        public static final int menu_alarm=0x7f0700b1;
+        public static final int menu_exit=0x7f0700b5;
+        public static final int menu_option=0x7f0700b4;
+        public static final int menu_share=0x7f0700b2;
+        public static final int menu_station_update=0x7f0700b6;
+        public static final int menu_toImage=0x7f0700b3;
         public static final int right=0x7f070003;
         public static final int roh_btn_search_bus=0x7f07004c;
         public static final int roh_btn_search_station=0x7f07009e;
@@ -444,7 +444,13 @@ containing a value of this type.
         public static final int tableRow2=0x7f070007;
         public static final int tableRow3=0x7f070009;
         public static final int tableRow4=0x7f07000b;
-        public static final int text=0x7f0700a8;
+        public static final int taskview_close=0x7f0700ad;
+        public static final int taskview_date=0x7f0700ab;
+        public static final int taskview_desc=0x7f0700aa;
+        public static final int taskview_edit=0x7f0700ac;
+        public static final int taskview_title=0x7f0700a9;
+        public static final int taskview_type=0x7f0700a8;
+        public static final int text=0x7f0700ae;
         public static final int textView1=0x7f070079;
         public static final int textView2=0x7f07007b;
         public static final int textView3=0x7f070080;
@@ -461,7 +467,7 @@ containing a value of this type.
         public static final int trafficinfo_2=0x7f070052;
         public static final int useTime=0x7f070038;
         public static final int view1=0x7f070069;
-        public static final int widget_timetable=0x7f0700a9;
+        public static final int widget_timetable=0x7f0700af;
     }
     public static final class layout {
         public static final int aboutus=0x7f030000;

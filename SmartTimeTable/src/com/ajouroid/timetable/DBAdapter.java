@@ -444,11 +444,76 @@ public class DBAdapter {
 
 	public Cursor getTaskCursor(String subject) {
 		Cursor cursor;
+		SimpleDateFormat form = new SimpleDateFormat(mCtx.getResources()
+				.getString(R.string.dateformat), Locale.US);
+
+		
+		String dateStr;
+		dateStr = form.format(new Date(System.currentTimeMillis()));
+
 
 		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE subject = '" + subject
-				+ "' ORDER BY taskdate asc", null);
+				+ "' AND taskdate > '" + dateStr + "' ORDER BY taskdate asc", null);
 
 		return cursor;
+	}
+	
+	public ArrayList<Task> getTask(String subject) {
+
+		SimpleDateFormat form = new SimpleDateFormat(mCtx.getResources()
+				.getString(R.string.dateformat), Locale.US);
+
+		
+		String dateStr;
+		dateStr = form.format(new Date(System.currentTimeMillis()));
+
+
+		Cursor cursor = mDb.rawQuery("SELECT * FROM tasks WHERE subject = '" + subject
+				+ "' AND taskdate > '" + dateStr + "' ORDER BY taskdate asc", null);
+
+		ArrayList<Task> taskList = new ArrayList<Task>();
+		
+		int iId = cursor.getColumnIndex("_id");
+		int itaskDate = cursor.getColumnIndex("taskdate");
+		int itaskTitle = cursor.getColumnIndex("title");
+		int itaskType = cursor.getColumnIndex("type");
+		int iSubject = cursor.getColumnIndex("subject");
+		int iUsetime = cursor.getColumnIndex("usetime");
+		
+		Task task;
+		while(cursor.moveToNext())
+		{
+			task = new Task(cursor.getString(iSubject), cursor.getString(itaskTitle), cursor.getString(itaskDate), cursor.getInt(itaskType));
+			task.setId(cursor.getInt(iId));
+			
+			if (cursor.getInt(iUsetime) == 1)
+				task.setUsetime(true);
+			else
+				task.setUsetime(false);
+			taskList.add(task);
+		}
+		
+		cursor.close();
+		
+		Cursor dCursor = mDb.rawQuery("SELECT * FROM tasks WHERE subject = '" + subject
+				+ "' AND taskdate <= '" + dateStr + "' ORDER BY taskdate asc", null);
+		
+		while(dCursor.moveToNext())
+		{
+			task = new Task(dCursor.getString(iSubject), dCursor.getString(itaskTitle), dCursor.getString(itaskDate), dCursor.getInt(itaskType));
+			task.setId(dCursor.getInt(iId));
+			
+			if (dCursor.getInt(iUsetime) == 1)
+				task.setUsetime(true);
+			else
+				task.setUsetime(false);
+			
+			taskList.add(task);
+		}
+		
+		dCursor.close();
+		
+		return taskList;
 	}
 
 	public void addTask(String subject, int type, String title, String desc,
@@ -525,7 +590,10 @@ public class DBAdapter {
 	}
 
 	public static long distance(Date task, Date now) {
-		return task.getTime() - now.getTime();
+		if (task.compareTo(now) < 0)
+			return -1;
+		else
+			return task.getTime() - now.getTime();
 	}
 
 	public Time getFirstClassTime(int day) {
@@ -552,6 +620,7 @@ public class DBAdapter {
 		
 		Cursor tcursor = mDb.rawQuery("SELECT * FROM tasks WHERE taskdate > '"
 				+ currentTime + "' AND usetime = 1 ORDER BY taskdate asc", null);
+		int iId = tcursor.getColumnIndex("_id");
 		int itaskDate = tcursor.getColumnIndex("taskdate");
 		int itaskTitle = tcursor.getColumnIndex("title");
 		int itaskType = tcursor.getColumnIndex("type");
@@ -559,6 +628,7 @@ public class DBAdapter {
 
 		if (tcursor.moveToFirst()) {
 			task = new Task(tcursor.getString(iSubject), tcursor.getString(itaskTitle), tcursor.getString(itaskDate), tcursor.getInt(itaskType));
+			task.setId(tcursor.getInt(iId));
 		}
 		tcursor.close();
 		
