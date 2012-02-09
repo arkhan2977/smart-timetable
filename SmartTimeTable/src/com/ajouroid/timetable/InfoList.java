@@ -480,8 +480,6 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 				public void onClick(DialogInterface dialog, int which) {
 					dbA.deleteSubject(subject.getName());
 
-					taskList = dbA.getTask(subject.getName());
-					arrAdapter.notifyDataSetChanged();
 					finish();
 				}
 			})

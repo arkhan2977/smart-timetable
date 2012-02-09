@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
@@ -162,6 +163,11 @@ public class MainActivity extends Activity {
 						this,
 						getResources().getString(R.string.exportcomplete) + "\n" + path,
 						Toast.LENGTH_LONG).show();
+				
+				sendBroadcast( new
+				Intent("android.intent.action.MEDIA_MOUNTED", Uri .parse((new
+				StringBuilder("file://")).append(
+				Environment.getExternalStorageDirectory()) .toString())));
 			}
 			else
 			{

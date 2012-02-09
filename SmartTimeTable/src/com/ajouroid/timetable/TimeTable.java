@@ -593,7 +593,7 @@ public class TimeTable extends View {
 		c.drawRect(new Rect(0,0,width,height), blackPaint);
 		
 		c.drawBitmap(bitmap, 0, 0, new Paint());
-		c.clipRect(new Rect(0, 0, width - rightmargin, height - bottommargin));
+		c.clipRect(new Rect(5, 5, width - 5, height - 5));
 
 		File file = new File("/sdcard/SmartTimeTable");
 		if (!file.exists())
@@ -608,13 +608,7 @@ public class TimeTable extends View {
 			if (fos != null)
 				bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,
 						100, fos);
-
-			/*
-			 * context.sendBroadcast( new
-			 * Intent("android.intent.action.MEDIA_MOUNTED", Uri .parse((new
-			 * StringBuilder("file://")).append(
-			 * Environment.getExternalStorageDirectory()) .toString())));
-			 */
+			
 
 			fos.close();
 			return path;
@@ -950,7 +944,7 @@ public class TimeTable extends View {
 
 				canvas.drawRoundRect(subjectRect, 5, 5, subjectPaint);
 
-				if (priority > 0) {
+				if (priority > 0 && showCurTime) {
 					float cX = sX + taskRadius * 2;
 					float cY = sY + taskRadius * 2;
 					canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
