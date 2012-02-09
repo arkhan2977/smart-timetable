@@ -332,8 +332,8 @@ public class TimeTable extends View {
 
 		// 시간표 이미지를 가져옴
 		Paint p = new Paint();
-		canvas.drawBitmap(getImage(width, height, topmost, leftmost, rightmargin,
-				bottommargin, true), 0, 0, p);
+		//canvas.drawBitmap(getImage(width, height, topmost, leftmost, rightmargin,bottommargin, true), 0, 0, p);
+		canvas.drawBitmap(getImage_new(width, height, false), 0, 0, p);
 
 		/*
 		 * ====================== 선택영역 그림 ======================
@@ -382,6 +382,19 @@ public class TimeTable extends View {
 		String[] strLines = printable.split("\n");
 
 		return strLines;
+	}
+	
+	// 문자열을 길이에 맞게 자름
+	public String ellipsize(String text, int width, Paint font) {
+		int lineLength = font.breakText(text, true, boxwidth, null);
+		String printable = text.substring(0, lineLength);
+
+		String remain = text.substring(lineLength);
+		if (remain.length() > 0)
+			printable = printable.substring(0, lineLength - 1) + "..";
+		
+
+		return printable;
 	}
 
 	// 시간표를 클릭했을 때
@@ -1336,5 +1349,464 @@ public class TimeTable extends View {
 			}
 		}
 		return priority;
+	}
+	
+	
+	public Bitmap getImage_new(int width, int height, boolean showCurTime) {
+		Bitmap bitmap = Bitmap.createBitmap(width, height,
+				Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+
+		calculateSlots();
+
+		// 현재시간 계산
+		Date now = new Date(System.currentTimeMillis());
+		Time nowT = new Time(now.getHours(), now.getMinutes());
+
+		int nowDay = now.getDay() - 1;
+		if (nowDay < 0)
+			nowDay = 6;
+
+		float totalTime = endTime.toMinute() - startTime.toMinute();
+
+		// 시작 좌표 지정
+		int timetop = dayheight;
+		int timeleft = timewidth;
+
+		int bottom = height;
+		int rightside = width;
+
+		// 한 칸의 크기
+		boxwidth = (width - timeleft) / day;
+		boxheight = (int) ((baseTime.toMinute() / totalTime) * (bottom - timetop));
+
+		/*
+		 * 선 페인트 객체
+		 */
+		Paint linePaint = new Paint();
+		linePaint.setColor(lineColor);
+		linePaint.setAlpha(0xFF);
+		linePaint.setStyle(Style.STROKE);
+		linePaint.setAntiAlias(true);
+
+		/*
+		 * 반투명 채색 페인트
+		 * 
+		 * Paint alphaPaint = new Paint(); alphaPaint.setStyle(Style.FILL);
+		 */
+
+		/*
+		 * 채우기 페인트
+		 */
+		Paint fillPaint = new Paint();
+		fillPaint.setStyle(Style.FILL);
+		fillPaint.setAntiAlias(true);
+
+		/*
+		 * 그림자 페인트
+		 */
+		Paint shadowPaint = null;
+
+		/*
+		 * 글꼴 페인트
+		 */
+		Paint font = new Paint();
+		font.setColor(timeFontColor);
+		font.setAlpha(0xFF);
+		font.setAntiAlias(true);
+
+		/*
+		 * ====================== 전체배경 그림 ======================
+		 */
+		fillPaint.setColor(0xFFE8E8E8);
+
+		fillPaint.setStyle(Style.FILL);
+
+		// canvas.drawRect(new Rect(0,0,width,height), fillPaint);
+
+		fillPaint.setAlpha(alphaValue);
+
+		RectF bgRect = new RectF(0, 0, rightside, bottom);
+
+		// 배경색
+		canvas.drawRoundRect(bgRect, 10, 10, fillPaint);
+		canvas.drawRoundRect(bgRect, 10, 10, linePaint);
+
+		// 그림
+		// canvas.drawBitmap(bgBitmap, 0, 0, new Paint());
+
+		/*
+		 * ====================== 시간표부분 배경 ======================
+		 
+		fillPaint.setColor(mainBgColor);
+		fillPaint.setAlpha(alphaValue);
+		fillPaint.setStyle(Style.FILL);
+		canvas.drawRect(new Rect(timeleft, timetop, rightside, bottom),
+				fillPaint);
+
+		linePaint.setColor(tableLineColor);
+		linePaint.setAlpha(0xFF);
+
+		/*
+		 * ====================== 세로줄 | | | | | ======================
+		 */
+		for (int i = 0; i < day + 1; i++) {
+			canvas.drawLine(timeleft + boxwidth * i, timetop, timeleft
+					+ boxwidth * i, bottom, linePaint);
+		}
+		/*
+		 * ====================== 가로줄 === ======================
+		 */
+		Time lineTime = new Time(startTime.toMinute());
+		for (int i = 0; i < maxslot + 1; i++) {
+			
+			float topF = (((lineTime.toMinute() - startTime
+					.toMinute()) / totalTime)
+					* (bottom - timetop)
+					+ timetop);
+			canvas.drawLine(timeleft, topF, rightside, topF, linePaint);
+			lineTime.addTime(baseTime);
+		}
+
+		/*
+		 * ====================== 요일 배경 ======================
+		 */
+		fillPaint.setColor(timeColor);
+		fillPaint.setAlpha(alphaValue);
+		canvas.drawRect(new Rect(0, 0, rightside+1, timetop),
+				linePaint);
+		canvas.drawRect(new Rect(0, timetop, timeleft, bottom),
+				linePaint);
+
+		/*
+		 * ====================== 요일 글자 ======================
+		 */
+		String[] days_en = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+		
+		font.setTextSize(18);
+		font.setTextAlign(Align.CENTER);
+		font.setColor(Color.BLACK);
+		for (int i = 0; i < day; i++) {
+			canvas.drawText(days_en[i], timeleft + boxwidth * i + boxwidth / 2,
+					topmost + (timetop - topmost)/2 , font);
+		}
+
+		/*
+		 * ====================== 시간 배경 ======================
+		 */ 
+		 fillPaint.setColor(timeColor);
+		 fillPaint.setAlpha(0x33);
+		 canvas.drawRect(new Rect(0, timetop, timeleft, bottom),
+		 linePaint);
+		 
+
+		/*
+		 * ====================== 시간 글자 ======================
+		 */
+		font.setTextSize(15);
+		font.setTextAlign(Align.RIGHT);
+		Time curTime = new Time(startTime.toString());
+		
+		boolean isAM = true;
+
+		int slot = 0;
+		String timeText = "AM ";
+		Time noon = new Time("11:59");
+		while (curTime.before(endTime) && slot <= maxslot) {
+			if (curTime.before(noon))
+				timeText += curTime.toString();
+			else if (isAM) {
+				isAM = false;
+				timeText = curTime.to12Hour();
+			} else {
+				timeText = curTime.to12HourWithoutLetters();
+			}
+			int top = timetop
+					+ (int) (slot * ((baseTime.toMinute() / totalTime) * (bottom - timetop)));
+			if (top < bottom)
+				canvas.drawText(timeText, timeleft - 5, top + 7, font);
+			curTime.addTime(baseTime);
+			slot++;
+			timeText = "";
+		}
+
+		/*
+		 * ====================== 과목 출력 ======================
+		 */
+		Paint subjectPaint = new Paint();
+		subjectPaint.setStyle(Style.FILL);
+		subjectPaint.setAlpha(0xFF);
+		subjectPaint.setAntiAlias(true);
+		
+		Paint subjectStroke = new Paint();
+		subjectStroke.setStrokeWidth(3);
+		subjectStroke.setStyle(Style.STROKE);
+		subjectStroke.setAlpha(0xFF);
+		subjectStroke.setAntiAlias(true);
+
+		
+		// 과목이름 출력용 폰트
+		Paint subjectFont = new Paint();
+		subjectFont.setColor(subFontColor);
+		subjectFont.setAlpha(0xFF);
+		subjectFont.setTextSize(18);
+		subjectFont.setTextAlign(Align.CENTER);
+		subjectFont.setAntiAlias(true);
+
+		// 강의실 출력용 폰트
+		Paint classFont = new Paint();
+		classFont.setColor(subFontColor);
+		classFont.setAlpha(0xFF);
+		classFont.setTextSize(16);
+		classFont.setTextAlign(Align.CENTER);
+		classFont.setAntiAlias(true);
+
+		Paint taskPaint = new Paint();
+		taskPaint.setStyle(Style.FILL);
+		taskPaint.setAntiAlias(true);
+
+		int taskRadius = boxwidth / 20;
+
+		// 현재 수업 출력용
+		Subject nowSubject = null;
+		RectF nowRect = null;
+		RectF shadowRect = null;
+		float sX = 0, sY = 0, eX = 0, eY = 0;
+		float nSX = 0, nSY = 0, nEX = 0, nEY = 0;
+
+		final int listSize = subjectList.size();
+
+		for (int i = 0; i < listSize; i++) {
+			Subject subject = subjectList.get(i);
+
+			int priority = taskTable.get(subject.getName());
+			switch (priority) {
+			case TaskAlert.HIGH:
+				taskPaint.setColor(0xFFFF0000);
+				break;
+			case TaskAlert.MEDIUM:
+				taskPaint.setColor(0xFFFFAA00);
+				break;
+			case TaskAlert.LOW:
+				taskPaint.setColor(0xFFAAAAAA);
+				break;
+			default:
+				taskPaint.setColor(0);
+			}
+
+			// 해당 과목의 색으로 설정
+			subjectPaint.setColor(0xFF92C8F6);
+			subjectStroke.setColor(subject.getColor());
+
+			ArrayList<ClassTime> timeList = subject.getTime();
+			final int timeSize = timeList.size();
+			for (int j = 0; j < timeSize; j++) {
+				ClassTime selectedTime = timeList.get(j);
+
+				if (selectedTime.getDay() > day - 1)
+					continue;
+				// 시작시간과 종료시간
+				Time classStartTime = selectedTime.getStartTime();
+				Time classEndTime = selectedTime.getEndTime();
+
+				if (startTime.toMinute() > classStartTime.toMinute()) {
+					if (classEndTime.toMinute() < startTime.toMinute())
+						continue;
+					else
+						classStartTime = startTime;
+				}
+
+				if (endTime.toMinute() < classEndTime.toMinute()) {
+					if (classStartTime.toMinute() > endTime.toMinute())
+						continue;
+					else
+						classEndTime = endTime;
+				}
+				// 그릴 좌표
+				sX = timeleft + selectedTime.getDay() * boxwidth + 5;
+				sY = (((classStartTime.toMinute() - startTime
+						.toMinute()) / totalTime)
+						* (bottom - timetop)
+						+ timetop) + 5;
+				eX = sX + boxwidth - 10;
+				eY = (((classEndTime.toMinute() - startTime
+						.toMinute()) / totalTime) * (bottom - timetop) + timetop) - 5;
+
+				float timeWidth = eX - sX;
+				float timeHeight = eY - sY;
+
+				if (selectedTime.isNow(nowDay, nowT) && showCurTime) {
+					nowSubject = new Subject(subject.getName(),
+							subject.getClassRoom(), subject.getProfessor(),
+							subject.getEmail(), subject.getColor());
+					nSX = sX - 5;
+					nSY = sY - 5;
+					nEX = eX;
+					nEY = eY;
+					nowRect = new RectF(nSX, nSY, nEX, nEY);
+					shadowRect = new RectF(nSX + 5, nSY + 5, nEX + 5, nEY + 5);
+					shadowPaint = new Paint();
+					shadowPaint.setAntiAlias(true);
+					shadowPaint.setColor(shadowColor);
+					shadowPaint.setAlpha(127);
+					continue;
+				}
+
+				
+				RectF subjectRect = new RectF(sX, sY, eX, eY);
+
+				canvas.drawRoundRect(subjectRect, 2, 2, subjectPaint);
+				canvas.drawRoundRect(subjectRect, 2, 2, subjectStroke);
+				
+
+
+				if (priority > 0 && showCurTime) {
+					float cX = sX + taskRadius * 2;
+					float cY = sY + taskRadius * 2;
+					canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
+					canvas.drawCircle(cX, cY, taskRadius, taskPaint);
+				}
+
+				// 텍스트를 자름
+				String name = ellipsize(subject.getName(), (int)timeWidth, subjectFont);
+
+				String classroom = ellipsize(subject.getClassRoom(), (int)timeWidth, classFont);
+
+				float subY = sY + subjectFont.descent() - subjectFont.ascent();
+				canvas.drawText(name, sX+(timeWidth/2), subY, subjectFont);
+
+				canvas.drawText(classroom, sX+(timeWidth/2), subY + classFont.descent()
+						- classFont.ascent(), classFont);				
+			}
+		}
+
+		if (showCurTime && nowSubject != null) {
+			float timeHeight = nEY - nSY;
+			float timeWidth = nEX - nSX;
+
+			subjectPaint.setColor(nowSubject.getColor());
+
+			if (alphaValue == 0) {
+				subjectPaint.setStyle(Style.FILL);
+
+				subjectFont.setColor(0);
+				subjectFont.setAlpha(0xFF);
+				classFont.setColor(0);
+				classFont.setAlpha(0xFF);
+			}
+
+			canvas.drawRoundRect(shadowRect, 5, 5, shadowPaint);
+
+			canvas.drawRoundRect(nowRect, 5, 5, subjectPaint);
+
+			if (alphaValue > 0) {
+				canvas.drawRoundRect(nowRect, 5, 5, linePaint);
+			}
+
+			int priority = taskTable.get(nowSubject.getName());
+			switch (priority) {
+			case TaskAlert.HIGH:
+				taskPaint.setColor(0xFFFF0000);
+				break;
+			case TaskAlert.MEDIUM:
+				taskPaint.setColor(0xFFFFAA00);
+				break;
+			case TaskAlert.LOW:
+				taskPaint.setColor(0xFFAAAAAA);
+				break;
+			default:
+				taskPaint.setColor(0);
+			}
+
+			if (priority > 0) {
+				float cX = nSX + taskRadius * 2;
+				float cY = nSY + taskRadius * 2;
+				canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
+				canvas.drawCircle(cX, cY, taskRadius, taskPaint);
+			}
+
+			Bitmap textBitmap = Bitmap.createBitmap((int)timeWidth, (int)timeHeight,
+					Bitmap.Config.ARGB_8888);
+			Canvas textCanvas = new Canvas(textBitmap);
+
+			String name = nowSubject.getName();
+			String[] subjectLines = seperateLines(name, boxwidth, subjectFont);
+			int subjectLineCnt = subjectLines.length;
+
+			String classroom = nowSubject.getClassRoom();
+			String[] classLines = seperateLines(classroom, boxwidth, classFont);
+			int classLineCnt = classLines.length;
+
+			int subHeight = (int) ((subjectFont.descent()
+					- subjectFont.ascent() + 1) * (subjectLineCnt)) + 5;
+			int classHeight = (int) ((classFont.descent() - classFont.ascent())
+					* (classLineCnt) - classFont.ascent());
+
+			// 영역 안에 들어가는 경우
+			if (subHeight < timeHeight / 2 && classHeight < timeHeight / 2) {
+				for (int l = 0; l < subjectLineCnt; l++) {
+					textCanvas
+							.drawText(
+									subjectLines[l],
+									boxwidth / 2,
+									timeHeight
+											/ 2
+											- ((subjectFont.descent() - subjectFont
+													.ascent()) * (subjectLineCnt
+													- l - 1)) - 5, subjectFont);
+				}
+
+				for (int l = 0; l < classLineCnt; l++) {
+					textCanvas.drawText(
+							classLines[l],
+							boxwidth / 2,
+							timeHeight
+									/ 2
+									+ ((classFont.descent() - classFont
+											.ascent()) * (l + 1)), classFont);
+				}
+			}
+
+			// 들어가지 못하는 경우 위에서부터 출력
+			else {
+				for (int l = 0; l < subjectLineCnt; l++) {
+					textCanvas
+							.drawText(
+									subjectLines[l],
+									boxwidth / 2,
+									(((1 + subjectFont.descent() - subjectFont
+											.ascent())) * l)
+											- subjectFont.ascent(), subjectFont);
+				}
+
+				int classTop = (int) ((1 + subjectFont.descent() - subjectFont
+						.ascent()) * (subjectLineCnt + 1)) + 5;
+
+				for (int l = 0; l < classLineCnt; l++) {
+					textCanvas.drawText(classLines[l], boxwidth / 2, classTop
+							+ (1 + classFont.descent() - classFont.ascent())
+							* l, classFont);
+				}
+			}
+
+			canvas.drawBitmap(textBitmap, null, new RectF(nSX, nSY + taskRadius
+					* 2, nEX, nEY + taskRadius * 2), null);
+		}
+
+		/*
+		 * Paint timeLine = new Paint(); timeLine.setColor(timeLineColor);
+		 * timeLine.setAlpha(0x3F); timeLine.setStrokeWidth(3);
+		 * 
+		 * if (!(nowT.before(startTime) || endTime.before(nowT))) { float
+		 * nowTime = nowT.toMinute() - startTime.toMinute();
+		 * 
+		 * float timeRate = nowTime / totalTime;
+		 * 
+		 * int timeY = (int) (timeRate * (bottom - timetop)) + timetop;
+		 * 
+		 * canvas.drawLine(leftMargin, timeY, rightside, timeY, timeLine); }
+		 */
+
+		return bitmap;
 	}
 }

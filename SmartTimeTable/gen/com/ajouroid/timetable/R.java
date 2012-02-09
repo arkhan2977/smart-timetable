@@ -20,12 +20,13 @@ public final class R {
     public static final class array {
         public static final int alarmtime_list=0x7f060004;
         public static final int alarmtime_value=0x7f060005;
-        public static final int bustimes=0x7f06000c;
+        public static final int bustimes=0x7f06000d;
         public static final int days=0x7f06000a;
-        public static final int errorCode=0x7f06000d;
+        public static final int days_en=0x7f06000b;
+        public static final int errorCode=0x7f06000e;
         public static final int opacity_list=0x7f060002;
         public static final int opacity_value=0x7f060003;
-        public static final int tasks=0x7f06000b;
+        public static final int tasks=0x7f06000c;
         public static final int tasktime_list=0x7f060006;
         public static final int tasktime_value=0x7f060007;
         public static final int theme_list=0x7f060000;
