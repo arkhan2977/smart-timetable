@@ -9,14 +9,14 @@
         <LinearLayout 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/stroke_color"
+            android:background="#ffffff"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp">
         <ImageView
             android:id="@+id/list_subjectColor"
-            android:layout_width="24dip"
-            android:layout_height="24dip"
-            android:layout_margin="4dip"
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:layout_margin="2dip"
             android:background="@color/color1" />
         </LinearLayout>
 
@@ -30,8 +30,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Subject Title"
-                android:textColor="#000000"
-                android:textSize="8pt" />
+                android:textSize="15sp" />
 
             <TableRow >
 
@@ -40,8 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ClassRoom"
-                    android:textColor="#000000"
-                    android:textSize="6pt" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/list_alert"
@@ -49,8 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:text="Alert"
-                    android:textColor="#000000"
-                    android:textSize="6pt" />
+                    android:textSize="12sp" />
             </TableRow>
         </TableLayout>
     </TableRow>

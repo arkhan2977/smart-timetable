@@ -1,9 +1,9 @@
 <resources>
+
     <declare-styleable name="TimePickerPreference">
         <attr name="is24hour" format="boolean" />
         <attr name="defaultValue" format="string" />
     </declare-styleable>
-    
     <declare-styleable name="com.cauly.android.ad.AdView">
         <attr name="appcode" format="string" />
         <attr name="adtype" format="string" />
@@ -15,12 +15,15 @@
         <attr name="effect" format="string" />
         <attr name="allowcall" format="string" />
     </declare-styleable>
-        <declare-styleable name="Panel">
+    
+    <declare-styleable name="Panel">
+
         <!-- Defines panel animation duration in ms. -->
         <attr name="animationDuration" format="integer" />
         <!-- Defines panel position on the screen. -->
         <attr name="position">
-        	<!-- Panel placed at top of the screen. -->
+
+            <!-- Panel placed at top of the screen. -->
             <enum name="top" value="0" />
             <!-- Panel placed at bottom of the screen. -->
             <enum name="bottom" value="1" />
@@ -42,5 +45,5 @@
         <!-- Defines closed handle (drawable/color). -->
         <attr name="closedHandle" format="reference|color" />
     </declare-styleable>
-    
+
 </resources>

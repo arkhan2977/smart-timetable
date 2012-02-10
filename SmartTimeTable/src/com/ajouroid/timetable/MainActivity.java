@@ -22,6 +22,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.*;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 
 public class MainActivity extends Activity {
@@ -36,6 +38,10 @@ public class MainActivity extends Activity {
 	ListView listview_subject;
 	Button addBtn;
 	SlidingDrawer drawer; 
+	
+	Button drawerButton;
+	
+	LinearLayout topdown;
 
 
 	public final static int OPTION_ACTIVITY = 0;
@@ -57,8 +63,9 @@ public class MainActivity extends Activity {
 		timeTable = (TimeTable) findViewById(R.id.timetable);
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
-		drawer = (SlidingDrawer) findViewById(R.id.subjectDrawer);
+		//drawer = (SlidingDrawer) findViewById(R.id.subjectDrawer);
 		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+
 	}
 
 	@Override
@@ -87,7 +94,7 @@ public class MainActivity extends Activity {
 		addBtn.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				drawer.animateClose();
+				//drawer.setOpen(false, true);
 				Intent addDialog = new Intent(MainActivity.this,
 						AddDialog.class);
 				startActivityForResult(addDialog, 0);
@@ -97,6 +104,7 @@ public class MainActivity extends Activity {
 		SubjectListClickListener listener = new SubjectListClickListener();
 		listview_subject.setOnItemClickListener(listener);
 		listview_subject.setOnItemLongClickListener(listener);
+
 	}
 
 	public void initDB() {
@@ -235,11 +243,11 @@ public class MainActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// 드로워가 열려있으면 닫음
-		if (drawer.isOpened())
-			drawer.animateClose();
+		//if (drawer.isOpen())
+			//drawer.setOpen(false, true);
 		
 		// 시간 추가모드일경우 취소
-		else if (timeTable.isAddingMode()) {
+		if (timeTable.isAddingMode()) {
 			timeTable.endAddingMode();
 		} 
 		
@@ -274,7 +282,7 @@ public class MainActivity extends Activity {
 			c.moveToPosition(arg2);
 			//과목 추가모드를 시작한다.
 			timeTable.selectAdder(c.getString(iName));
-			drawer.animateClose();
+			//drawer.setOpen(false, true);
 
 			return true;
 		}

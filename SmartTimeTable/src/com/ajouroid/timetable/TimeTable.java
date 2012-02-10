@@ -39,11 +39,11 @@ public class TimeTable extends View {
 	int height;
 
 	// 여백
-	int topmost = 20;
-	int leftmost = 10;
+	int topmost = 50;
+	int leftmost = 0;
 
-	int bottommargin = 20;
-	int rightmargin = 40;
+	int bottommargin = 0;
+	int rightmargin = 0;
 
 	// 한 칸의 길이
 	int boxwidth;
@@ -1369,8 +1369,10 @@ public class TimeTable extends View {
 
 		float totalTime = endTime.toMinute() - startTime.toMinute();
 
+		topmost = 50;
+		
 		// 시작 좌표 지정
-		int timetop = dayheight;
+		int timetop = dayheight + topmost;
 		int timeleft = timewidth;
 
 		int bottom = height;
@@ -1380,6 +1382,7 @@ public class TimeTable extends View {
 		boxwidth = (width - timeleft) / day;
 		boxheight = (int) ((baseTime.toMinute() / totalTime) * (bottom - timetop));
 
+		
 		/*
 		 * 선 페인트 객체
 		 */
@@ -1426,11 +1429,11 @@ public class TimeTable extends View {
 
 		fillPaint.setAlpha(alphaValue);
 
-		RectF bgRect = new RectF(0, 0, rightside, bottom);
+		Rect bgRect = new Rect(0, 0, rightside, bottom);
 
 		// 배경색
-		canvas.drawRoundRect(bgRect, 10, 10, fillPaint);
-		canvas.drawRoundRect(bgRect, 10, 10, linePaint);
+		canvas.drawRect(bgRect, fillPaint);
+		//canvas.drawRect(bgRect, linePaint);
 
 		// 그림
 		// canvas.drawBitmap(bgBitmap, 0, 0, new Paint());
@@ -1509,9 +1512,26 @@ public class TimeTable extends View {
 		
 		boolean isAM = true;
 
-		int slot = 0;
+		int slot = 1;
 		String timeText = "AM ";
 		Time noon = new Time("11:59");
+		
+		if (curTime.before(noon))
+			timeText += curTime.toString();
+		else if (isAM) {
+			isAM = false;
+			timeText = curTime.to12Hour();
+		} else {
+			timeText = curTime.to12HourWithoutLetters();
+		}
+		
+		int top = timetop - (int)(font.ascent());
+		canvas.drawText(timeText, timeleft - 5, top + 7, font);
+		
+		curTime.addTime(baseTime);
+		timeText = "";
+		
+		
 		while (curTime.before(endTime) && slot <= maxslot) {
 			if (curTime.before(noon))
 				timeText += curTime.toString();
@@ -1521,7 +1541,7 @@ public class TimeTable extends View {
 			} else {
 				timeText = curTime.to12HourWithoutLetters();
 			}
-			int top = timetop
+			top = timetop
 					+ (int) (slot * ((baseTime.toMinute() / totalTime) * (bottom - timetop)));
 			if (top < bottom)
 				canvas.drawText(timeText, timeleft - 5, top + 7, font);
