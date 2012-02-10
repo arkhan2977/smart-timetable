@@ -322,7 +322,7 @@ public class TimeTable extends View {
 		// 시간표 이미지를 가져옴
 		Paint p = new Paint();
 		//canvas.drawBitmap(getImage(width, height, topmost, leftmost, rightmargin,bottommargin, true), 0, 0, p);
-		canvas.drawBitmap(getImage(width, height, false), 0, 0, p);
+		canvas.drawBitmap(getImage(width, height, true), 0, 0, p);
 
 		/*
 		 * ====================== 선택영역 그림 ======================
@@ -1141,6 +1141,7 @@ public class TimeTable extends View {
 				float timeWidth = eX - sX;
 				float timeHeight = eY - sY;
 
+				/*
 				if (selectedTime.isNow(nowDay, nowT) && showCurTime) {
 					nowSubject = new Subject(subject.getName(),
 							subject.getClassRoom(), subject.getProfessor(),
@@ -1157,6 +1158,7 @@ public class TimeTable extends View {
 					shadowPaint.setAlpha(127);
 					continue;
 				}
+				*/
 
 				
 				RectF subjectRect = new RectF(sX, sY, eX, eY);
@@ -1178,14 +1180,23 @@ public class TimeTable extends View {
 
 				String classroom = ellipsize(subject.getClassRoom(), (int)timeWidth, classFont);
 
-				float subY = sY + subjectFont.descent() - subjectFont.ascent();
+				float subY = sY + subjectFont.descent() - subjectFont.ascent() + (taskRadius*2);
 				canvas.drawText(name, sX+(timeWidth/2), subY, subjectFont);
 
-				canvas.drawText(classroom, sX+(timeWidth/2), subY + classFont.descent()
-						- classFont.ascent(), classFont);				
+				float classY = subY + classFont.descent()
+						- classFont.ascent();
+				canvas.drawText(classroom, sX+(timeWidth/2), classY, classFont);
+				
+				if (subject.getProfessor().length() > 0)
+				{
+					String prof = ellipsize(subject.getProfessor(), (int)timeWidth, classFont);
+					float profY = classY + classFont.descent()
+							- classFont.ascent();
+					canvas.drawText(prof, sX+(timeWidth/2), profY, classFont);
+				}
 			}
 		}
-
+		/*
 		if (showCurTime && nowSubject != null) {
 			float timeHeight = nEY - nSY;
 			float timeWidth = nEX - nSX;
@@ -1299,7 +1310,7 @@ public class TimeTable extends View {
 					* 2, nEX, nEY + taskRadius * 2), null);
 		}
 
-		/*
+		
 		 * Paint timeLine = new Paint(); timeLine.setColor(timeLineColor);
 		 * timeLine.setAlpha(0x3F); timeLine.setStrokeWidth(3);
 		 * 
