@@ -2,8 +2,8 @@
 <resources>
 
 	<string-array name="theme_list">
-		<item>Black</item>
 		<item>White</item>
+		<item>Black</item>
 		<item>Skyblue</item>
 		<item>Pink</item>
 		<item>Transparent</item>

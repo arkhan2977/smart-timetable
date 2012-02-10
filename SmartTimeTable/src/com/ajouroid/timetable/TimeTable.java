@@ -209,7 +209,7 @@ public class TimeTable extends View {
 
 		// Skyblue Theme
 		case 2:
-			bgColor = 0xFFFFFF;
+			bgColor = 0xE8E8E8;
 
 			selectionColor = 0xFF0000;
 
@@ -232,7 +232,7 @@ public class TimeTable extends View {
 
 		// Pink Theme
 		case 3:
-			bgColor = 0xFFFFFF;
+			bgColor = 0xE8E8E8;
 
 			selectionColor = 0x909090;
 
@@ -266,6 +266,7 @@ public class TimeTable extends View {
 			tableLineColor = 0x555555;
 			timeLineColor = 0xABABAB;
 
+			dayFontColor = 0xFFFFFF;
 			timeFontColor = 0xFFFFFF;
 			subFontColor = 0xFFFFFF;
 
@@ -900,16 +901,12 @@ public class TimeTable extends View {
 
 		fillPaint.setStyle(Style.FILL);
 
-		// canvas.drawRect(new Rect(0,0,width,height), fillPaint);
-
-		fillPaint.setAlpha(0xFF);
+		fillPaint.setAlpha(alphaValue);
 
 		Rect bgRect = new Rect(0, 0, rightside, bottom);
 
-		// 배경색
 		canvas.drawRect(bgRect, fillPaint);
-		//canvas.drawRect(bgRect, linePaint);
-
+		
 		// 그림
 		// canvas.drawBitmap(bgBitmap, 0, 0, new Paint());
 
