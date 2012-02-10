@@ -40,10 +40,6 @@ public class TimeTable extends View {
 
 	// 여백
 	int topmost = 50;
-	int leftmost = 0;
-
-	int bottommargin = 0;
-	int rightmargin = 0;
 
 	// 한 칸의 길이
 	int boxwidth;
@@ -70,17 +66,12 @@ public class TimeTable extends View {
 	// 배경
 	Bitmap bgBitmap;
 	int bgColor;
-	int mainBgColor;
-
-	// 선택줄 색
-	int rowColor;
-	int columnColor;
 
 	// 선택영역 색
 	int selectionColor;
 
 	// 요일, 시간 배경
-	// int dayColor;
+	int dayColor;
 	int timeColor;
 
 	int alphaValue;
@@ -89,10 +80,13 @@ public class TimeTable extends View {
 	int lineColor;
 	int tableLineColor;
 	int timeLineColor;
+	
+	int subjectBgColor;
 
 	int shadowColor;
 
 	// 글꼴 색
+	int dayFontColor;
 	int timeFontColor;
 	int subFontColor;
 
@@ -163,75 +157,74 @@ public class TimeTable extends View {
 		bgBitmap = BitmapFactory.decodeResource(getResources(),
 				R.drawable.background1);
 
+		
+		//TODO: 테마별 색 적용
 		// 테마별로 색 적용
 		switch (theme) {
-		// Black Theme
+		// White Theme
 		case 0:
-			bgColor = 0x000000;
-			mainBgColor = 0x333333;
-
-			rowColor = 0x0000FF;
-			columnColor = 0x0000FF;
+			bgColor = 0xE8E8E8;
 
 			selectionColor = 0xFFFF00;
 
-			// dayColor = 0x000000;
-			timeColor = 0x000000;
+			dayColor = 0xE8E8E8;
+			timeColor = 0xE8E8E8;
+
+			lineColor = 0xBBBBBB;
+			tableLineColor = 0xBBBBBB;
+			timeLineColor = 0xBBBBBB;
+
+			dayFontColor = 0x000000;
+			timeFontColor = 0x000000;
+			subFontColor = 0x000000;
+			
+			subjectBgColor = 0x92C8F6;
+
+			alphaValue = 0xFF;
+			shadowColor = 0x000000;
+			break;
+
+		// Black Theme
+		case 1:
+			bgColor = 0x000000;
+
+			selectionColor = 0xFFFF00;
+
+			dayColor = 0x505050;
+			timeColor = 0x505050;
 
 			lineColor = 0xBBBBBB;
 			tableLineColor = 0x555555;
-			timeLineColor = 0x000000;
+			timeLineColor = 0xFFFFFF;
 
+			dayFontColor = 0xFFFFFF;
 			timeFontColor = 0xFFFFFF;
 			subFontColor = 0x000000;
+			
+			subjectBgColor = 0x92C8F6;
 
 			alphaValue = 0xFF;
 			shadowColor = 0xFFFFFF;
 			break;
 
-		// White Theme
-		case 1:
-			bgColor = 0xFFFFFF;
-			mainBgColor = 0xFFFFFF;
-
-			rowColor = 0xFFFFFF;
-			columnColor = 0xFFFFFF;
-
-			selectionColor = 0x909090;
-
-			// dayColor = 0xFFFF00;
-			timeColor = 0xFFFFFF;
-
-			lineColor = 0x000000;
-			tableLineColor = 0xDDDDDD;
-			timeLineColor = 0x000000;
-
-			timeFontColor = 0x000000;
-			subFontColor = 0x000000;
-
-			alphaValue = 0xFF;
-			shadowColor = 0;
-			break;
-
 		// Skyblue Theme
 		case 2:
 			bgColor = 0xFFFFFF;
-			mainBgColor = 0xdefffe;
-
-			rowColor = 0x0000FF;
-			columnColor = 0x0000FF;
 
 			selectionColor = 0xFF0000;
 
-			// dayColor = 0xFFFF00;
+			dayColor = 0xb1ecff;
 			timeColor = 0xb1ecff;
 
 			lineColor = 0x000000;
 			tableLineColor = 0xAAAAAA;
 			timeLineColor = 0x000000;
 
+			dayFontColor = 0x000000;
 			timeFontColor = 0x000000;
 			subFontColor = 0x000000;
+			
+			subjectBgColor = 0x92C8F6;
 
 			alphaValue = 0xFF;
 			shadowColor = 0;
@@ -240,22 +233,21 @@ public class TimeTable extends View {
 		// Pink Theme
 		case 3:
 			bgColor = 0xFFFFFF;
-			mainBgColor = 0xfff3f5;
-
-			rowColor = 0xFFFFFF;
-			columnColor = 0xFFFFFF;
 
 			selectionColor = 0x909090;
 
-			// dayColor = 0xFFFF00;
+			dayColor = 0xffd6dc;
 			timeColor = 0xffd6dc;
 
 			lineColor = 0x000000;
 			tableLineColor = 0xDDDDDD;
 			timeLineColor = 0x000000;
 
+			dayFontColor = 0x000000;
 			timeFontColor = 0x000000;
 			subFontColor = 0x000000;
+			
+			subjectBgColor = 0x92C8F6;
 
 			alphaValue = 0xFF;
 			shadowColor = 0;
@@ -264,14 +256,10 @@ public class TimeTable extends View {
 		// Transparent Theme
 		case 4:
 			bgColor = 0x000000;
-			mainBgColor = 0xFFFFFF;
-
-			rowColor = 0xFFFFFF;
-			columnColor = 0xFFFFFF;
 
 			selectionColor = 0x909090;
 
-			// dayColor = 0xFFFF00;
+			dayColor = 0xFFFF00;
 			timeColor = 0xFFFFFF;
 
 			lineColor = 0xBBBBBB;
@@ -333,13 +321,13 @@ public class TimeTable extends View {
 		// 시간표 이미지를 가져옴
 		Paint p = new Paint();
 		//canvas.drawBitmap(getImage(width, height, topmost, leftmost, rightmargin,bottommargin, true), 0, 0, p);
-		canvas.drawBitmap(getImage_new(width, height, false), 0, 0, p);
+		canvas.drawBitmap(getImage(width, height, false), 0, 0, p);
 
 		/*
 		 * ====================== 선택영역 그림 ======================
 		 */
 		if (tapDown) {
-			int timeleft = leftmost + timewidth;
+			int timeleft = timewidth;
 			int timetop = topmost + dayheight;
 			p.setColor(selectionColor);
 			p.setAlpha(0x55);
@@ -544,7 +532,7 @@ public class TimeTable extends View {
 	boolean getPosition(float x, float y) {
 		if (boxwidth == 0 || boxheight == 0)
 			return false;
-		int baseX = leftmost + timewidth;
+		int baseX = timewidth;
 		int baseY = topmost + dayheight;
 
 		if (x < baseX) {
@@ -596,17 +584,12 @@ public class TimeTable extends View {
 
 	public String toBitmap(String filename) {
 
-		Bitmap bitmap = getImage(width, height, 5, 5, 5, 5, false);
+		Bitmap bitmap = getImage(width, height, false);
 
-		Canvas c = new Canvas(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
+		Bitmap b = Bitmap.createBitmap(width, height-topmost, Bitmap.Config.ARGB_8888);
+		Canvas c = new Canvas(b);
 		
-		Paint blackPaint = new Paint();
-		blackPaint.setColor(Color.BLACK);
-		blackPaint.setStyle(Style.FILL);
-		c.drawRect(new Rect(0,0,width,height), blackPaint);
-		
-		c.drawBitmap(bitmap, 0, 0, new Paint());
-		c.clipRect(new Rect(5, 5, width - 5, height - 5));
+		c.drawBitmap(bitmap, new Rect(0,50,width,height), new Rect(0,0,width,height-topmost), new Paint());
 
 		File file = new File("/sdcard/SmartTimeTable");
 		if (!file.exists())
@@ -619,7 +602,7 @@ public class TimeTable extends View {
 			fos = new FileOutputStream(imgFile);
 
 			if (fos != null)
-				bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,
+				b.compress(android.graphics.Bitmap.CompressFormat.PNG,
 						100, fos);
 			
 
@@ -654,521 +637,8 @@ public class TimeTable extends View {
 			return false;
 	}
 
-	// 시간표를 그림
-	public Bitmap getImage(int width, int height, int topMargin,
-			int leftMargin, int rightMargin, int bottomMargin, boolean showCurTime) {
-		Bitmap bitmap = Bitmap.createBitmap(width, height,
-				Bitmap.Config.ARGB_8888);
-		Canvas canvas = new Canvas(bitmap);
-
-		calculateSlots();
-
-		// 현재시간 계산
-		Date now = new Date(System.currentTimeMillis());
-		Time nowT = new Time(now.getHours(), now.getMinutes());
-
-		int nowDay = now.getDay() - 1;
-		if (nowDay < 0)
-			nowDay = 6;
-
-		float totalTime = endTime.toMinute() - startTime.toMinute();
-
-		// 시작 좌표 지정
-		int timetop = dayheight + topMargin;
-		int timeleft = timewidth + leftMargin;
-
-		int bottom = height - bottommargin;
-		int rightside = width - rightMargin;
-
-		// 한 칸의 크기
-		boxwidth = (width - timewidth - leftMargin - rightMargin) / day;
-		boxheight = (int) ((baseTime.toMinute() / totalTime) * (bottom - timetop));
-
-		/*
-		 * 선 페인트 객체
-		 */
-		Paint linePaint = new Paint();
-		linePaint.setColor(lineColor);
-		linePaint.setAlpha(0xFF);
-		linePaint.setStyle(Style.STROKE);
-		linePaint.setAntiAlias(true);
-
-		/*
-		 * 반투명 채색 페인트
-		 * 
-		 * Paint alphaPaint = new Paint(); alphaPaint.setStyle(Style.FILL);
-		 */
-
-		/*
-		 * 채우기 페인트
-		 */
-		Paint fillPaint = new Paint();
-		fillPaint.setStyle(Style.FILL);
-		fillPaint.setAntiAlias(true);
-
-		/*
-		 * 그림자 페인트
-		 */
-		Paint shadowPaint = null;
-
-		/*
-		 * 글꼴 페인트
-		 */
-		Paint font = new Paint();
-		font.setColor(timeFontColor);
-		font.setAlpha(0xFF);
-		font.setAntiAlias(true);
-
-		/*
-		 * ====================== 전체배경 그림 ======================
-		 */
-		fillPaint.setColor(bgColor);
-
-		fillPaint.setStyle(Style.FILL);
-
-		// canvas.drawRect(new Rect(0,0,width,height), fillPaint);
-
-		fillPaint.setAlpha(alphaValue);
-
-		RectF bgRect = new RectF(leftMargin -5, topMargin -5, rightside
-				+ 5, bottom + 5);
-
-		// 배경색
-		canvas.drawRoundRect(bgRect, 10, 10, fillPaint);
-		canvas.drawRoundRect(bgRect, 10, 10, linePaint);
-
-		// 그림
-		// canvas.drawBitmap(bgBitmap, 0, 0, new Paint());
-
-		/*
-		 * ====================== 시간표부분 배경 ======================
-		 */
-		fillPaint.setColor(mainBgColor);
-		fillPaint.setAlpha(alphaValue);
-		fillPaint.setStyle(Style.FILL);
-		canvas.drawRect(new Rect(timeleft, timetop, rightside, bottom),
-				fillPaint);
-
-		linePaint.setColor(tableLineColor);
-		linePaint.setAlpha(0xFF);
-
-		/*
-		 * ====================== 세로줄 | | | | | ======================
-		 */
-		for (int i = 0; i < day + 1; i++) {
-			canvas.drawLine(timeleft + boxwidth * i, timetop, timeleft
-					+ boxwidth * i, bottom, linePaint);
-		}
-		/*
-		 * ====================== 가로줄 === ======================
-		 */
-		Time lineTime = new Time(startTime.toMinute());
-		for (int i = 0; i < maxslot + 1; i++) {
-			
-			float topF = (((lineTime.toMinute() - startTime
-					.toMinute()) / totalTime)
-					* (bottom - timetop)
-					+ timetop);
-			canvas.drawLine(timeleft, topF, rightside, topF, linePaint);
-			lineTime.addTime(baseTime);
-		}
-
-		/*
-		 * ====================== 요일 배경 ======================
-		 */
-		fillPaint.setColor(timeColor);
-		fillPaint.setAlpha(alphaValue);
-		canvas.drawRect(new Rect(leftMargin, topMargin, rightside+1, timetop),
-				fillPaint);
-		canvas.drawRect(new Rect(leftMargin, timetop, timeleft, bottom+1),
-				fillPaint);
-
-		/*
-		 * ====================== 요일 글자 ======================
-		 */
-		font.setTextSize(18);
-		font.setTextAlign(Align.CENTER);
-		for (int i = 0; i < day; i++) {
-			canvas.drawText(days[i], timeleft + boxwidth * i + boxwidth / 2,
-					topmost + (timetop - topmost)/2 , font);
-		}
-
-		/*
-		 * ====================== 시간 배경 ======================
-		 * 
-		 * fillPaint.setColor(timeColor); fillPaint.setAlpha(0x33);
-		 * canvas.drawRect(new Rect(leftMargin, timetop, timeleft, bottom),
-		 * fillPaint);
-		 */
-
-		/*
-		 * ====================== 시간 글자 ======================
-		 */
-		font.setTextSize(15);
-		font.setTextAlign(Align.RIGHT);
-		Time curTime = new Time(startTime.toString());
-
-		boolean isAM = true;
-
-		int slot = 0;
-		String timeText = "AM ";
-		Time noon = new Time("11:59");
-		while (curTime.before(endTime) && slot <= maxslot) {
-			if (curTime.before(noon))
-				timeText += curTime.toString();
-			else if (isAM) {
-				isAM = false;
-				timeText = curTime.to12Hour();
-			} else {
-				timeText = curTime.to12HourWithoutLetters();
-			}
-			int top = timetop
-					+ (int) (slot * ((baseTime.toMinute() / totalTime) * (bottom - timetop)));
-			if (top < bottom)
-				canvas.drawText(timeText, timeleft - 5, top + 7, font);
-			curTime.addTime(baseTime);
-			slot++;
-			timeText = "";
-		}
-
-		/*
-		 * ====================== 과목 출력 ======================
-		 */
-		Paint subjectPaint = new Paint();
-		subjectPaint.setStrokeWidth(1);
-		subjectPaint.setAlpha(0xFF);
-		subjectPaint.setAntiAlias(true);
-
-		if (alphaValue == 0) {
-			subjectPaint.setStyle(Style.STROKE);
-		} else {
-			subjectPaint.setStyle(Style.FILL);
-		}
-
-		// 과목이름 출력용 폰트
-		Paint subjectFont = new Paint();
-		subjectFont.setColor(subFontColor);
-		subjectFont.setAlpha(0xFF);
-		subjectFont.setTextSize(18);
-		subjectFont.setTextAlign(Align.CENTER);
-		subjectFont.setAntiAlias(true);
-
-		// 강의실 출력용 폰트
-		Paint classFont = new Paint();
-		classFont.setColor(subFontColor);
-		classFont.setAlpha(0xFF);
-		classFont.setTextSize(16);
-		classFont.setTextAlign(Align.CENTER);
-		classFont.setAntiAlias(true);
-
-		Paint taskPaint = new Paint();
-		taskPaint.setStyle(Style.FILL);
-		taskPaint.setAntiAlias(true);
-
-		int taskRadius = boxwidth / 20;
-
-		// 현재 수업 출력용
-		Subject nowSubject = null;
-		RectF nowRect = null;
-		RectF shadowRect = null;
-		float sX = 0, sY = 0, eX = 0, eY = 0;
-		float nSX = 0, nSY = 0, nEX = 0, nEY = 0;
-
-		// 과목 출력 투명도
-
-		final int listSize = subjectList.size();
-
-		for (int i = 0; i < listSize; i++) {
-			Subject subject = subjectList.get(i);
-
-			int priority = taskTable.get(subject.getName());
-			switch (priority) {
-			case TaskAlert.HIGH:
-				taskPaint.setColor(0xFFFF0000);
-				break;
-			case TaskAlert.MEDIUM:
-				taskPaint.setColor(0xFFFFAA00);
-				break;
-			case TaskAlert.LOW:
-				taskPaint.setColor(0xFFAAAAAA);
-				break;
-			default:
-				taskPaint.setColor(0);
-			}
-
-			// 해당 과목의 색으로 설정
-			subjectPaint.setColor(subject.getColor());
-
-			ArrayList<ClassTime> timeList = subject.getTime();
-			final int timeSize = timeList.size();
-			for (int j = 0; j < timeSize; j++) {
-				ClassTime selectedTime = timeList.get(j);
-
-				if (selectedTime.getDay() > day - 1)
-					continue;
-				// 시작시간과 종료시간
-				Time classStartTime = selectedTime.getStartTime();
-				Time classEndTime = selectedTime.getEndTime();
-
-				if (startTime.toMinute() > classStartTime.toMinute()) {
-					if (classEndTime.toMinute() < startTime.toMinute())
-						continue;
-					else
-						classStartTime = startTime;
-				}
-
-				if (endTime.toMinute() < classEndTime.toMinute()) {
-					if (classStartTime.toMinute() > endTime.toMinute())
-						continue;
-					else
-						classEndTime = endTime;
-				}
-				// 그릴 좌표
-				sX = timeleft + selectedTime.getDay() * boxwidth + 1;
-				sY = (((classStartTime.toMinute() - startTime
-						.toMinute()) / totalTime)
-						* (bottom - timetop)
-						+ timetop);
-				eX = sX + boxwidth - 1;
-				eY = (((classEndTime.toMinute() - startTime
-						.toMinute()) / totalTime) * (bottom - timetop) + timetop) - 1;
-
-				// int timeWidth = eX - sX;
-				float timeHeight = eY - sY;
-
-				if (selectedTime.isNow(nowDay, nowT) && showCurTime) {
-					nowSubject = new Subject(subject.getName(),
-							subject.getClassRoom(), subject.getProfessor(),
-							subject.getEmail(), subject.getColor());
-					nSX = sX - 5;
-					nSY = sY - 5;
-					nEX = eX;
-					nEY = eY;
-					nowRect = new RectF(nSX, nSY, nEX, nEY);
-					shadowRect = new RectF(nSX + 5, nSY + 5, nEX + 5, nEY + 5);
-					shadowPaint = new Paint();
-					shadowPaint.setAntiAlias(true);
-					shadowPaint.setColor(shadowColor);
-					shadowPaint.setAlpha(127);
-					continue;
-				}
-
-				RectF subjectRect = new RectF(sX, sY, eX, eY);
-
-				canvas.drawRoundRect(subjectRect, 5, 5, subjectPaint);
-
-				if (priority > 0 && showCurTime) {
-					float cX = sX + taskRadius * 2;
-					float cY = sY + taskRadius * 2;
-					canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
-					canvas.drawCircle(cX, cY, taskRadius, taskPaint);
-				}
-
-				Bitmap textBitmap = Bitmap.createBitmap(boxwidth, (int)timeHeight,
-						Bitmap.Config.ARGB_8888);
-				Canvas textCanvas = new Canvas(textBitmap);
-
-				// 텍스트를 여러줄로 나눔
-				String name = subject.getName();
-				String[] subjectLines = seperateLines(name, boxwidth,
-						subjectFont);
-				int subjectLineCnt = subjectLines.length;
-
-				String classroom = subject.getClassRoom();
-				String[] classLines = seperateLines(classroom, boxwidth,
-						classFont);
-				int classLineCnt = classLines.length;
-
-				int subHeight = (int) ((subjectFont.descent() - subjectFont
-						.ascent()) * (subjectLineCnt)) + 5;
-				int classHeight = (int) ((classFont.descent() - classFont
-						.ascent()) * (classLineCnt) - classFont.ascent());
-
-				// 영역 안에 들어가는 경우
-				if (subHeight < (timeHeight/2 - taskRadius*3) && classHeight < timeHeight / 2) {
-					for (int l = 0; l < subjectLineCnt; l++) {
-						textCanvas.drawText(
-								subjectLines[l],
-								boxwidth / 2,
-								timeHeight / 2
-										- ((subjectFont.descent() - subjectFont
-												.ascent()) * (subjectLineCnt
-												- l - 1)) - 5, subjectFont);
-					}
-
-					for (int l = 0; l < classLineCnt; l++) {
-						textCanvas.drawText(
-								classLines[l],
-								boxwidth / 2,
-								timeHeight / 2
-										+ ((classFont.descent() - classFont
-												.ascent()) * (l + 1)),
-								classFont);
-					}
-				}
-
-				// 들어가지 못하는 경우 위에서부터 출력
-				else {
-					for (int l = 0; l < subjectLineCnt; l++) {
-						textCanvas
-								.drawText(
-										subjectLines[l],
-										boxwidth / 2,
-										taskRadius * 3 + (((subjectFont.descent() - subjectFont
-												.ascent())) * l)
-												- subjectFont.ascent(),
-										subjectFont);
-					}
-
-					int classTop = (int) ((subjectFont.descent() - subjectFont
-							.ascent()) * (subjectLineCnt + 1));
-
-					for (int l = 0; l < classLineCnt; l++) {
-						textCanvas.drawText(
-								classLines[l],
-								boxwidth / 2,
-								taskRadius * 3 + classTop
-										+ (classFont.descent() - classFont
-												.ascent()) * l, classFont);
-					}
-				}
-
-				canvas.drawBitmap(textBitmap, null, new RectF(sX, sY, eX, eY), null);
-			}
-		}
-
-		if (showCurTime && nowSubject != null) {
-			float timeHeight = nEY - nSY;
-			float timeWidth = nEX - nSX;
-
-			subjectPaint.setColor(nowSubject.getColor());
-
-			if (alphaValue == 0) {
-				subjectPaint.setStyle(Style.FILL);
-
-				subjectFont.setColor(0);
-				subjectFont.setAlpha(0xFF);
-				classFont.setColor(0);
-				classFont.setAlpha(0xFF);
-			}
-
-			canvas.drawRoundRect(shadowRect, 5, 5, shadowPaint);
-
-			canvas.drawRoundRect(nowRect, 5, 5, subjectPaint);
-
-			if (alphaValue > 0) {
-				canvas.drawRoundRect(nowRect, 5, 5, linePaint);
-			}
-
-			int priority = taskTable.get(nowSubject.getName());
-			switch (priority) {
-			case TaskAlert.HIGH:
-				taskPaint.setColor(0xFFFF0000);
-				break;
-			case TaskAlert.MEDIUM:
-				taskPaint.setColor(0xFFFFAA00);
-				break;
-			case TaskAlert.LOW:
-				taskPaint.setColor(0xFFAAAAAA);
-				break;
-			default:
-				taskPaint.setColor(0);
-			}
-
-			if (priority > 0) {
-				float cX = nSX + taskRadius * 2;
-				float cY = nSY + taskRadius * 2;
-				canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
-				canvas.drawCircle(cX, cY, taskRadius, taskPaint);
-			}
-
-			Bitmap textBitmap = Bitmap.createBitmap((int)timeWidth, (int)timeHeight,
-					Bitmap.Config.ARGB_8888);
-			Canvas textCanvas = new Canvas(textBitmap);
-
-			String name = nowSubject.getName();
-			String[] subjectLines = seperateLines(name, boxwidth, subjectFont);
-			int subjectLineCnt = subjectLines.length;
-
-			String classroom = nowSubject.getClassRoom();
-			String[] classLines = seperateLines(classroom, boxwidth, classFont);
-			int classLineCnt = classLines.length;
-
-			int subHeight = (int) ((subjectFont.descent()
-					- subjectFont.ascent() + 1) * (subjectLineCnt)) + 5;
-			int classHeight = (int) ((classFont.descent() - classFont.ascent())
-					* (classLineCnt) - classFont.ascent());
-
-			// 영역 안에 들어가는 경우
-			if (subHeight < timeHeight / 2 && classHeight < timeHeight / 2) {
-				for (int l = 0; l < subjectLineCnt; l++) {
-					textCanvas
-							.drawText(
-									subjectLines[l],
-									boxwidth / 2,
-									timeHeight
-											/ 2
-											- ((subjectFont.descent() - subjectFont
-													.ascent()) * (subjectLineCnt
-													- l - 1)) - 5, subjectFont);
-				}
-
-				for (int l = 0; l < classLineCnt; l++) {
-					textCanvas.drawText(
-							classLines[l],
-							boxwidth / 2,
-							timeHeight
-									/ 2
-									+ ((classFont.descent() - classFont
-											.ascent()) * (l + 1)), classFont);
-				}
-			}
-
-			// 들어가지 못하는 경우 위에서부터 출력
-			else {
-				for (int l = 0; l < subjectLineCnt; l++) {
-					textCanvas
-							.drawText(
-									subjectLines[l],
-									boxwidth / 2,
-									(((1 + subjectFont.descent() - subjectFont
-											.ascent())) * l)
-											- subjectFont.ascent(), subjectFont);
-				}
-
-				int classTop = (int) ((1 + subjectFont.descent() - subjectFont
-						.ascent()) * (subjectLineCnt + 1)) + 5;
-
-				for (int l = 0; l < classLineCnt; l++) {
-					textCanvas.drawText(classLines[l], boxwidth / 2, classTop
-							+ (1 + classFont.descent() - classFont.ascent())
-							* l, classFont);
-				}
-			}
-
-			canvas.drawBitmap(textBitmap, null, new RectF(nSX, nSY + taskRadius
-					* 2, nEX, nEY + taskRadius * 2), null);
-		}
-
-		/*
-		 * Paint timeLine = new Paint(); timeLine.setColor(timeLineColor);
-		 * timeLine.setAlpha(0x3F); timeLine.setStrokeWidth(3);
-		 * 
-		 * if (!(nowT.before(startTime) || endTime.before(nowT))) { float
-		 * nowTime = nowT.toMinute() - startTime.toMinute();
-		 * 
-		 * float timeRate = nowTime / totalTime;
-		 * 
-		 * int timeY = (int) (timeRate * (bottom - timetop)) + timetop;
-		 * 
-		 * canvas.drawLine(leftMargin, timeY, rightside, timeY, timeLine); }
-		 */
-
-		return bitmap;
-	}
-
 	public void getWidgetImage(int width, int height) {
-		Bitmap bitmap = getImage(width, height, 10, 10, 10, 10, true);
+		Bitmap bitmap = getImage(width, height, true);
 
 		SharedPreferences prefs = this.getContext().getSharedPreferences(
 				"com.ajouroid.timetable_preferences", 0);
@@ -1189,6 +659,11 @@ public class TimeTable extends View {
 
 			bitmap = transBitmap;
 		}
+		
+		Bitmap b = Bitmap.createBitmap(width, height-topmost, Bitmap.Config.ARGB_8888);
+		Canvas c = new Canvas(b);
+		
+		c.drawBitmap(bitmap, new Rect(0,50,width,height), new Rect(0,0,width,height-topmost), new Paint());
 
 		// 파일 저장
 		String abspath = "/sdcard/SmartTimeTable/widget";
@@ -1211,7 +686,7 @@ public class TimeTable extends View {
 			fos = new FileOutputStream(imgFile);
 
 			if (fos != null)
-				bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,
+				b.compress(android.graphics.Bitmap.CompressFormat.PNG,
 						100, fos);
 
 			fos.close();
@@ -1352,7 +827,7 @@ public class TimeTable extends View {
 	}
 	
 	
-	public Bitmap getImage_new(int width, int height, boolean showCurTime) {
+	public Bitmap getImage(int width, int height, boolean showCurTime) {
 		Bitmap bitmap = Bitmap.createBitmap(width, height,
 				Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
@@ -1421,13 +896,13 @@ public class TimeTable extends View {
 		/*
 		 * ====================== 전체배경 그림 ======================
 		 */
-		fillPaint.setColor(0xFFE8E8E8);
+		fillPaint.setColor(bgColor);
 
 		fillPaint.setStyle(Style.FILL);
 
 		// canvas.drawRect(new Rect(0,0,width,height), fillPaint);
 
-		fillPaint.setAlpha(alphaValue);
+		fillPaint.setAlpha(0xFF);
 
 		Rect bgRect = new Rect(0, 0, rightside, bottom);
 
@@ -1438,10 +913,33 @@ public class TimeTable extends View {
 		// 그림
 		// canvas.drawBitmap(bgBitmap, 0, 0, new Paint());
 
+		
+		linePaint.setColor(timeLineColor);
+		linePaint.setAlpha(0xFF);
+		
+		/*
+		 * ====================== 요일 배경 ======================
+		 */
+		fillPaint.setColor(dayColor);
+		fillPaint.setAlpha(alphaValue);
+		canvas.drawRect(new Rect(0, 0, rightside+1, timetop),
+				fillPaint);
+		
+		canvas.drawLine(0, timetop, rightside, timetop, linePaint);
+		
+		/*
+		 * ====================== 시간 배경 ======================
+		 */ 
+		 fillPaint.setColor(timeColor);
+		 fillPaint.setAlpha(alphaValue);
+		 canvas.drawRect(new Rect(0, timetop, timeleft, bottom),
+		 fillPaint);
+		
+		 canvas.drawLine(timeleft, timetop, timeleft, bottom, linePaint);
 		/*
 		 * ====================== 시간표부분 배경 ======================
-		 
-		fillPaint.setColor(mainBgColor);
+		 */
+		fillPaint.setColor(bgColor);
 		fillPaint.setAlpha(alphaValue);
 		fillPaint.setStyle(Style.FILL);
 		canvas.drawRect(new Rect(timeleft, timetop, rightside, bottom),
@@ -1453,7 +951,7 @@ public class TimeTable extends View {
 		/*
 		 * ====================== 세로줄 | | | | | ======================
 		 */
-		for (int i = 0; i < day + 1; i++) {
+		for (int i = 1; i < day + 1; i++) {
 			canvas.drawLine(timeleft + boxwidth * i, timetop, timeleft
 					+ boxwidth * i, bottom, linePaint);
 		}
@@ -1461,7 +959,8 @@ public class TimeTable extends View {
 		 * ====================== 가로줄 === ======================
 		 */
 		Time lineTime = new Time(startTime.toMinute());
-		for (int i = 0; i < maxslot + 1; i++) {
+		lineTime.addTime(baseTime);
+		for (int i = 1; i < maxslot + 1; i++) {
 			
 			float topF = (((lineTime.toMinute() - startTime
 					.toMinute()) / totalTime)
@@ -1471,15 +970,7 @@ public class TimeTable extends View {
 			lineTime.addTime(baseTime);
 		}
 
-		/*
-		 * ====================== 요일 배경 ======================
-		 */
-		fillPaint.setColor(timeColor);
-		fillPaint.setAlpha(alphaValue);
-		canvas.drawRect(new Rect(0, 0, rightside+1, timetop),
-				linePaint);
-		canvas.drawRect(new Rect(0, timetop, timeleft, bottom),
-				linePaint);
+		
 
 		/*
 		 * ====================== 요일 글자 ======================
@@ -1488,26 +979,23 @@ public class TimeTable extends View {
 		
 		font.setTextSize(18);
 		font.setTextAlign(Align.CENTER);
-		font.setColor(Color.BLACK);
+		font.setColor(dayFontColor);
+		font.setAlpha(0xFF);
 		for (int i = 0; i < day; i++) {
 			canvas.drawText(days_en[i], timeleft + boxwidth * i + boxwidth / 2,
 					topmost + (timetop - topmost)/2 , font);
 		}
 
-		/*
-		 * ====================== 시간 배경 ======================
-		 */ 
-		 fillPaint.setColor(timeColor);
-		 fillPaint.setAlpha(0x33);
-		 canvas.drawRect(new Rect(0, timetop, timeleft, bottom),
-		 linePaint);
+		
 		 
 
 		/*
 		 * ====================== 시간 글자 ======================
 		 */
 		font.setTextSize(15);
+		font.setColor(timeFontColor);
 		font.setTextAlign(Align.RIGHT);
+		font.setAlpha(0xFF);
 		Time curTime = new Time(startTime.toString());
 		
 		boolean isAM = true;
@@ -1616,6 +1104,7 @@ public class TimeTable extends View {
 
 			// 해당 과목의 색으로 설정
 			subjectPaint.setColor(0xFF92C8F6);
+			subjectPaint.setAlpha(alphaValue);
 			subjectStroke.setColor(subject.getColor());
 
 			ArrayList<ClassTime> timeList = subject.getTime();

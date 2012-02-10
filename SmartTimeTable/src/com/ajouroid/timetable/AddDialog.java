@@ -573,40 +573,40 @@ public class AddDialog extends Activity implements OnClickListener {
 		bg12.setBackgroundColor(Color.TRANSPARENT);
 
 		if (color == color1)
-			bg1.setBackgroundColor(Color.WHITE);
+			bg1.setBackgroundColor(Color.BLACK);
 		
 		else if (color == color2)
-			bg2.setBackgroundColor(Color.WHITE);
+			bg2.setBackgroundColor(Color.BLACK);
 
 		else if (color == color3)
-			bg3.setBackgroundColor(Color.WHITE);
+			bg3.setBackgroundColor(Color.BLACK);
 
 		else if (color == color4)
-			bg4.setBackgroundColor(Color.WHITE);
+			bg4.setBackgroundColor(Color.BLACK);
 
 		else if (color == color5)
-			bg5.setBackgroundColor(Color.WHITE);
+			bg5.setBackgroundColor(Color.BLACK);
 
 		else if (color == color6)
-			bg6.setBackgroundColor(Color.WHITE);
+			bg6.setBackgroundColor(Color.BLACK);
 
 		else if (color == color7)
-			bg7.setBackgroundColor(Color.WHITE);
+			bg7.setBackgroundColor(Color.BLACK);
 
 		else if (color == color8)
-			bg8.setBackgroundColor(Color.WHITE);
+			bg8.setBackgroundColor(Color.BLACK);
 		
 		else if (color == color9)
-			bg9.setBackgroundColor(Color.WHITE);
+			bg9.setBackgroundColor(Color.BLACK);
 		
 		else if (color == color10)
-			bg10.setBackgroundColor(Color.WHITE);
+			bg10.setBackgroundColor(Color.BLACK);
 		
 		else if (color == color11)
-			bg11.setBackgroundColor(Color.WHITE);
+			bg11.setBackgroundColor(Color.BLACK);
 		
 		else if (color == color12)
-			bg12.setBackgroundColor(Color.WHITE);
+			bg12.setBackgroundColor(Color.BLACK);
 	}
 
 	class StartTimeListener implements OnTimeSetListener {
