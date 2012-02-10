@@ -441,6 +441,20 @@ public class DBAdapter {
 
 		return cursor;
 	}
+	
+	public Cursor getValidTaskCursor() {
+		Cursor cursor;
+
+		SimpleDateFormat form = new SimpleDateFormat(mCtx.getResources()
+				.getString(R.string.dateformat), Locale.US);
+		
+		String dateStr;
+		dateStr = form.format(new Date(System.currentTimeMillis()));
+		
+		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE taskdate > '" + dateStr + "' ORDER BY taskdate asc", null);
+
+		return cursor;
+	}
 
 	public Cursor getTaskCursor(String subject) {
 		Cursor cursor;

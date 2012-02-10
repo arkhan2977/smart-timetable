@@ -16,6 +16,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -26,23 +27,30 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 public class MainActivity extends Activity {
 
 	// 데이터베이스
 	DBAdapter dbA;
 	SubjectDBAdapter adapter;
+	TaskDBAdapter taskAdapter;
 	Cursor c;
+	Cursor taskC;
 	
 	// 위젯
 	TimeTable timeTable;
 	ListView listview_subject;
+	ListView lv_task;
 	Button addBtn;
 	Panel drawer; 
 	
 	Button drawerButton;
 	
 	LinearLayout topdown;
+	
+	Resources r;
 
 
 	public final static int OPTION_ACTIVITY = 0;
@@ -63,11 +71,13 @@ public class MainActivity extends Activity {
 
 		timeTable = (TimeTable) findViewById(R.id.timetable);
 		listview_subject = (ListView) findViewById(R.id.subjectList);
+		lv_task = (ListView)findViewById(R.id.taskList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
 		drawer = (Panel) findViewById(R.id.topPanel);
 		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 		drawerButton = (Button)findViewById(R.id.panelHandle);
 
+		r = getResources();
 	}
 
 	@Override
@@ -103,6 +113,8 @@ public class MainActivity extends Activity {
 			}
 
 		});
+		lv_task.setOnItemClickListener(new TaskClickListener());
+		
 		SubjectListClickListener listener = new SubjectListClickListener();
 		listview_subject.setOnItemClickListener(listener);
 		listview_subject.setOnItemLongClickListener(listener);
@@ -130,9 +142,13 @@ public class MainActivity extends Activity {
 			dbA.open();
 
 		c = dbA.getSubjectCursor();
+		taskC = dbA.getValidTaskCursor();
 
 		adapter = new SubjectDBAdapter(c);
 		listview_subject.setAdapter(adapter);
+		
+		taskAdapter = new TaskDBAdapter(taskC);
+		lv_task.setAdapter(taskAdapter);
 	}
 
 
@@ -264,9 +280,27 @@ public class MainActivity extends Activity {
 		else
 			super.onBackPressed();
 	}
+	
+	class TaskClickListener implements OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			
+			drawer.setOpen(false, false);
+			
+			taskC.moveToPosition(arg2);
+			
+			int _id = taskC.getInt(0);
+			
+			Intent i = new Intent(MainActivity.this, TaskView.class);
+			i.putExtra("id", _id);
+			startActivity(i);
+		}
+		
+	}
 
 	class SubjectListClickListener
-		implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+		implements OnItemClickListener, OnItemLongClickListener {
 		// 과목을 클릭했을 때
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			drawer.setOpen(false, false);
@@ -415,6 +449,51 @@ public class MainActivity extends Activity {
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			return View.inflate(context, R.layout.subjectlist, null);
+		}
+
+	}
+	
+	class TaskDBAdapter extends CursorAdapter {
+		int iType;
+		int iSubject;
+		int iDatetime;
+		int iTitle;
+		int iUsetime;
+
+		public TaskDBAdapter(Cursor cursor) {
+			super(MainActivity.this, cursor);
+
+			iType = cursor.getColumnIndex("type");
+			iSubject = cursor.getColumnIndex("subject");
+			iDatetime = cursor.getColumnIndex("taskdate");
+			iTitle = cursor.getColumnIndex("title");
+			iUsetime = cursor.getColumnIndex("usetime");
+		}
+
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			TextView type = (TextView) view.findViewById(R.id.task_type);
+			TextView subject = (TextView) view.findViewById(R.id.task_subject);
+			TextView datetime = (TextView) view.findViewById(R.id.task_datetime);
+			TextView title = (TextView) view.findViewById(R.id.task_title);
+
+			type.setText(r.getStringArray(R.array.tasks)[cursor.getInt(iType)]);
+			subject.setText(cursor.getString(iSubject));
+			title.setText(cursor.getString(iTitle));
+			
+			String date = cursor.getString(iDatetime);
+			int usetime = cursor.getInt(iUsetime);
+			
+			if (usetime == 1)
+				datetime.setText(date);
+			else
+				datetime.setText(date.split(" ")[0]);
+		}
+
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return View.inflate(context, R.layout.task_row, null);
 		}
 
 	}
