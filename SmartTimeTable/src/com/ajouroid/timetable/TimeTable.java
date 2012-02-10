@@ -1623,14 +1623,14 @@ public class TimeTable extends View {
 						classEndTime = endTime;
 				}
 				// 그릴 좌표
-				sX = timeleft + selectedTime.getDay() * boxwidth + 5;
+				sX = timeleft + selectedTime.getDay() * boxwidth + 4;
 				sY = (((classStartTime.toMinute() - startTime
 						.toMinute()) / totalTime)
 						* (bottom - timetop)
-						+ timetop) + 5;
-				eX = sX + boxwidth - 10;
+						+ timetop) + 4;
+				eX = sX + boxwidth - 8;
 				eY = (((classEndTime.toMinute() - startTime
-						.toMinute()) / totalTime) * (bottom - timetop) + timetop) - 5;
+						.toMinute()) / totalTime) * (bottom - timetop) + timetop) - 4;
 
 				float timeWidth = eX - sX;
 				float timeHeight = eY - sY;
