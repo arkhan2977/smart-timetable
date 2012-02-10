@@ -414,19 +414,13 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				bGetteringGPS = true;
 				setMap();
 				Log.d("StationSetting"," call setMap()");
-			}
-			dialog.dismiss();				
+			}	
 			super.onPostExecute(result);
 		}
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(StationSetting.this);
-			dialog.setTitle(R.string.location_change);
-			dialog.setMessage(r.getString(R.string.location_changeMsg));
-			dialog.setIndeterminate(true);
-			dialog.setCancelable(true);
-			dialog.show();
+			
 			super.onPreExecute();
 		}
 
