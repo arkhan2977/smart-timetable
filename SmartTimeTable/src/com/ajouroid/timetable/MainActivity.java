@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import com.ajouroid.timetable.interpolator.BounceInterpolator;
 import com.ajouroid.timetable.interpolator.EasingType.Type;
 import com.ajouroid.timetable.widget.Panel;
+import com.ajouroid.timetable.widget.Panel.OnPanelListener;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -65,6 +66,7 @@ public class MainActivity extends Activity {
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
 		drawer = (Panel) findViewById(R.id.topPanel);
 		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		drawerButton = (Button)findViewById(R.id.panelHandle);
 
 	}
 
@@ -94,7 +96,7 @@ public class MainActivity extends Activity {
 		addBtn.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				drawer.setOpen(false, true);
+				drawer.setOpen(false, false);
 				Intent addDialog = new Intent(MainActivity.this,
 						AddDialog.class);
 				startActivityForResult(addDialog, 0);
@@ -104,6 +106,19 @@ public class MainActivity extends Activity {
 		SubjectListClickListener listener = new SubjectListClickListener();
 		listview_subject.setOnItemClickListener(listener);
 		listview_subject.setOnItemLongClickListener(listener);
+		
+		
+		drawer.setOnPanelListener(new OnPanelListener() {
+
+			public void onPanelClosed(Panel panel) {
+				drawerButton.setText("▼ Subjects List");
+			}
+
+			public void onPanelOpened(Panel panel) {
+				drawerButton.setText("▲ Subjects List");
+			}
+			
+		});
 
 	}
 
@@ -242,7 +257,7 @@ public class MainActivity extends Activity {
 			drawer.setOpen(false, true);
 		
 		// 시간 추가모드일경우 취소
-		if (timeTable.isAddingMode()) {
+		else if (timeTable.isAddingMode()) {
 			timeTable.endAddingMode();
 		} 
 		
@@ -254,7 +269,7 @@ public class MainActivity extends Activity {
 		implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 		// 과목을 클릭했을 때
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			//drawer.animateClose();
+			drawer.setOpen(false, false);
 			
 			// 과목 정보 액티비티를 실행한다.
 			c.moveToPosition(arg2);
