@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 	TimeTable timeTable;
 	ListView listview_subject;
 	Button addBtn;
-	SlidingDrawer drawer; 
+	Panel drawer; 
 	
 	Button drawerButton;
 	
@@ -63,8 +63,8 @@ public class MainActivity extends Activity {
 		timeTable = (TimeTable) findViewById(R.id.timetable);
 		listview_subject = (ListView) findViewById(R.id.subjectList);
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
-		//drawer = (SlidingDrawer) findViewById(R.id.subjectDrawer);
-		//drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		drawer = (Panel) findViewById(R.id.topPanel);
+		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
 
 	}
 
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 		addBtn.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				//drawer.setOpen(false, true);
+				drawer.setOpen(false, true);
 				Intent addDialog = new Intent(MainActivity.this,
 						AddDialog.class);
 				startActivityForResult(addDialog, 0);
@@ -123,7 +123,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		boolean result = super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = new MenuInflater(this);
@@ -193,7 +192,6 @@ public class MainActivity extends Activity {
 			finish();
 		}
 
-		// TODO Auto-generated method stub
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -215,14 +213,12 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		c.close();
 	}
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
 
 		Intent intent = new Intent("com.ajouroid.timetable.WIDGET_UPDATE");
@@ -232,7 +228,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		unregisterReceiver(addReceiver);
 		c.close();
@@ -243,8 +238,8 @@ public class MainActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		// 드로워가 열려있으면 닫음
-		//if (drawer.isOpen())
-			//drawer.setOpen(false, true);
+		if (drawer.isOpen())
+			drawer.setOpen(false, true);
 		
 		// 시간 추가모드일경우 취소
 		if (timeTable.isAddingMode()) {
@@ -282,7 +277,7 @@ public class MainActivity extends Activity {
 			c.moveToPosition(arg2);
 			//과목 추가모드를 시작한다.
 			timeTable.selectAdder(c.getString(iName));
-			//drawer.setOpen(false, true);
+			drawer.setOpen(false, true);
 
 			return true;
 		}
