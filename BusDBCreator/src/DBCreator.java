@@ -34,6 +34,10 @@ public class DBCreator {
 					+ dbPath, config.toProperties());
 
 			Statement dbStmt = dbCon.createStatement();
+			
+			dbStmt.executeUpdate("PRAGMA synchronous=OFF;");
+			dbStmt.executeUpdate("PRAGMA count_changes=OFF;");
+			
 			char[] buf = new char[bufsize];
 			query = "CREATE TABLE android_metadata (locale TEXT);";
 			dbStmt.executeUpdate(query);
@@ -227,6 +231,7 @@ public class DBCreator {
 				finally
 				{
 					dbStmt.executeUpdate("COMMIT;");
+					dbStmt.executeUpdate("VACUUM;");
 				}
 				
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream("gen\\timetable_bus.zip"));

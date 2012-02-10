@@ -18,7 +18,8 @@ public class Main {
 		
 		System.out.println("Current Version: " + version);
 
-		
 		dbC.dbDownloader(fileName);
+		
+		System.out.println("Complete.");
 	}
 }
