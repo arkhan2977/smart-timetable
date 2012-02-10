@@ -376,7 +376,7 @@ public class MainActivity extends Activity {
 					// 남은 일수를 계산
 					remain = remain / 86400;
 					remainTv.setText(remain + getResources().getString(R.string.daylater));
-					remainTv.setTextColor(Color.BLACK);
+					remainTv.setTextColor(Color.GRAY);
 				}
 				//시간을 지정했다면 시간 단위 표시
 				else if (useTime) {
