@@ -101,6 +101,16 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		((TextView)findViewById(R.id.info_subjectName)).setText(subject.getName());
 		((TextView)findViewById(R.id.info_classroom)).setText(subject.getClassRoom());
 		
+		if (subject.getProfessor().length() > 0)
+		{
+			String prof = subject.getProfessor();
+			if (subject.getEmail().length() > 0)
+				prof += " (" + subject.getEmail() + ")";
+			((TextView)findViewById(R.id.info_prof)).setText(prof);
+		}
+		else
+			((TextView)findViewById(R.id.info_prof)).setVisibility(View.GONE);
+		
 		
 		//c = dbA.getTaskCursor(subject.getName());
 		taskList = dbA.getTask(subject.getName());

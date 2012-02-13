@@ -231,7 +231,7 @@ public class TimeTable extends View {
 
 		// Pink Theme
 		case 3:
-			bgColor = 0xE8E8E8;
+			bgColor = 0xF0F0F0;
 
 			selectionColor = 0x909090;
 
