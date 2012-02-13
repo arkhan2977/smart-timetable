@@ -177,7 +177,7 @@ public class TimeTable extends View {
 			timeFontColor = 0x000000;
 			subFontColor = 0x000000;
 			
-			subjectBgColor = 0xB8F3BF;
+			subjectBgColor = 0xA4DAFF;
 
 			alphaValue = 0xFF;
 			shadowColor = 0x000000;
@@ -200,7 +200,7 @@ public class TimeTable extends View {
 			timeFontColor = 0xFFFFFF;
 			subFontColor = 0x000000;
 			
-			subjectBgColor = 0xA0A0A0;
+			subjectBgColor = 0xEEEE99;
 
 			alphaValue = 0xFF;
 			shadowColor = 0xFFFFFF;
@@ -233,7 +233,7 @@ public class TimeTable extends View {
 		case 3:
 			bgColor = 0xF0F0F0;
 
-			selectionColor = 0x909090;
+			selectionColor = 0xFFCCCC;
 
 			dayColor = 0xffd6dc;
 			timeColor = 0xffd6dc;
@@ -1043,7 +1043,7 @@ public class TimeTable extends View {
 		subjectPaint.setAntiAlias(true);
 		
 		Paint subjectStroke = new Paint();
-		subjectStroke.setStrokeWidth(3);
+		subjectStroke.setStrokeWidth(4);
 		subjectStroke.setStyle(Style.STROKE);
 		subjectStroke.setAlpha(0xFF);
 		subjectStroke.setAntiAlias(true);

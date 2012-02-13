@@ -40,7 +40,7 @@
             android:maxLines="2"
             android:text="@string/cancel" />
     </LinearLayout>
-
+<!-- 
     <com.cauly.android.ad.AdView
         xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
         android:id="@+id/ad"
@@ -56,5 +56,6 @@
         app:gender="all"
         app:gps="off"
         app:reloadInterval="30" />
+         -->
 
 </LinearLayout>

@@ -103,7 +103,7 @@
         android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
         android:text="@string/addtask" />
-    
+    <!-- 
     <com.cauly.android.ad.AdView
         xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
         android:id="@+id/ad"
@@ -119,5 +119,6 @@
         app:gender="all"
         app:gps="off"
         app:reloadInterval="30" />
+         -->
 
 </LinearLayout>

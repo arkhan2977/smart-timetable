@@ -210,6 +210,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal" />
+        
+        <!-- 
         <com.cauly.android.ad.AdView
 			xmlns:app="http://schemas.android.com/apk/res/com.ajouroid.timetable"
 			android:id="@+id/ad"
@@ -225,6 +227,7 @@
 			app:allowcall="yes"
 			app:reloadInterval="30"
 			app:dynamicReloadInterval="true" />
+			 -->
     </LinearLayout>
 
 </TabHost>
