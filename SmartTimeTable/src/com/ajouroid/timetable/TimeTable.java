@@ -18,7 +18,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
@@ -178,7 +177,7 @@ public class TimeTable extends View {
 			timeFontColor = 0x000000;
 			subFontColor = 0x000000;
 			
-			subjectBgColor = 0x92C8F6;
+			subjectBgColor = 0xB8F3BF;
 
 			alphaValue = 0xFF;
 			shadowColor = 0x000000;
@@ -190,8 +189,8 @@ public class TimeTable extends View {
 
 			selectionColor = 0xFFFF00;
 
-			dayColor = 0x505050;
-			timeColor = 0x505050;
+			dayColor = 0x121212;
+			timeColor = 0x121212;
 
 			lineColor = 0xBBBBBB;
 			tableLineColor = 0x555555;
@@ -201,7 +200,7 @@ public class TimeTable extends View {
 			timeFontColor = 0xFFFFFF;
 			subFontColor = 0x000000;
 			
-			subjectBgColor = 0x92C8F6;
+			subjectBgColor = 0xA0A0A0;
 
 			alphaValue = 0xFF;
 			shadowColor = 0xFFFFFF;
@@ -209,12 +208,12 @@ public class TimeTable extends View {
 
 		// Skyblue Theme
 		case 2:
-			bgColor = 0xE8E8E8;
+			bgColor = 0xD2FDFF;
 
 			selectionColor = 0xFF0000;
 
-			dayColor = 0xb1ecff;
-			timeColor = 0xb1ecff;
+			dayColor = 0xA1dcff;
+			timeColor = 0xa1dcff;
 
 			lineColor = 0x000000;
 			tableLineColor = 0xAAAAAA;
@@ -247,7 +246,7 @@ public class TimeTable extends View {
 			timeFontColor = 0x000000;
 			subFontColor = 0x000000;
 			
-			subjectBgColor = 0x92C8F6;
+			subjectBgColor = 0xffeeee;
 
 			alphaValue = 0xFF;
 			shadowColor = 0;
@@ -1081,6 +1080,8 @@ public class TimeTable extends View {
 
 		final int listSize = subjectList.size();
 
+		subjectPaint.setColor(subjectBgColor);
+		subjectPaint.setAlpha(alphaValue);
 		for (int i = 0; i < listSize; i++) {
 			Subject subject = subjectList.get(i);
 
@@ -1100,8 +1101,6 @@ public class TimeTable extends View {
 			}
 
 			// 해당 과목의 색으로 설정
-			subjectPaint.setColor(0xFF92C8F6);
-			subjectPaint.setAlpha(alphaValue);
 			subjectStroke.setColor(subject.getColor());
 
 			ArrayList<ClassTime> timeList = subject.getTime();

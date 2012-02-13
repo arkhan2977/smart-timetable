@@ -76,6 +76,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:clickable="true"
+            android:contentDescription="Delete"
             android:src="@drawable/close" />
     </TableRow>
 
