@@ -34,8 +34,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawer_button"
-                android:gravity="left"
-                android:text="▼ Subjects List"
+                android:text="▼ Subjects / Tasks ▼"
                 android:textSize="14sp" />
 
             <LinearLayout

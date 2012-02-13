@@ -121,11 +121,11 @@ public class MainActivity extends Activity {
 		drawer.setOnPanelListener(new OnPanelListener() {
 
 			public void onPanelClosed(Panel panel) {
-				drawerButton.setText("▼ Subjects List");
+				drawerButton.setText("▼ Subjects / Tasks ▼");
 			}
 
 			public void onPanelOpened(Panel panel) {
-				drawerButton.setText("▲ Subjects List");
+				drawerButton.setText("▲ Subjects / Tasks ▲");
 			}
 			
 		});
