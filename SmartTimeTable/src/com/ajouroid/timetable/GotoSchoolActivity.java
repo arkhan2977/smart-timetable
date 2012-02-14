@@ -96,8 +96,7 @@ public class GotoSchoolActivity extends Activity {
 
 		// Regist_bus();
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		
+
 		// asynctask 실행.
 		businfo = new ArrayList[2];
 
@@ -108,16 +107,21 @@ public class GotoSchoolActivity extends Activity {
 		businfo[1] = new ArrayList<BusInfo>();
 		adapter_2 = new BusAdapter(businfo[1]);
 		buslist_2.setAdapter(adapter_2);
+		
 
-		update_btn.setVisibility(View.INVISIBLE);
-		prog_bar.setVisibility(ProgressBar.VISIBLE);
-		requestTask = new RequestBusInfoTask(TO_SCHOOL);
-		requestTask.execute();
+		if (!mPrefs.getBoolean("db_complete", false)) {
+			VersionCheckTask down_task = new VersionCheckTask(
+					GotoSchoolActivity.this);
+			down_task.execute();
+		}
 
-		update_btn_2.setVisibility(View.INVISIBLE);
-		prog_bar_2.setVisibility(ProgressBar.VISIBLE);
-		requestTask_2 = new RequestBusInfoTask(FROM_SCHOOL);
-		requestTask_2.execute();
+		else {
+			requestTask = new RequestBusInfoTask(TO_SCHOOL);
+			requestTask.execute();
+
+			requestTask_2 = new RequestBusInfoTask(FROM_SCHOOL);
+			requestTask_2.execute();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -128,7 +132,7 @@ public class GotoSchoolActivity extends Activity {
 
 		if (!dbA.isOpen())
 			dbA.open();
-		
+
 		update_btn.setOnClickListener(new UpdateClickListener());
 		update_btn_2.setOnClickListener(new UpdateClickListener());
 
@@ -164,14 +168,14 @@ public class GotoSchoolActivity extends Activity {
 	@Override
 	protected void onPause() {
 		Log.d("GotoSchoolActivity", "onPause()");
-		
+
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop() {
 		Log.d("GotoSchoolActivity", "onStop()");
-		
+
 		if (requestTask != null)
 			requestTask.cancel(true);
 		if (requestTask_2 != null)
@@ -212,8 +216,6 @@ public class GotoSchoolActivity extends Activity {
 				break;
 			}
 		}
-		
-		
 
 		@Override
 		protected void onCancelled() {
@@ -299,8 +301,9 @@ public class GotoSchoolActivity extends Activity {
 				// businfo[type].clear();
 				ArrayList<BusInfo> temp = new ArrayList<BusInfo>();
 				BusInfo bus = null;
-				
-				ArrayList<String> validBus = dbA.findBuses(sp_stationID,dest_stationID);
+
+				ArrayList<String> validBus = dbA.findBuses(sp_stationID,
+						dest_stationID);
 				boolean skip = false;
 
 				while (parserEvent != XmlPullParser.END_DOCUMENT) {

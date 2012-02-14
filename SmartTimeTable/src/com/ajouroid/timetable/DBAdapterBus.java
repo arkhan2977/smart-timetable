@@ -9,13 +9,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DBAdapterBus {
 
-	//private DatabaseHelper mDbHelper;
+	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb; // 데이터베이스를 저장
 	
 	private final Context mCtx;
@@ -25,7 +26,7 @@ public class DBAdapterBus {
 	public static final int TYPE_EXTRA = 2;
 	public static final int TYPE_ETC = 3;
 
-	/*
+	
 	private class DatabaseHelper extends SQLiteOpenHelper {
 		private static final int DATABASE_VERSION = 3;
 		public DatabaseHelper(Context context) {
@@ -107,14 +108,15 @@ public class DBAdapterBus {
 			onCreate(db);// �ٽ� �����
 		}
 	}
-	*/
+	
 	public DBAdapterBus(Context ctx) {
 		this.mCtx = ctx;
 	}
 
 	public boolean open() throws SQLException {
-		//mDbHelper = new DatabaseHelper(mCtx);
+		mDbHelper = new DatabaseHelper(mCtx);
 		//mDb = mDbHelper.getWritableDatabase();
+		
 		try{
 			mDb = SQLiteDatabase.openDatabase("/data/data/com.ajouroid.timetable/databases/timetable_bus.db", null, SQLiteDatabase.OPEN_READWRITE|SQLiteDatabase.NO_LOCALIZED_COLLATORS);
 		} catch(SQLiteException e)
@@ -122,6 +124,7 @@ public class DBAdapterBus {
 			e.printStackTrace();
 			return false;
 		}
+		
 		if (!mDb.isDbLockedByOtherThreads())
 		{
 			return true;
@@ -734,6 +737,9 @@ public class DBAdapterBus {
 	
 	public boolean isOpen()
 	{
-		return mDb.isOpen();
+		if (mDb != null)
+			return mDb.isOpen();
+		else
+			return false;
 	}
 }
