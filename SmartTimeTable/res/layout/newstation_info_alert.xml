@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_root"
     android:layout_width="280dp"
-    android:layout_height="365dp"
+    android:layout_height="340dp"
     android:layout_gravity="center_vertical|center_horizontal"
     android:background="@drawable/stroke_dialog"
     android:orientation="vertical"
@@ -73,27 +73,22 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical" >
-                
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000000" 
-                    android:text="@string/bus_gotoschool"/>
-
+
                 <Button
                     android:id="@+id/btn_set_start1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/stroke_button"
                     android:text="@string/bus_set_start" />
-
+
                 <Button
                     android:id="@+id/btn_set_dest1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/stroke_button"
                     android:text="@string/bus_set_dest" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -101,27 +96,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
                 android:orientation="vertical" >
-                
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000000" 
-                    android:text="@string/bus_gotohome"/>
-
-                <Button
-                    android:id="@+id/btn_set_start2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/stroke_button"
-                    android:text="@string/bus_set_start" />
-
-                <Button
-                    android:id="@+id/btn_set_dest2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/stroke_button"
-                    android:text="@string/bus_set_dest" />
             </LinearLayout>
         </LinearLayout>
 
