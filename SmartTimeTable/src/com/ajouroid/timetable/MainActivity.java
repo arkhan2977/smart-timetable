@@ -43,8 +43,10 @@ public class MainActivity extends Activity {
 	ListView lv_task;
 	Button addBtn;
 	Panel drawer; 
+	Panel busDrawer;
 	
 	Button drawerButton;
+	Button busDrawerButton;
 	
 	LinearLayout topdown;
 	
@@ -73,7 +75,11 @@ public class MainActivity extends Activity {
 		addBtn = (Button) findViewById(R.id.btn_addSubject);
 		drawer = (Panel) findViewById(R.id.topPanel);
 		drawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		busDrawer = (Panel) findViewById(R.id.busPanel);
+		busDrawer.setInterpolator(new BounceInterpolator(Type.OUT));
+		
 		drawerButton = (Button)findViewById(R.id.panelHandle);
+		busDrawerButton = (Button)findViewById(R.id.busHandle);
 
 		r = getResources();
 	}
@@ -121,11 +127,23 @@ public class MainActivity extends Activity {
 		drawer.setOnPanelListener(new OnPanelListener() {
 
 			public void onPanelClosed(Panel panel) {
-				drawerButton.setText("▼ Subjects / Tasks ▼");
+				drawerButton.setText("▼ Subjects / Tasks");
 			}
 
 			public void onPanelOpened(Panel panel) {
-				drawerButton.setText("▲ Subjects / Tasks ▲");
+				drawerButton.setText("▲ Subjects / Tasks");
+			}
+			
+		});
+		
+		busDrawer.setOnPanelListener(new OnPanelListener() {
+
+			public void onPanelClosed(Panel panel) {
+				busDrawerButton.setText("Bus Arrival ▼");
+			}
+
+			public void onPanelOpened(Panel panel) {
+				busDrawerButton.setText("Bus Arrival ▲");
 			}
 			
 		});
@@ -268,7 +286,14 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		// 드로워가 열려있으면 닫음
 		if (drawer.isOpen())
+		{
 			drawer.setOpen(false, true);
+		}
+		
+		else if (busDrawer.isOpen())
+		{
+			busDrawer.setOpen(false, true);
+		}
 		
 		// 시간 추가모드일경우 취소
 		else if (timeTable.isAddingMode()) {
@@ -286,6 +311,8 @@ public class MainActivity extends Activity {
 			
 			drawer.setOpen(false, false);
 			
+			busDrawer.setOpen(false, false);
+			
 			taskC.moveToPosition(arg2);
 			
 			int _id = taskC.getInt(0);
@@ -302,6 +329,7 @@ public class MainActivity extends Activity {
 		// 과목을 클릭했을 때
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 			drawer.setOpen(false, false);
+			busDrawer.setOpen(false, false);
 			
 			// 과목 정보 액티비티를 실행한다.
 			c.moveToPosition(arg2);
