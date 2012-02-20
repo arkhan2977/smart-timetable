@@ -3,6 +3,7 @@
     android:layout_width="240dp"
     android:layout_height="360dp"
     android:layout_gravity="center_vertical|center_horizontal"
+    android:background="#FFFFFF"
     android:orientation="vertical" >
     <ListView
         android:id="@+id/fav_list"
