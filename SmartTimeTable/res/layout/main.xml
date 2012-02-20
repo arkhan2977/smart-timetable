@@ -133,7 +133,7 @@
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <Button
-                            android:id="@+id/btn_favotite_list"
+                            android:id="@+id/main_bus_favotite_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -149,13 +149,13 @@
                         android:orientation="horizontal" >
 
                         <TextView
-                            android:id="@+id/txt_sp"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/main_bus_start"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:ellipsize="middle"
+                            android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="아주대,유신고..." />
+                            android:text="미설정" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -164,13 +164,13 @@
                             android:text="▶" />
 
                         <TextView
-                            android:id="@+id/txt_dest"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/main_bus_dest"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:ellipsize="middle"
+                            android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="강남역"/>
+                            android:text="미설정"/>
                     </LinearLayout>
 
                     <FrameLayout
@@ -182,7 +182,7 @@
                         android:paddingRight="10dp" >
 
                         <ProgressBar
-                            android:id="@+id/bus_progress"
+                            android:id="@+id/main_bus_progress"
                             style="?android:attr/progressBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                             android:visibility="invisible" />
 
                         <TextView
-                            android:id="@+id/bus_update"
+                            android:id="@+id/main_bus_update"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -200,7 +200,7 @@
                     </FrameLayout>
 
                     <ListView
-                        android:id="@+id/buslist"
+                        android:id="@+id/main_bus_list"
                         android:layout_width="fill_parent"
                         android:layout_height="165dp"
                         android:layout_gravity="center"
@@ -210,7 +210,7 @@
                         android:gravity="center" />
 
                 <Button
-                    android:id="@+id/bus_setup_station"
+                    android:id="@+id/main_bus_setup_route"
                     android:layout_width="300dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
