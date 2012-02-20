@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <TextView
+        android:id="@+id/fav_row_start"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="미설정"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:singleLine="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="▶"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:singleLine="true" />
+    <TextView
+        android:id="@+id/fav_row_dest"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="미설정"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:singleLine="true" />
+    
+    <Button
+        android:id="@+id/fav_row_delete"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:text="X" />
+
+</LinearLayout>

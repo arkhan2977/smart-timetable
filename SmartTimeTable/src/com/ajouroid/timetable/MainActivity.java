@@ -157,6 +157,15 @@ public class MainActivity extends Activity {
 
 		});
 		lv_task.setOnItemClickListener(new TaskClickListener());
+		
+		btn_setup.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, StationSetting.class);
+				startActivity(i);
+			}
+			
+		});
 
 		SubjectListClickListener listener = new SubjectListClickListener();
 		listview_subject.setOnItemClickListener(listener);

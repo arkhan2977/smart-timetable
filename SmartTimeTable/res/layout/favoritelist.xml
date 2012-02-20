@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="360dp"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:orientation="vertical" >
+    <ListView
+        android:id="@+id/fav_list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/fav_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="노선 추가" />
+
+</LinearLayout>
