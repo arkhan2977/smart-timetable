@@ -208,16 +208,6 @@
                         android:layout_marginRight="10dp"
                         android:cacheColorHint="#00000000"
                         android:gravity="center" />
-
-                <Button
-                    android:id="@+id/main_bus_setup_route"
-                    android:layout_width="300dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/stroke_button"
-                    android:text="노선설정"
-                    android:textSize="6pt" />
             </LinearLayout>
         </com.ajouroid.timetable.widget.Panel>
     </FrameLayout>

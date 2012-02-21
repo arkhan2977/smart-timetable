@@ -6,18 +6,23 @@ import com.ajouroid.timetable.R.layout;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 public class FavoriteList extends Activity {
 
 	Cursor c;
+	
+	Button btn_Add;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +34,23 @@ public class FavoriteList extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		setContentView(R.layout.favoritelist);
+		
+		
+		btn_Add = (Button)findViewById(R.id.fav_add);
 	}
 
 	@Override
 	protected void onResume() {
-		
 		super.onResume();
+		
+		btn_Add.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent i = new Intent(FavoriteList.this, AddFavorite.class);
+				startActivity(i);
+			}
+			
+		});
 	}
 
 	private class FavoriteAdapter extends CursorAdapter

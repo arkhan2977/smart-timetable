@@ -71,7 +71,6 @@ public class MainActivity extends Activity {
 	TextView tv_start;
 	TextView tv_dest;
 	Button btn_favorite;
-	Button btn_setup;
 	ListView lv_busList;
 	
 	ProgressBar busProgress;
@@ -115,7 +114,6 @@ public class MainActivity extends Activity {
 		lv_busList = (ListView)findViewById(R.id.main_bus_list);
 
 		btn_favorite = (Button) findViewById(R.id.main_bus_favotite_list);
-		btn_setup = (Button) findViewById(R.id.main_bus_setup_route);
 
 		drawerButton = (Button) findViewById(R.id.panelHandle);
 		busDrawerButton = (Button) findViewById(R.id.busHandle);
@@ -167,15 +165,6 @@ public class MainActivity extends Activity {
 
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, FavoriteList.class);
-				startActivity(i);
-			}
-			
-		});
-		
-		btn_setup.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				Intent i = new Intent(MainActivity.this, StationSetting.class);
 				startActivity(i);
 			}
 			

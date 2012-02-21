@@ -100,6 +100,9 @@
         <activity
             android:name=".bus.FavoriteList"
              android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".bus.AddFavorite"
+             android:theme="@android:style/Theme.Translucent" />
         
         <activity
             android:name=".TaskView"
@@ -137,7 +140,7 @@
             android:theme="@android:style/Theme.Translucent"
             android:windowSoftInputMode="adjustPan"/>
         
-        <activity android:name=".bus.StationSettingationSetting" />
+        <activity android:name=".bus.StationSetting" />
         
         <activity
       android:name=".bus.StationInfoAlert"
