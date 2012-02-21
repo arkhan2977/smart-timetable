@@ -97,6 +97,9 @@
         <activity
             android:name=".AddDialog"
              android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".bus.FavoriteList"
+             android:theme="@android:style/Theme.Translucent" />
         
         <activity
             android:name=".TaskView"
@@ -117,11 +120,11 @@
             android:name=".AddTaskDialog"
              android:theme="@android:style/Theme.Translucent" />
         
-        <activity android:name=".GotoSchoolActivity"
+        <activity android:name=".bus.GotoSchoolActivity"
             android:screenOrientation = "portrait"
             android:theme="@style/WhiteTheme" />
         
-        <activity android:name=".SetupLocation"
+        <activity android:name=".bus.SetupLocation"
             android:screenOrientation = "portrait"
             android:theme="@style/WhiteTheme" />
         
@@ -130,22 +133,22 @@
         <activity android:name=".NMapViewer" />
         
         <activity
-            android:name=".SearchAddr"
+            android:name=".bus.SearchAddrAddr"
             android:theme="@android:style/Theme.Translucent"
             android:windowSoftInputMode="adjustPan"/>
         
-        <activity android:name=".StationSetting" />
+        <activity android:name=".bus.StationSettingationSetting" />
         
         <activity
-            android:name=".StationInfoAlert"
+      android:name=".bus.StationInfoAlert"
              android:theme="@android:style/Theme.Translucent" />
         
         <activity android:name=".AlarmView"
             android:screenOrientation = "portrait" />
         
-        <activity android:name=".FindBusActivity"
+        <activity android:name=".bus.FindBusActivity"
             android:theme="@style/WhiteTheme" />
-        <activity android:name=".RouteViewer"
+        .bus.RouteViewerdroid:name=".RouteViewer"
             android:theme="@style/WhiteTheme" />
 
         <uses-library

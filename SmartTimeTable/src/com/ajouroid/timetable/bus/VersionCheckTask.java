@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.string;
 
 import android.app.ProgressDialog;
 import android.content.Context;

@@ -14,6 +14,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.ajouroid.timetable.bus.BusInfo;
+import com.ajouroid.timetable.bus.DBAdapterBus;
+import com.ajouroid.timetable.bus.FavoriteList;
+import com.ajouroid.timetable.bus.GotoSchoolActivity;
+import com.ajouroid.timetable.bus.StationSetting;
 import com.ajouroid.timetable.interpolator.BounceInterpolator;
 import com.ajouroid.timetable.interpolator.EasingType.Type;
 import com.ajouroid.timetable.widget.Panel;
@@ -157,6 +162,15 @@ public class MainActivity extends Activity {
 
 		});
 		lv_task.setOnItemClickListener(new TaskClickListener());
+		
+		btn_favorite.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, FavoriteList.class);
+				startActivity(i);
+			}
+			
+		});
 		
 		btn_setup.setOnClickListener(new OnClickListener() {
 

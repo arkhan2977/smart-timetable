@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 /*
  * 버스기반정보 저장 클래스 
  */

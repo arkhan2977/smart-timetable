@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.util.ArrayList;
 

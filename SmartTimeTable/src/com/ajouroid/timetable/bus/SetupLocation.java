@@ -1,4 +1,8 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
+
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.string;
+import com.ajouroid.timetable.R.xml;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;

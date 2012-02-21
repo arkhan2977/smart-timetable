@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -21,6 +21,9 @@ import android.util.Log;
 
 import java.util.Enumeration;
 import java.util.zip.*;
+
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.string;
 
 public class DBDownloadTask extends AsyncTask<Void, Integer, Void> {
 	ProgressDialog Dialog;

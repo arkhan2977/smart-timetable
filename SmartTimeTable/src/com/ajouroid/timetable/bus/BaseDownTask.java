@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -13,6 +13,9 @@ import java.net.URL;
 
 import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.EncodingUtils;
+
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.string;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

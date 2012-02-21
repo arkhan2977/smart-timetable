@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -6,6 +6,11 @@ import java.net.URLEncoder;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.ajouroid.timetable.Keyring;
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.array;
+import com.ajouroid.timetable.R.string;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

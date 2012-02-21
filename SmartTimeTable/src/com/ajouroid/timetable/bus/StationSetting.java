@@ -1,4 +1,4 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 
 import java.io.IOException;
@@ -7,6 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.drawable;
+import com.ajouroid.timetable.R.id;
+import com.ajouroid.timetable.R.layout;
+import com.ajouroid.timetable.R.menu;
+import com.ajouroid.timetable.R.string;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="300dp"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:background="@drawable/stroke_dialog"
+    android:orientation="vertical" >
+    
+    <TableLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:text="출발 정류장: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor = "#000000" />
+            <TextView
+                android:id="@+id/fav_add_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미설정"
+                android:textColor = "#000000"
+                android:ellipsize="end"
+                android:singleLine="true" />
+        </TableRow>
+        
+        <TableRow>
+            <TextView
+                android:text="도착 정류장: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor = "#000000" />
+            <TextView
+                android:id="@+id/fav_add_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미설정"
+                android:textColor = "#000000"
+                android:ellipsize="end"
+                android:singleLine="true" />
+        </TableRow>
+    </TableLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+        <ListView
+            android:id="@+id/fav_add_startList"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.45" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:text="▶"
+            android:layout_weight="0.1" />
+        <ListView
+            android:id="@+id/fav_add_destList"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.45" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fav_add_addBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:text="노선 추가"
+        android:background="@drawable/stroke_button" />
+</LinearLayout>

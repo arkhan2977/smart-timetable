@@ -1,6 +1,10 @@
-package com.ajouroid.timetable;
+package com.ajouroid.timetable.bus;
 
 import java.util.ArrayList;
+
+import com.ajouroid.timetable.R;
+import com.ajouroid.timetable.R.id;
+import com.ajouroid.timetable.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
