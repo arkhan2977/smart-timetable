@@ -160,9 +160,50 @@
     
     <string name="latitude">위도</string>
     <string name="longitude">경도</string>
-     
+    
+    <string name="fav_start">출발 정류장:</string>
+    <string name="fav_dest">도착 정류장:</string>
+    
+    <string name="teamname">Ajouroid</string>
+    <string name="aboutus_since">Since 2011.11.7</string>
+    <string name="aboutus_data">아주대학교 정보컴퓨터공학부\n\n조준영, bsoul87@gmail.com\n강병우, koolkb@naver.com\n노건욱, kuroh@naver.com</string>
+    
+    
+    <string name="leftToRight">▶</string>
+    <string name="addStation">정류장 추가</string>
+    
+    <string name="title">제목</string>
+    <string name="type">종류</string>
+    <string name="date">일시</string>
+    <string name="specify_time">시간 지정</string>
+    <string name="day">요일</string>
+    <string name="mon">월</string>
+    <string name="tue">화</string>
+    <string name="wed">수</string>
+    <string name="thu">목</string>
+    <string name="fri">금</string>
+    <string name="sat">토</string>
+    <string name="sun">일</string>
+    <string name="add_route">노선 추가</string>
+    <string name="input_bus_number">버스 번호를 입력하세요.</string>
+    <string name="btn_addTime">시간\n추가</string>
+    <string name="btn_editSubject">과목\n편집</string>
+    <string name="btn_sendEmail">e-mail\n전송</string>
+    <string name="btn_deleteSubject">과목\n삭제</string>
+    
+    <string name="subjectTask_up">▲ Subjects/Tasks</string>
+    <string name="subjectTask_down">▼ Subjects/Tasks</string>
+    
+    <string name="busArrival_up">Bus Arrival▲</string>
+    <string name="busArrival_down">Bus Arrival▼</string>
+    
+    <string name="currentRoute">현재 노선</string>
+    <string name="favoriteList">노선 목록</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
+    <string name="close">닫기</string>
+    <string name="description">내용</string>
+    <string name="complete">완료</string>
     <string name="save">저장</string>
     <string name="addtask">일정 추가</string>
     <string name="start">시작</string>

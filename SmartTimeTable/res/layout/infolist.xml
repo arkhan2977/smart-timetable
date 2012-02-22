@@ -55,7 +55,7 @@
                 android:textSize="12sp"
                 android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
-                android:text="시간\n추가" />
+                android:text="@string/btn_addTime" />
 
             <Button
                 android:id="@+id/info_editSubject"
@@ -64,7 +64,7 @@
                 android:textSize="12sp"
                 android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
-                android:text="과목\n편집" />
+                android:text="@string/btn_editSubject" />
                 
                 <Button
                 android:id="@+id/info_sendEmail"
@@ -73,7 +73,7 @@
                 android:textSize="12sp"
                 android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
-                android:text="e-mail\n전송" />
+                android:text="@string/btn_sendEmail" />
 
             <Button
                 android:id="@+id/info_deleteSubject"
@@ -82,7 +82,7 @@
                 android:textSize="12sp"
                 android:background="@drawable/stroke_button"
                 android:layout_margin="5dp"
-                android:text="과목\n삭제" />
+                android:text="@string/btn_deleteSubject" />
         </LinearLayout>
     
 

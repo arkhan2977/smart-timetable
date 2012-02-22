@@ -12,7 +12,7 @@
         android:stretchColumns="1">
         <TableRow>
             <TextView
-                android:text="출발 정류장: "
+                android:text="@string/fav_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor = "#000000" />
@@ -20,7 +20,7 @@
                 android:id="@+id/fav_add_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="미설정"
+                android:text="@string/unset"
                 android:textColor = "#000000"
                 android:ellipsize="end"
                 android:singleLine="true" />
@@ -28,15 +28,15 @@
         
         <TableRow>
             <TextView
-                android:text="도착 정류장: "
+                android:text="@string/fav_dest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor = "#000000" />
             <TextView
-                android:id="@+id/fav_add_start"
+                android:id="@+id/fav_add_dest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="미설정"
+                android:text="@string/unset"
                 android:textColor = "#000000"
                 android:ellipsize="end"
                 android:singleLine="true" />
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
-            android:text="▶"
+            android:text="@string/leftToRight"
             android:layout_weight="0.1" />
 
         <ListView
@@ -73,13 +73,13 @@
         android:id="@+id/fav_add_addStation"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="정류장 추가"
+        android:text="@string/addStation"
         android:background="@drawable/stroke_button" />
     
     <Button
         android:id="@+id/fav_add_commitBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="완료"
+        android:text="@string/complete"
         android:background="@drawable/stroke_button" />
 </LinearLayout>

@@ -1,41 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content"
-	android:background="@drawable/stroke_dialog"
-	android:layout_gravity="center_horizontal|center_vertical"
-	android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:background="@drawable/stroke_dialog"
+    android:orientation="vertical" >
 
-	<ImageView android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
-		android:paddingTop="5dip" android:paddingBottom="10dip" android:src="@drawable/ajouroid" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/teamname"
+        android:paddingBottom="10dip"
+        android:paddingTop="5dip"
+        android:src="@drawable/ajouroid" />
 
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_gravity="right"
-			android:textColor="#000000"
-			android:text="Since 2011.11.7" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/aboutus_since"
+            android:textColor="#000000" />
 
-		<LinearLayout android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_marginTop="20dp"
-			android:padding="5dp" 
-			android:gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:padding="5dp" >
 
-			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:layout_marginRight="10dp"
-				android:layout_gravity="center_horizontal" android:textSize="16sp"
-				android:textColor="#000000"
-				android:text=" 아주대학교 정보컴퓨터공학부\n\n조준영, bsoul87@gmail.com\n강병우, koolkb@naver.com\n노건욱, kuroh@naver.com" />
-		</LinearLayout>
-		
-		<Button
-			android:id="@+id/aboutus_close"
-			android:text="닫기"
-			android:layout_gravity="center_horizontal"
-			android:layout_width="150dp"
-			android:layout_height="wrap_content"
-			android:layout_margin="20dp"
-			android:background="@drawable/stroke_button" />
-	</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:text="@string/aboutus_data"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/aboutus_close"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:background="@drawable/stroke_button"
+            android:text="@string/close" />
+    </LinearLayout>
+
 </LinearLayout>

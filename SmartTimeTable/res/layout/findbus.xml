@@ -13,12 +13,12 @@
 
         <EditText
             android:id="@+id/roh_input_search_bus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/stroke_edittext"
-            android:hint="버스 번호를 입력하세요." />
+            android:hint="@string/input_bus_number" />
 
         <Button
             android:id="@+id/roh_btn_search_bus"

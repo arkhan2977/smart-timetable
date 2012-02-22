@@ -12,7 +12,7 @@
         android:layout_gravity="center_vertical"
         android:background="#222222"
         android:padding="3dp"
-        android:text="요일" />
+        android:text="@string/day" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="월" />
+            android:text="@string/mon" />
 
         <Button
             android:id="@+id/edit_tue"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="화" />
+            android:text="@string/tue" />
 
         <Button
             android:id="@+id/edit_wed"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="수" />
+            android:text="@string/wed" />
 
         <Button
             android:id="@+id/edit_thu"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="목" />
+            android:text="@string/thu" />
 
         <Button
             android:id="@+id/edit_fri"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="금" />
+            android:text="@string/fri" />
 
         <Button
             android:id="@+id/edit_sat"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="토" />
+            android:text="@string/sat" />
 
         <Button
             android:id="@+id/edit_sun"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/day_off"
-            android:text="일" />
+            android:text="@string/sun" />
     </LinearLayout>
 
     <TextView
@@ -80,7 +80,7 @@
         android:layout_marginTop="5dp"
         android:background="#222222"
         android:padding="3dp"
-        android:text="시작시간" />
+        android:text="@string/opt_start" />
     
     <TimePicker
         android:id="@+id/edit_startPicker"
@@ -94,7 +94,7 @@
         android:layout_marginTop="5dp"
         android:background="#222222"
         android:padding="3dp"
-        android:text="종료시간" />
+        android:text="@string/opt_end" />
 
     <TimePicker
         android:id="@+id/edit_endPicker"
@@ -107,5 +107,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/stroke_button"
-        android:text="저장" />
+        android:text="@string/save" />
 </LinearLayout>
