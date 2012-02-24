@@ -246,7 +246,7 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_alarm:
 			dbA.close();
-			Intent gotoschool = new Intent(this, GotoSchoolActivity.class);
+			Intent gotoschool = new Intent(this, AlarmView.class);
 			startActivityForResult(gotoschool, GOTO_ACTIVITY);
 			break;
 		case R.id.menu_option:

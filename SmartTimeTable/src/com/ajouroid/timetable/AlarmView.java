@@ -51,8 +51,14 @@ public class AlarmView extends Activity implements OnClickListener {
 	TextView tv_curColor;
 	TextView tv_remain;
 	
+	Button btn_left;
+	Button btn_right;
+	TextView tv_tapRemain;
+	
 	int targetColor;
 	int remain;
+	
+	int tapRemain = 50;
 	
 	PowerManager.WakeLock sCpuWakeLock;
 	
@@ -113,6 +119,10 @@ public class AlarmView extends Activity implements OnClickListener {
 		btn_snooze = (Button)findViewById(R.id.alarm_snooze);
 		
 		
+		btn_left = (Button)findViewById(R.id.alarm_left);
+		btn_right = (Button)findViewById(R.id.alarm_right);
+		tv_tapRemain = (TextView)findViewById(R.id.alarm_tapRemain);
+		
 		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		uri = pref.getString("alarm_music", Settings.System.DEFAULT_RINGTONE_URI.toString());
@@ -137,6 +147,19 @@ public class AlarmView extends Activity implements OnClickListener {
 			}
 			
 		});
+		
+		OnClickListener tapListener = new OnClickListener() {
+
+			public void onClick(View v) {
+				tapRemain--;
+				update();
+				if (tapRemain <= 0)
+					stopAlarm();
+			}
+			
+		};
+		btn_left.setOnClickListener(tapListener);
+		btn_right.setOnClickListener(tapListener);
 		super.onResume();
 	}
 	
@@ -179,12 +202,13 @@ public class AlarmView extends Activity implements OnClickListener {
 			}
 		}
 		
-		tv_remain.setText(remain + "개");
+		update();
 	}
 	
 	public void update()
 	{
 		tv_remain.setText(remain + "개");
+		tv_tapRemain.setText(tapRemain + "");
 		if (snooze)
 		{
 			String timeStr = snoozeMinute / 60 + ":" + snoozeMinute%60;
@@ -290,245 +314,7 @@ public class AlarmView extends Activity implements OnClickListener {
 		nm.cancel(TAG, NOTIFY_ID);
 		finish();
 	}
-	/*
-	public class AlarmGame extends View
-	{
-		Context ctx;
-		Box[][] box;
-		
-		int width;
-		int height;
-		
-		int boxwidth;
-		int boxheight;
-		
-		int targetColor;
-		
-		int pX;
-		int pY;
-		
-		int remain;
-		
-		
-		
-		class Box
-		{
-			int color;
-			boolean checked = false;
-			
-			public Box(int _color)
-			{
-				color = _color;
-			}
-			
-			public boolean isChecked()
-			{
-				return checked;
-			}
-			
-			public int check()
-			{
-				checked = true;
-				return color;
-			}
-			
-			public int getColor()
-			{
-				return color;
-			}
-			
-			public void init(int _color)
-			{
-				color = _color;
-				checked = false;
-			}
-		}
-		
-		public AlarmGame(Context context)
-		{
-			super(context);
-			ctx = context;
-			
-			init();
-		}
-		
-		public void init()
-		{
-			box = new Box[10][10];
-			remain = 0;
-			
-			Random rand = new Random();
-			
-			int color = rand.nextInt(6);
-			targetColor = colors[color];
-			
-			for (int i=0; i<10; i++)
-			{
-				for (int j=0; j<10; j++)
-				{
-					color = rand.nextInt(6);
-					box[i][j] = new Box(colors[color]);
-					
-					if (colors[color] == targetColor)
-						remain++;
-				}
-			}
-
-			invalidate();
-		}
-		
-		public AlarmGame(Context context, AttributeSet attrs) {
-			super(context, attrs);
-			ctx=context;
-		}
-		
-		@Override
-		protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-			width = measure(widthMeasureSpec);
-			height = measure(heightMeasureSpec);
-			
-			boxwidth = (width - 50) /10;
-			boxheight = boxwidth;
-			
-			top = 120;
-			left = 0;
-			right = (boxwidth + 5) * 10;
-			bottom = 120 + 10 * (boxheight + 5);
-
-			setMeasuredDimension(width, height);
-			// TODO Auto-generated method stub
-			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		}
-
-		private int measure(int spec) {
-			int mode = MeasureSpec.getMode(spec);
-			int size = MeasureSpec.getSize(spec);
-
-			int result;
-
-			if (mode == MeasureSpec.UNSPECIFIED)
-				result = 200;
-			else
-				result = size;
-
-			return result;
-		}
-
-		
-		int top;
-		int left;
-		int right;
-		int bottom;
-		
-		int snoozeX;
-		int snoozeY;
-		int snoozeRight;
-		int snoozeBottom;
-		
-		@Override
-		protected void onDraw(Canvas canvas) {
-			super.onDraw(canvas);
-			Paint fillPaint = new Paint();
-			int x;
-			int y;
-			
-			fillPaint.setColor(Color.BLACK);
-			canvas.drawRect(new Rect(0,0,width,height), fillPaint);
-			
-			fillPaint.setColor(targetColor);
-			canvas.drawRoundRect(new RectF(0,50,width, 100), 8, 8, fillPaint);
-			
-			for (int i=0; i<10; i++)
-			{
-				for (int j=0; j<10; j++)
-				{
-					x = left + i * (boxwidth + 5);
-					y = top + j * (boxheight + 5);
-					
-					fillPaint.setColor(box[i][j].getColor());
-					
-					if (!box[i][j].isChecked())
-						canvas.drawRoundRect(new RectF(x,y,x+boxwidth, y+boxheight), 8, 8, fillPaint);
-				}
-			}
-			
-			Paint font = new Paint();
-			font.setTextSize(24);
-			font.setColor(Color.WHITE);
-			canvas.drawText(remain + r.getString(R.string.alarmview_remain), 50, bottom + 100, font);
-			
-			fillPaint.setColor(Color.WHITE);
-			fillPaint.setAlpha(0xFF);
-			snoozeX = right-120;
-			snoozeY = bottom+50;
-			snoozeRight = right-20;
-			snoozeBottom = bottom+100;
-			canvas.drawRoundRect(new RectF(snoozeX,snoozeY,snoozeRight, snoozeBottom), 8, 8, fillPaint);
-			font.setColor(Color.BLACK);
-			font.setTextAlign(Align.CENTER);
-			if (!snooze)
-				canvas.drawText(r.getString(R.string.alarmview_snooze), snoozeX + 50, snoozeBottom-15, font);
-			else
-			{
-				String timeStr = snoozeMinute / 60 + ":" + snoozeMinute%60;
-				canvas.drawText(timeStr, snoozeX + 50, snoozeBottom-10, font);
-			}
-				
-		}
-
-		@Override
-		public boolean onTouchEvent(MotionEvent event) {
-
-			float x = event.getX();
-			float y = event.getY();
-			calculatePosition(x, y);
-			
-			if (pX > -1 && pY > -1)
-			{
-				if (!box[pX][pY].isChecked())
-				{
-					if (box[pX][pY].getColor() == targetColor)
-					{
-						box[pX][pY].check();
-						remain--;
-						if (remain == 0)
-						{
-							stopAlarm();
-						}
-						invalidate();
-					}
-					else
-					{
-						init();
-					}
-				}
-			}
-			
-			else
-			{
-				if ((x>=snoozeX && x<=snoozeRight) && (y>=snoozeY && y<=snoozeBottom))
-				{
-					goSnooze();
-					Toast.makeText(ctx, r.getString(R.string.alarmview_snoozeMsg), Toast.LENGTH_SHORT).show();
-				}
-			}
-			
-			return super.onTouchEvent(event);
-		}
-		
-		public void calculatePosition(float x, float y)
-		{
-			pX = -1;
-			pY = -1;
-			
-			if (y>=top && y <= bottom)
-			{
-				pX = (int)(x / (boxwidth + 5));
-				pY = (int)((y - 120) / (boxheight + 5));
-			}
-		}
-	}
-	*/
+	
 	public void onClick(View v) {
 		String[] pos = ((String)v.getTag()).split(" ");
 		
