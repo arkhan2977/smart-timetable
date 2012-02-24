@@ -46,14 +46,26 @@
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:gravity="center_vertical"
+                    android:text="과목" />
+
                 <ListView
                     android:id="@+id/subjectList"
                     android:layout_width="fill_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
                     android:cacheColorHint="#00000000" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="길게 누르시면 시간 추가 모드로 들어갑니다."
+                    android:textSize="9sp" />
 
                 <Button
                     android:id="@+id/btn_addSubject"
@@ -70,6 +82,13 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:gravity="center_vertical"
+                    android:text="일정" />
 
                 <ListView
                     android:id="@+id/taskList"
@@ -127,6 +146,17 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
+                    android:id="@+id/main_bus_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                   android:background="@drawable/stroke_button"
+                   android:padding="5dp"
+                   android:text="@string/refresh"
+                    android:visibility="visible" />
+
+                <Button
                     android:id="@+id/main_bus_favotite_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,40 +198,29 @@
             </LinearLayout>
 
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="right"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0"
-                android:paddingRight="10dp" >
+                android:layout_width="fill_parent"
+                android:layout_height="165dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="center_vertical" >
+
+                <ListView
+                    android:id="@+id/main_bus_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="165dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:cacheColorHint="#00000000"
+                    android:gravity="center" />
 
                 <ProgressBar
                     android:id="@+id/main_bus_progress"
-                    style="?android:attr/progressBarStyleSmall"
+                    style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/main_bus_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/refresh"
-                    android:textSize="6pt"
-                    android:visibility="visible" />
             </FrameLayout>
-
-            <ListView
-                android:id="@+id/main_bus_list"
-                android:layout_width="fill_parent"
-                android:layout_height="165dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:cacheColorHint="#00000000"
-                android:gravity="center" />
         </LinearLayout>
     </com.ajouroid.timetable.widget.Panel>
 

@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
 	ListView lv_busList;
 	
 	ProgressBar busProgress;
-	TextView busUpdate;
+	Button busUpdate;
 
 	BusArrivalManager busManager;
 
@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
 		busDrawerButton = (Button) findViewById(R.id.busHandle);
 		
 		busProgress = (ProgressBar)findViewById(R.id.main_bus_progress);
-		busUpdate = (TextView)findViewById(R.id.main_bus_update);
+		busUpdate = (Button)findViewById(R.id.main_bus_update);
 
 		r = getResources();
 		sPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -201,6 +201,14 @@ public class MainActivity extends Activity {
 					busManager.update();
 			}
 
+		});
+		
+		busUpdate.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				busManager.update();
+			}
+			
 		});
 
 	}
@@ -636,14 +644,14 @@ public class MainActivity extends Activity {
 		{
 			updating = true;
 			busProgress.setVisibility(View.VISIBLE);
-			busUpdate.setVisibility(View.INVISIBLE);
+			busUpdate.setEnabled(false);
 		}
 		
 		public void finishUpdate()
 		{
 			updating = false;
 			busProgress.setVisibility(View.INVISIBLE);
-			busUpdate.setVisibility(View.VISIBLE);
+			busUpdate.setEnabled(true);
 		}
 
 		// 노선 선택
