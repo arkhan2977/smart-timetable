@@ -31,17 +31,28 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 //Alarm View
-public class AlarmView extends Activity {
+public class AlarmView extends Activity implements OnClickListener {
 
 	MediaPlayer mp = null;
 	String uri;
 	Vibrator vibe;
-	AlarmGame gameView;
+	
+	Button[][] btns;
+	int[][] boxes;
+	Button btn_snooze;
+	TextView tv_curColor;
+	TextView tv_remain;
+	
+	int targetColor;
+	int remain;
 	
 	PowerManager.WakeLock sCpuWakeLock;
 	
@@ -50,6 +61,15 @@ public class AlarmView extends Activity {
 	int snoozeMinute;
 	
 	Resources r;
+	
+	final int[] colors = {0xFFFF0000, 0xFF00FF00, 0xFF0000FF, 0xFFFFFF00, 0xFFFF00FF, 0xFF00FFFF, 0xFFFFFFFF};
+	final static int RED = 0xFFFF0000;
+	final static int GREEN = 0xFF00FF00;
+	final static int BLUE = 0xFF0000FF;
+	final static int YELLOW = 0xFFFFFF00;
+	final static int PURPLE = 0xFFFF00FF;
+	final static int CYAN = 0xFF00FFFF;
+	final static int WHITE = 0xFFFFFFFF;
 	
 	NotificationManager nm;
 	
@@ -60,10 +80,7 @@ public class AlarmView extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		nm = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
+		nm = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);		
 		r = getResources();
 		
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -73,12 +90,33 @@ public class AlarmView extends Activity {
                 PowerManager.ON_AFTER_RELEASE, "SmartTimeTable");
 		sCpuWakeLock.acquire();
 		
-		gameView = new AlarmGame(this);
+		//gameView = new AlarmGame(this);
 		
-		this.setContentView(gameView);
+		this.setContentView(R.layout.alarmview);
+		
+		btns = new Button[10][10];
+		boxes = new int[10][10];
+		StringBuilder sb;
+		for (int i=0; i<10; i++)
+		{
+			for (int j=0; j<10; j++)
+			{
+				sb = new StringBuilder();
+				sb.append("id/alarm_btn").append(i).append(j);
+				btns[i][j] = (Button)findViewById(r.getIdentifier(sb.toString(), "id", this.getPackageName()));
+				btns[i][j].setTag(i + " " + j);
+				btns[i][j].setOnClickListener(this);
+			}
+		}
+		tv_curColor = (TextView)findViewById(R.id.alarm_color);
+		tv_remain = (TextView)findViewById(R.id.alarm_remain);
+		btn_snooze = (Button)findViewById(R.id.alarm_snooze);
+		
+		
 		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		uri = pref.getString("alarm_music", Settings.System.DEFAULT_RINGTONE_URI.toString());
+		init();
 		playAlarm();
 	}
 	
@@ -91,7 +129,14 @@ public class AlarmView extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		btn_snooze.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				if (!snooze)
+					goSnooze();
+			}
+			
+		});
 		super.onResume();
 	}
 	
@@ -111,6 +156,45 @@ public class AlarmView extends Activity {
         }
         return true;
     }
+	
+	public void init()
+	{
+		remain = 0;
+		
+		Random rand = new Random();
+		
+		int color = rand.nextInt(6);
+		targetColor = colors[color];
+		tv_curColor.setBackgroundColor(targetColor);
+		for (int i=0; i<10; i++)
+		{
+			for (int j=0; j<10; j++)
+			{
+				color = rand.nextInt(6);
+				btns[i][j].setBackgroundColor(colors[color]);
+				btns[i][j].setVisibility(View.VISIBLE);
+				boxes[i][j] = colors[color];
+				if (colors[color] == targetColor)
+					remain++;
+			}
+		}
+		
+		tv_remain.setText(remain + "개");
+	}
+	
+	public void update()
+	{
+		tv_remain.setText(remain + "개");
+		if (snooze)
+		{
+			String timeStr = snoozeMinute / 60 + ":" + snoozeMinute%60;
+			btn_snooze.setText(timeStr);
+		}
+		else
+		{
+			btn_snooze.setText("Snooze");
+		}
+	}
 
 	public void playAlarm()
 	{
@@ -178,12 +262,12 @@ public class AlarmView extends Activity {
 				{
 					snoozeMinute--;
 					sendEmptyMessageDelayed(1,1000);
-					gameView.invalidate();
+					update();
 				}
 				else
 				{
 					snooze=false;
-					gameView.invalidate();
+					update();
 					playAlarm();
 				}
 			}
@@ -206,7 +290,7 @@ public class AlarmView extends Activity {
 		nm.cancel(TAG, NOTIFY_ID);
 		finish();
 	}
-	
+	/*
 	public class AlarmGame extends View
 	{
 		Context ctx;
@@ -225,14 +309,7 @@ public class AlarmView extends Activity {
 		
 		int remain;
 		
-		final int[] colors = {0xFFFF0000, 0xFF00FF00, 0xFF0000FF, 0xFFFFFF00, 0xFFFF00FF, 0xFF00FFFF, 0xFFFFFFFF};
-		final static int RED = 0xFFFF0000;
-		final static int GREEN = 0xFF00FF00;
-		final static int BLUE = 0xFF0000FF;
-		final static int YELLOW = 0xFFFFFF00;
-		final static int PURPLE = 0xFFFF00FF;
-		final static int CYAN = 0xFF00FFFF;
-		final static int WHITE = 0xFFFFFFFF;
+		
 		
 		class Box
 		{
@@ -449,6 +526,29 @@ public class AlarmView extends Activity {
 				pX = (int)(x / (boxwidth + 5));
 				pY = (int)((y - 120) / (boxheight + 5));
 			}
+		}
+	}
+	*/
+	public void onClick(View v) {
+		String[] pos = ((String)v.getTag()).split(" ");
+		
+		int i = Integer.parseInt(pos[0]);
+		int j = Integer.parseInt(pos[1]);
+		
+		if (boxes[i][j] != 0)
+		{
+			if (boxes[i][j] == targetColor)
+			{
+				btns[i][j].setVisibility(View.INVISIBLE);
+				boxes[i][j] = 0;
+				remain--;
+				
+				if (remain <= 0)
+					stopAlarm();
+				update();
+			}
+			else
+				init();
 		}
 	}
 }

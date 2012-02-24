@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/alarm_color"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="COLOR" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn00"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn05"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn06"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn07"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn08"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn09"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn19"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn23"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn25"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn26"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn27"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn28"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn29"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn30"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn31"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn32"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn33"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn34"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn35"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn36"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn37"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn38"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn39"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn41"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn42"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn43"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn44"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn45"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn46"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn47"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn48"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn49"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn50"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn51"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn52"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn53"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn54"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn55"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn56"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn57"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn58"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn59"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn60"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn61"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn62"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn63"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn64"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn65"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn66"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn67"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn68"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn69"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn70"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn71"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn72"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn73"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn74"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn75"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn76"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn77"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn78"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn79"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn80"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn81"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn82"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn83"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn84"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn85"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn86"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn87"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn88"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn89"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/alarm_btn90"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/alarm_button"
+            android:layout_margin="3dp" />
+        <Button
+            android:id="@+id/alarm_btn91"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn92"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn93"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn94"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn95"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn96"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn97"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn98"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+        <Button
+            android:id="@+id/alarm_btn99"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_margin="3dp"
+            android:background="@drawable/alarm_button" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="남은 갯수: " />
+    <TextView
+        android:id="@+id/alarm_remain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="0" />
+    
+    <Button
+        android:id="@+id/alarm_snooze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_button"
+        android:text="Snooze" />
+        </LinearLayout>
+
+</LinearLayout>
