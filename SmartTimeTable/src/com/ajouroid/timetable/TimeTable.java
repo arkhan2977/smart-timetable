@@ -1164,8 +1164,6 @@ public class TimeTable extends View {
 
 				canvas.drawRoundRect(subjectRect, 2, 2, subjectPaint);
 				canvas.drawRoundRect(subjectRect, 2, 2, subjectStroke);
-				
-
 
 				if (priority > 0 && showCurTime) {
 					float cX = sX + taskRadius * 2;
@@ -1173,26 +1171,32 @@ public class TimeTable extends View {
 					canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
 					canvas.drawCircle(cX, cY, taskRadius, taskPaint);
 				}
+				
+				Bitmap textBitmap = Bitmap.createBitmap((int)timeWidth, (int)timeHeight,
+						Bitmap.Config.ARGB_8888);
+				Canvas textCanvas = new Canvas(textBitmap);
 
 				// 텍스트를 자름
 				String name = ellipsize(subject.getName(), (int)timeWidth, subjectFont);
 
 				String classroom = ellipsize(subject.getClassRoom(), (int)timeWidth, classFont);
 
-				float subY = sY + subjectFont.descent() - subjectFont.ascent() + (taskRadius*2);
-				canvas.drawText(name, sX+(timeWidth/2), subY, subjectFont);
+				float subY = subjectFont.descent() - subjectFont.ascent() + (taskRadius*2);
+				textCanvas.drawText(name, (timeWidth/2), subY, subjectFont);
 
 				float classY = subY + classFont.descent()
 						- classFont.ascent();
-				canvas.drawText(classroom, sX+(timeWidth/2), classY, classFont);
+				textCanvas.drawText(classroom, (timeWidth/2), classY, classFont);
 				
 				if (subject.getProfessor().length() > 0)
 				{
 					String prof = ellipsize(subject.getProfessor(), (int)timeWidth, classFont);
 					float profY = classY + classFont.descent()
 							- classFont.ascent();
-					canvas.drawText(prof, sX+(timeWidth/2), profY, classFont);
+					textCanvas.drawText(prof, (timeWidth/2), profY, classFont);
 				}
+				
+				canvas.drawBitmap(textBitmap, null, new RectF(sX, sY, eX, eY), null);
 			}
 		}
 		/*

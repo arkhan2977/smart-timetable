@@ -3,14 +3,14 @@
 
     <item android:state_pressed="true">
         <shape>
-            <gradient android:angle="90" android:endColor="#CCCCCC" android:startColor="#505050" />
+            <gradient android:angle="90" android:endColor="#AAAAAA" android:startColor="#505050" />
 
             <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <gradient android:angle="90" android:endColor="#505050" android:startColor="#CCCCCC" />
+            <gradient android:angle="90" android:endColor="#505050" android:startColor="#AAAAAA" />
 
             <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
         </shape>
