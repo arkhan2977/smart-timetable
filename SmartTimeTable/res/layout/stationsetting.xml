@@ -8,6 +8,38 @@
         android:layout_height="match_parent"
         android:background="#505050"
         android:orientation="vertical" >
+        
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#505050"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+        <TextView
+            android:id="@+id/station_startValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.45"
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="미설정" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center_horizontal"
+            android:text="▶" />
+        <TextView
+            android:id="@+id/station_destValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.45"
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="미설정" />
+        </LinearLayout>
 
         <FrameLayout
             android:id="@android:id/tabcontent"
@@ -209,5 +241,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal" />
+        
+        <Button
+            android:id="@+id/station_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/stroke_button"
+            android:text="@string/save" />
     </LinearLayout>
 </TabHost>
