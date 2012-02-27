@@ -442,6 +442,7 @@ public class DBAdapter {
 		mDb.execSQL("DROP TABLE IF EXISTS times");
 		mDb.execSQL("DROP TABLE IF EXISTS tasks");
 		mDb.execSQL("DROP TABLE IF EXISTS stations");
+		mDb.execSQL("DROP TABLE IF EXISTS favorite");
 
 		mDbHelper.onCreate(mDb);
 		close();
