@@ -151,7 +151,7 @@
         
         <activity android:name=".bus.FindBusActivity"
             android:theme="@style/WhiteTheme" />
-        .bus.RouteViewerdroid:name=".RouteViewer"
+        <activity android:name=".bus.RouteViewer"
             android:theme="@style/WhiteTheme" />
 
         <uses-library
