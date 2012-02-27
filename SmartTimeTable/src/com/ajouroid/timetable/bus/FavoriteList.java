@@ -1,5 +1,6 @@
 package com.ajouroid.timetable.bus;
 
+import com.ajouroid.timetable.DBAdapter;
 import com.ajouroid.timetable.R;
 import com.ajouroid.timetable.R.id;
 import com.ajouroid.timetable.R.layout;
@@ -26,7 +27,7 @@ import android.widget.Toast;
 public class FavoriteList extends Activity {
 
 	private SharedPreferences mPrefs;
-	DBAdapterBus dbA;
+	DBAdapter dbA;
 	Cursor c;
 	FavoriteAdapter adapter;
 	private static final int From_StationSetting = 0;
@@ -36,7 +37,7 @@ public class FavoriteList extends Activity {
 	Resources r;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		dbA = new DBAdapterBus(FavoriteList.this);
+		dbA = new DBAdapter(FavoriteList.this);
 		dbA.open();	
 		super.onCreate(savedInstanceState);
 		// Regist_bus();
@@ -75,13 +76,14 @@ public class FavoriteList extends Activity {
 			}			
 		});
 		
+		/*
 		btn_Delete.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
 			}
-		});
+		}); */
 	}
 
 	@Override

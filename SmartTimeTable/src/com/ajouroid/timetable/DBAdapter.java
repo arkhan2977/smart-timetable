@@ -75,6 +75,15 @@ public class DBAdapter {
 					+ "`station_nm` text, "
 					+ "`station_number` int, "
 					+ "`start` integer)");
+			
+			
+			db.execSQL("CREATE TABLE favorite ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "START_ID TEXT,"
+					+ "START_NM TEXT,"
+					+ "DEST_ID TEXT,"
+					+ "DEST_NM TEXT)");
+
 		}
 
 		@Override
@@ -102,6 +111,21 @@ public class DBAdapter {
 
 	public void close() {
 		mDbHelper.close();
+	}
+	
+	public Cursor getFavoriteCursor() {
+		Cursor cursor = mDb.rawQuery("SELECT * FROM favorite", null);
+		cursor.moveToFirst();
+		return cursor;
+	}
+	public void addFavoriteInfo(String s_id, String s_nm, String d_id, String d_nm){
+		ContentValues initialValues = new ContentValues();
+		initialValues.clear();
+		initialValues.put("START_ID", s_id);
+		initialValues.put("START_NM", s_nm);
+		initialValues.put("DEST_ID", d_id);
+		initialValues.put("DEST_NM", d_nm);
+		mDb.insert("favorite", null, initialValues);
 	}
 
 	public boolean addSubject(String name, String classroom, String professor,

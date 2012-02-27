@@ -16,7 +16,6 @@ import android.util.Log;
 
 public class DBAdapterBus {
 
-	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb; // 데이터베이스를 저장
 	
 	private final Context mCtx;
@@ -27,104 +26,12 @@ public class DBAdapterBus {
 	public static final int TYPE_ETC = 3;
 
 	
-	private class DatabaseHelper extends SQLiteOpenHelper {
-		private static final int DATABASE_VERSION = 4;
-		public DatabaseHelper(Context context) {
-			super(context, "timetable_bus.db", null, DATABASE_VERSION);
-		}
-
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			// TODO Auto-generated method stub
-			
-			db.execSQL("CREATE TABLE version (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "AREA_VER TEXT, "
-					+ "ROUTE_VER TEXT, "
-					+ "STATION_VER TEXT, "
-					+ "RS_VER TEXT)");
-
-
-			// 지역정보
-			// 센터ID|지역ID|지역이름
-			db.execSQL("CREATE TABLE area (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "CENTER_ID TEXT,"
-					+ "AREA_ID TEXT,"
-					+ "AREA_NAME TEXT)");
-
-			// 노선정보
-			//노선ID|노선번호|운행차량|기점ID|기점이름|기점정류소번호|
-			//종점ID|종점이름|종점정류소번호|상행첫차시간|상행막차시간|
-			//하행첫차시간|하행막차시간|출퇴근배차간격|평일배차간격|회사ID|
-			//회사이름|회사전번|운행지역|DISTRICT_CD
-			db.execSQL("CREATE TABLE route ("
-					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "ROUTE_ID TEXT," + "ROUTE_NM TEXT,"
-					+ "ROUTE_TP TEXT," + "ST_STA_ID TEXT,"
-					+ "ST_STA_NM TEXT," + "ST_STA_NO TEXT,"
-					+ "ED_STA_ID TEXT," + "ED_STA_NM TEXT,"
-					+ "ED_STA_NO TEXT," + "UP_FIRST_TIME TEXT,"
-					+ "UP_LAST_TIME TEXT," + "DOWN_FIRST_TIME TEXT,"
-					+ "DOWN_LAST_TIME TEXT," + "PEEK_ALLOC TEXT,"
-					+ "NPEEK_ALLOC TEXT," + "COMPANY_ID TEXT,"
-					+ "COMPANY_NM TEXT," + "TEL_NO TEXT," 
-					+ "REGION_NAME TEXT," + "DISTRICT_CD TEXT)");	
-
-			//정류소정보
-			//정류소ID|정류소이름|지역ID|CENTER_YN|경도|위도|지역이름|
-			//정류소번호|???
-			db.execSQL("CREATE TABLE station ("
-					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-					+ "STATION_ID TEXT,"
-					+ "STATION_NM TEXT,"
-					+ "CENTER_ID TEXT,"
-					+ "CENTER_YN TEXT,"
-					+ "LNG DOUBLE,"
-					+ "LAT DOUBLE,"
-					+ "REGION_NAME TEXT,"
-					+ "STATION_NO TEXT,"
-					+ "DISTRICT_CD TEXT)");
-
-			//노선-정류소 정보			
-			//노선ID|정류소ID|상하행여부(정,역)|정류소순서|노선번호|정류소이름
-			//100100012|207000420|정|1|107|민락동종점			
-			db.execSQL("CREATE TABLE routestation ("
-					+ "ROUTE_ID TEXT,"
-					+ "STATION_ID TEXT,"
-					+ "UPDOWN TEXT,"
-					+ "STA_ORDER INTEGER,"
-					+ "ROUTE_NM TEXT,"
-					+ "STATION_NM TEXT,"
-					+ "FOREIGN KEY(STATION_ID) REFERENCES station(STATION_ID) ON DELETE CASCADE ON UPDATE CASCADE)");
-			
-			
-			db.execSQL("CREATE TABLE favorite ("
-					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "START_ID TEXT,"
-					+ "START_NM TEXT,"
-					+ "DEST_ID TEXT,"
-					+ "DEST_NM TEXT)");
-
-		}
-
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			// TODO Auto-generated method stub
-			db.execSQL("DROP TABLE IF EXISTS area");
-			db.execSQL("DROP TABLE IF EXISTS route");
-			db.execSQL("DROP TABLE IF EXISTS station");
-			db.execSQL("DROP TABLE IF EXISTS routestation");
-			db.execSQL("DROP TABLE IF EXISTS favorite");
-			onCreate(db);// �ٽ� �����
-		}
-	}
 	
 	public DBAdapterBus(Context ctx) {
 		this.mCtx = ctx;
 	}
 
 	public boolean open() throws SQLException {
-		mDbHelper = new DatabaseHelper(mCtx);
-		//mDb = mDbHelper.getWritableDatabase();
 		
 		try{
 			mDb = SQLiteDatabase.openDatabase("/data/data/com.ajouroid.timetable/databases/timetable_bus.db", null, SQLiteDatabase.OPEN_READWRITE|SQLiteDatabase.NO_LOCALIZED_COLLATORS);
@@ -172,20 +79,7 @@ public class DBAdapterBus {
 
 		return count;
 	}
-	public Cursor getFavoriteCursor() {
-		Cursor cursor = mDb.rawQuery("SELECT * FROM favorite", null);
-		cursor.moveToFirst();
-		return cursor;
-	}
-	public void addFavoriteInfo(String s_id, String s_nm, String d_id, String d_nm){
-		ContentValues initialValues = new ContentValues();
-		initialValues.clear();
-		initialValues.put("START_ID", s_id);
-		initialValues.put("START_NM", s_nm);
-		initialValues.put("DEST_ID", d_id);
-		initialValues.put("DEST_NM", d_nm);
-		mDb.insert("favorite", null, initialValues);
-	}
+	
 
 	public String addAreaInfo(String str){
 		String remain = null;
