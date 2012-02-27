@@ -55,8 +55,6 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 	private AroundStation around_station;
 	double station_lat = 37.2824052;
 	double station_lng = 127.0453329; //기본값 아주대학교
-	private String tempSP;
-	private String tempDEST;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -204,15 +202,24 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		switch(v.getId())
 		{
 		case R.id.btn_set_start:
+			/*
 			ed.putString("START_STOP",info.getStop_id());
 			ed.putString("START_STOP_NAME", info.getStop_name());
 			extra.putString("START_STOP_ID", info.getStop_id());
 			extra.putString("START_STOP_NAME", info.getStop_name());
 			tempSP = info.getStop_name();
-			Log.d("sakdhas",tempSP);
-			Toast.makeText(this, r.getString(R.string.bus_dest) + r.getString(R.string.rqSet), Toast.LENGTH_SHORT).show();
+			*/
+			Intent startIntent = new Intent();
+			startIntent.putExtra("position", 0); //출발정류장
+			startIntent.putExtra("start_id", info.getStop_id());
+			startIntent.putExtra("start_name", info.getStop_name());
+			StationInfoAlert.this.setResult(RESULT_OK, startIntent);
+			Log.d("StationInfo","Start Station: " + info.getStop_name() + "[" + info.getStop_id() + "]");
+			Toast.makeText(this, info.getStop_name() + "이 출발 정류장으로 설정되었습니다.", Toast.LENGTH_SHORT).show();
+			finish();
 			break;
 		case R.id.btn_set_dest:
+			/*
 			ed.putString("DEST_STOP",info.getStop_id()); 
 			ed.putString("DEST_STOP_NAME", info.getStop_name());
 			extra.putString("DEST_STOP_ID", info.getStop_id());
@@ -246,7 +253,16 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 						dialog.dismiss();
 					}
 				}).show();
-			}			
+			}
+			*/
+			Intent destIntent = new Intent();
+			destIntent.putExtra("position", 1); //도착정류장
+			destIntent.putExtra("dest_id", info.getStop_id());
+			destIntent.putExtra("dest_name", info.getStop_name());
+			StationInfoAlert.this.setResult(RESULT_OK, destIntent);
+			Log.d("StationInfo","Destinate Station: " + info.getStop_name() + "[" + info.getStop_id() + "]");
+			Toast.makeText(this, info.getStop_name() + "이 도착 정류장으로 설정되었습니다.", Toast.LENGTH_SHORT).show();
+			finish();
 			break;		
 		case R.id.close_img_button:
 			finish();

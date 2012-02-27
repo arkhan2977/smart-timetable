@@ -160,10 +160,20 @@ public class RouteViewer extends Activity {
 		switch(requestCode){
 		case From_StationSetting: // requestCode가 B_ACTIVITY인 케이스
 			if(resultCode == RESULT_OK){ //B_ACTIVITY에서 넘겨진 resultCode가 OK일때만 실행
-				extra.putAll(data.getExtras());
-				favorite_intent.putExtras(extra);
+				if (data.hasExtra("start_id"))
+				{
+					favorite_intent.putExtra("start_id", data.getStringExtra("start_id"));
+					favorite_intent.putExtra("start_name", data.getStringExtra("start_name"));
+				}
+				if (data.hasExtra("dest_id"))
+				{
+					favorite_intent.putExtra("dest_id", data.getStringExtra("dest_id"));
+					favorite_intent.putExtra("dest_name", data.getStringExtra("dest_name"));
+				}
+				//extra.putAll(data.getExtras());
+				//favorite_intent.putExtras(extra);
 				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
-				this.finish();
+				//this.finish();
 			}
 		}
 	}

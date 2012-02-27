@@ -133,7 +133,7 @@ public class FavoriteList extends Activity {
 			iSTART_ID = c.getColumnIndex("START_ID");
 			iSTART_NM = c.getColumnIndex("START_NM");
 			iDEST_ID = c.getColumnIndex("DEST_ID");	
-			iDEST_NM = c.getColumnIndex("DEST_NAME");	
+			iDEST_NM = c.getColumnIndex("DEST_NM");	
 		}
 
 		@Override

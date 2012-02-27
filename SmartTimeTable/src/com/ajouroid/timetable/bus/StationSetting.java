@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import com.ajouroid.timetable.DBAdapter;
 import com.ajouroid.timetable.R;
 import com.ajouroid.timetable.R.drawable;
 import com.ajouroid.timetable.R.id;
@@ -85,6 +86,9 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	Button btn_setup_start;
 	Button btn_setup_dest;
 	SharedPreferences sPrefs;
+	
+	TextView tv_start;
+	TextView tv_dest;
  
 	AlertDialog error_dialog;
 	AlertDialog alert_dialog;
@@ -93,6 +97,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	ArrayList<BusStopInfo> current_stop_arrlist;	
 	ArrayList<BusStopInfo> stopList;
 	ArrayList<BusInfo> busList;
+	
+	Button btn_save;
 	
 	Resources r;
 
@@ -209,6 +215,10 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		btn_search_station = (Button) findViewById(R.id.roh_btn_search_station);
 
 		myloc_current1 = (TextView) findViewById(R.id.roh_my_location_current1); //주변지도 내위치표시
+		
+		tv_start = (TextView)findViewById(R.id.station_startValue);
+		tv_dest = (TextView)findViewById(R.id.station_destValue);
+		btn_save = (Button)findViewById(R.id.station_save);
 
 
 		tabHost.setup();
@@ -278,6 +288,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		search_bus_List.setOnItemClickListener(new BUSLIST_ClickEvent());
 		btn_search_station.setOnClickListener(this);
 		btn_search_bus.setOnClickListener(this);
+		
+		btn_save.setOnClickListener(this);
 
 		registerForContextMenu(current_station_list);
 		registerForContextMenu(search_station_list);
@@ -759,6 +771,20 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			busList = dbA.getBusInfoByNumber(et_busNumber.getText().toString());
 			search_bus_List.setAdapter(new FindBusAdapter());
 			break;		
+			
+		case R.id.station_save:
+			if (start_id == null || dest_id == null)
+			{
+				Toast.makeText(this, "정류장이 설정되지 않았습니다.", Toast.LENGTH_SHORT);
+			}
+			else
+			{
+				DBAdapter dbA = new DBAdapter(this);
+				dbA.open();
+				dbA.addFavoriteInfo(start_id, start_name, dest_id, dest_name);
+				dbA.close();
+				finish();
+			}
 		}
 	}
 
@@ -837,6 +863,11 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	String start_id;
+	String start_name;
+	String dest_id;
+	String dest_name;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -846,10 +877,23 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		switch(requestCode){
 		case From_StationSetting: // requestCode가 B_ACTIVITY인 케이스
 			if(resultCode == RESULT_OK){ //B_ACTIVITY에서 넘겨진 resultCode가 OK일때만 실행
+				if (data.hasExtra("start_id")) {
+					start_name = data.getStringExtra("start_name");
+					start_id = data.getStringExtra("start_id");
+					tv_start.setText(start_name);
+				}
+
+				if (data.hasExtra("dest_id")) {
+					dest_name = data.getStringExtra("dest_name");
+					dest_id = data.getStringExtra("dest_id");
+					tv_dest.setText(dest_name);
+				}
+
+				/*
 				extra.putAll(data.getExtras());
 				favorite_intent.putExtras(extra);
 				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
-				this.finish();
+				this.finish(); */
 			}
 		}
 	}
