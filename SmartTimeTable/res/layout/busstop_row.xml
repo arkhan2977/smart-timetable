@@ -28,7 +28,7 @@
         android:id="@+id/stop_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor = "#000000"
+        android:textColor = "#FFFFFF"
         android:textSize="20sp"
         android:text = "아주대입구"/>
 
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textColor = "#000000"
+        android:textColor = "#FFFFFF"
         android:text = "3123"/>
         
         
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:textColor = "#000000"
+        android:textColor = "#FFFFFF"
         android:layout_gravity="center_vertical"
        	android:text="463m"
         android:layout_marginRight="10dp"/>

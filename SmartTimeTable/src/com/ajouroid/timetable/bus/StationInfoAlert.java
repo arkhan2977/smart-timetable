@@ -39,9 +39,7 @@ import android.widget.TextView;
 public class StationInfoAlert extends MapActivity implements OnClickListener {
 	static final int PROGRESS_DIALOG = 0;
 	Button btn_set_start;
-	Button btn_set_dest;
-	Button btn_set_start2;
-	Button btn_set_dest2;
+	Button btn_set_dest;	
 	TextView sia_station_name;
 	TextView sia_station_num;
 	ImageButton btn_close;
@@ -68,16 +66,16 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		setContentView(R.layout.station_info_alert);	
 		btn_set_start = (Button) findViewById(R.id.btn_set_start);
 		btn_set_dest = (Button) findViewById(R.id.btn_set_dest);
-		btn_set_start2 = (Button) findViewById(R.id.btn_set_start2);
-		btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest2);
+		//btn_set_start2 = (Button) findViewById(R.id.btn_set_start2);
+		//btn_set_dest2 = (Button) findViewById(R.id.btn_set_dest2);
 		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
 		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
 		btn_close = (ImageButton) findViewById(R.id.close_img_button);
-		sia_station_name = (TextView) findViewById(R.id.sia_station_name);
-		sia_station_num = (TextView) findViewById(R.id.sia_station_num);
+		
 		Intent i = getIntent();
 		extra = new Bundle();
 		favorite_intent = new Intent();
+		
 		DBAdapterBus dbA = new DBAdapterBus(this);
 		dbA.open();
 		
@@ -93,8 +91,6 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 		
 		btn_set_start.setOnClickListener(this);
 		btn_set_dest.setOnClickListener(this);
-		btn_set_start2.setOnClickListener(this);
-		btn_set_dest2.setOnClickListener(this);
 		btn_close.setOnClickListener(this);
 		
 		setMap();
@@ -112,32 +108,20 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 	{
 		String id_start1 = sPref.getString("START_STOP", "-1");
 		String id_dest1 = sPref.getString("DEST_STOP", "-1");
-		String id_start2 = sPref.getString("START_STOP_2", "-1");
-		String id_dest2 = sPref.getString("DEST_STOP_2", "-1");
 		
 		if (id_start1.compareTo(info.getStop_id()) == 0)
 		{
 			btn_set_start.setTextColor(Color.RED);
 		}
 		else btn_set_start.setTextColor(Color.BLACK);
-		
-		if (id_start2.compareTo(info.getStop_id()) == 0)
-		{
-			btn_set_start2.setTextColor(Color.RED);
-		}
-		else btn_set_start2.setTextColor(Color.BLACK);
-		
+			
 		if (id_dest1.compareTo(info.getStop_id()) == 0)
 		{
 			btn_set_dest.setTextColor(Color.RED);
 		}
 		else btn_set_dest.setTextColor(Color.BLACK);
 		
-		if (id_dest2.compareTo(info.getStop_id()) == 0)
-		{
-			btn_set_dest2.setTextColor(Color.RED);
-		}
-		else btn_set_dest2.setTextColor(Color.BLACK);
+		
 	}
 
 	@Override
@@ -225,6 +209,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 			extra.putString("START_STOP_ID", info.getStop_id());
 			extra.putString("START_STOP_NAME", info.getStop_name());
 			tempSP = info.getStop_name();
+			Log.d("sakdhas",tempSP);
 			Toast.makeText(this, r.getString(R.string.bus_dest) + r.getString(R.string.rqSet), Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.btn_set_dest:
@@ -233,6 +218,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 			extra.putString("DEST_STOP_ID", info.getStop_id());
 			extra.putString("DEST_STOP_NAME", info.getStop_name());
 			tempDEST = info.getStop_name();
+			
 			//alert dialog 띄우기.
 			if(tempSP == null){
 				AlertDialog dlg = new AlertDialog.Builder(this)
@@ -261,17 +247,7 @@ public class StationInfoAlert extends MapActivity implements OnClickListener {
 					}
 				}).show();
 			}			
-			break;
-		case R.id.btn_set_start2:
-			ed.putString("START_STOP_2",info.getStop_id()); 
-			ed.putString("START_STOP_NAME_2", info.getStop_name());
-			Toast.makeText(this, r.getString(R.string.bus_start2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.btn_set_dest2:
-			ed.putString("DEST_STOP_2",info.getStop_id()); 
-			ed.putString("DEST_STOP_NAME_2", info.getStop_name());
-			Toast.makeText(this, r.getString(R.string.bus_dest2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-			break;
+			break;		
 		case R.id.close_img_button:
 			finish();
 			break;

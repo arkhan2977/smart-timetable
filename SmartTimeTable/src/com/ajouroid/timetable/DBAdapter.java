@@ -94,6 +94,7 @@ public class DBAdapter {
 			db.execSQL("DROP TABLE IF EXISTS times");
 			db.execSQL("DROP TABLE IF EXISTS tasks");
 			db.execSQL("DROP TABLE IF EXISTS stations");
+			db.execSQL("DROP TABLE IF EXISTS favorite");
 			onCreate(db);
 			
 			restore("upgrade.db", db);

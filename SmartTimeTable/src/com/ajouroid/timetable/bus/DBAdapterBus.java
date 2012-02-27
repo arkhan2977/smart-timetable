@@ -62,7 +62,6 @@ public class DBAdapterBus {
 		mDb.delete("route", null, null);
 		mDb.delete("station", null, null);
 		mDb.delete("routestation", null, null);
-		mDb.delete("favorite", null, null);
 		
 		Editor edit = PreferenceManager.getDefaultSharedPreferences(mCtx).edit();
 		edit.remove("db_complete");
