@@ -64,6 +64,10 @@ import android.widget.Toast;
 
 public class StationSetting extends MapActivity implements LocationListener, View.OnClickListener, OnTabChangeListener {
 
+	private static final int From_StationSetting = 0;
+	Bundle extra;
+	Intent favorite_intent;
+	
 	ListView sp_stop_list;
 	ListView dest_stop_list;
 	ListView current_station_list;
@@ -180,9 +184,14 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 		dbA = new DBAdapterBus(StationSetting.this);
 		dbA.open();	
-
+		
 
 		setContentView(R.layout.stationsetting);
+		
+		extra = new Bundle();
+		favorite_intent = new Intent();
+
+
 
 		r = getResources();
 		tabHost = (TabHost)findViewById(R.id.tabhost);
@@ -533,7 +542,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			
 			Intent i = new Intent(StationSetting.this, StationInfoAlert.class);
 			i.putExtra("id", item.getSnippet());
-			startActivity(i);
+			startActivityForResult(i,From_StationSetting); // 요기!!!!!!!!!!!!!
 			return true;
 		}
 
@@ -655,7 +664,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 			i.putExtra("id", info.getStop_id());
 			
-			startActivity(i);
+			startActivityForResult(i,From_StationSetting);// 요기!!!!!!!!!!!!!
 		}
 	}
 	
@@ -668,7 +677,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			
 			i.putExtra("id", info.getStop_id());
 			
-			startActivity(i);
+			startActivityForResult(i,From_StationSetting);// 요기!!!!!!!!!!!!!
 		}
 	}
 	class BUSLIST_ClickEvent implements ListView.OnItemClickListener {
@@ -687,7 +696,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 			i.putExtra("region", bus.getRegion());
 			i.putExtra("term_peek", bus.getPeek_term());
 			i.putExtra("term_npeek", bus.getNpeek_term());			
-			startActivity(i);		
+			startActivityForResult(i,From_StationSetting); // 요기!!!!!!!!!!!!!
 		}
 
 	}
@@ -828,5 +837,24 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode){
+		case From_StationSetting: // requestCode가 B_ACTIVITY인 케이스
+			if(resultCode == RESULT_OK){ //B_ACTIVITY에서 넘겨진 resultCode가 OK일때만 실행
+				extra.putAll(data.getExtras());
+				favorite_intent.putExtras(extra);
+				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
+				this.finish();
+			}
+		}
+	}
+	
+	
+	
 }
 

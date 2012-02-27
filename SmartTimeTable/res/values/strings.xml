@@ -133,6 +133,8 @@
     <string name="bus_gotohome">하교</string>
     <string name="bus_set_start">출발정류장 설정</string>
     <string name="bus_set_dest">도착정류장 설정</string>
+    <string name="bus_start">출발 정류장</string>
+    <string name="bus_dest">도착 정류장</string>
     <string name="bus_start1">등교 출발 정류장</string>
     <string name="bus_dest1">등교 도착 정류장</string>
     <string name="bus_start2">하교 출발 정류장</string>
@@ -211,6 +213,7 @@
     <string name="search">검색</string>
     <string name="detail">내용</string>
     <string name="warning">경고</string>
+    <string name="error">오류</string>
     <string name="unset">미설정</string>
     <string name="refresh">새로고침</string>
     <string name="addNewSubject">새 과목 추가</string>
@@ -219,6 +222,9 @@
     <string name="waitforcomplete">완료될 때까지 기다려주십시오&#8230;</string>
     
     <string name="isSet">이 설정되었습니다.</string>
+    <string name="isnotSet">이 설정되지 않았습니다.</string>
+    <string name="rqSet">을 선택해주십시오.</string>
+    <string name="rqConfirm">이대로 설정하려면 확인.</string>
     
     <string name="pressBackBtn">끝내시려면 Back 버튼을 누르세요.</string>
     <string name="exportcomplete">이미지 추출 완료: </string>

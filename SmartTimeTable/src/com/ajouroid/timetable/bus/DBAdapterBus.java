@@ -28,7 +28,7 @@ public class DBAdapterBus {
 
 	
 	private class DatabaseHelper extends SQLiteOpenHelper {
-		private static final int DATABASE_VERSION = 3;
+		private static final int DATABASE_VERSION = 4;
 		public DatabaseHelper(Context context) {
 			super(context, "timetable_bus.db", null, DATABASE_VERSION);
 		}
@@ -95,6 +95,14 @@ public class DBAdapterBus {
 					+ "ROUTE_NM TEXT,"
 					+ "STATION_NM TEXT,"
 					+ "FOREIGN KEY(STATION_ID) REFERENCES station(STATION_ID) ON DELETE CASCADE ON UPDATE CASCADE)");
+			
+			
+			db.execSQL("CREATE TABLE favorite ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "START_ID TEXT,"
+					+ "START_NM TEXT,"
+					+ "DEST_ID TEXT,"
+					+ "DEST_NM TEXT)");
 
 		}
 
@@ -105,6 +113,7 @@ public class DBAdapterBus {
 			db.execSQL("DROP TABLE IF EXISTS route");
 			db.execSQL("DROP TABLE IF EXISTS station");
 			db.execSQL("DROP TABLE IF EXISTS routestation");
+			db.execSQL("DROP TABLE IF EXISTS favorite");
 			onCreate(db);// �ٽ� �����
 		}
 	}
@@ -146,6 +155,7 @@ public class DBAdapterBus {
 		mDb.delete("route", null, null);
 		mDb.delete("station", null, null);
 		mDb.delete("routestation", null, null);
+		mDb.delete("favorite", null, null);
 		
 		Editor edit = PreferenceManager.getDefaultSharedPreferences(mCtx).edit();
 		edit.remove("db_complete");
@@ -162,7 +172,20 @@ public class DBAdapterBus {
 
 		return count;
 	}
-	
+	public Cursor getFavoriteCursor() {
+		Cursor cursor = mDb.rawQuery("SELECT * FROM favorite", null);
+		cursor.moveToFirst();
+		return cursor;
+	}
+	public void addFavoriteInfo(String s_id, String s_nm, String d_id, String d_nm){
+		ContentValues initialValues = new ContentValues();
+		initialValues.clear();
+		initialValues.put("START_ID", s_id);
+		initialValues.put("START_NM", s_nm);
+		initialValues.put("DEST_ID", d_id);
+		initialValues.put("DEST_NM", d_nm);
+		mDb.insert("favorite", null, initialValues);
+	}
 
 	public String addAreaInfo(String str){
 		String remain = null;

@@ -41,8 +41,9 @@ import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class RouteViewer extends Activity {
-
-	
+	private static final int From_StationSetting = 0;
+	Bundle extra;
+	Intent favorite_intent;
 	TextView upfirst_time;
 	TextView uplast_time;
 	TextView downfirst_time;
@@ -82,7 +83,8 @@ public class RouteViewer extends Activity {
 		locationList = new ArrayList<String>();
 		
 		dbA = new DBAdapterBus(this);
-		
+		extra = new Bundle();
+		favorite_intent = new Intent();
 		sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String busId = getIntent().getStringExtra("id");
@@ -143,11 +145,29 @@ public class RouteViewer extends Activity {
 			
 			i.putExtra("id", info.getStop_id());
 			
-			startActivity(i);
+			startActivityForResult(i,From_StationSetting);
 
 		}
 	}	
 	
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode){
+		case From_StationSetting: // requestCode가 B_ACTIVITY인 케이스
+			if(resultCode == RESULT_OK){ //B_ACTIVITY에서 넘겨진 resultCode가 OK일때만 실행
+				extra.putAll(data.getExtras());
+				favorite_intent.putExtras(extra);
+				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
+				this.finish();
+			}
+		}
+	}
+
 	public void setStartStop(String id,String name)
 	{
 		SharedPreferences.Editor ed = sPrefs.edit();
