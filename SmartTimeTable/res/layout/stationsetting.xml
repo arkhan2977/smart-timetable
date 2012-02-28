@@ -57,9 +57,9 @@
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -69,7 +69,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="내위치 : "
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#505050" />
 
                     <TextView
                         android:id="@+id/roh_my_location_current"
@@ -83,7 +83,7 @@
                         android:gravity="right"
                         android:singleLine="true"
                         android:text="현재 위치 검색중..."
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#505050" />
                 </LinearLayout>
 
                 <ListView
@@ -102,9 +102,9 @@
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/stroke_box"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -114,7 +114,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="내위치 : "
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000000" />
+                        android:textColor="#505050" />
 
                     <TextView
                         android:id="@+id/roh_my_location_current1"
@@ -128,7 +128,7 @@
                         android:gravity="right"
                         android:singleLine="true"
                         android:text="현재 위치 검색중..."
-                        android:textColor="#000000" />
+                        android:textColor="#505050" />
                 </LinearLayout>
                 
                 <LinearLayout
@@ -189,7 +189,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="10dp"
-                    android:background="@drawable/stroke_box"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
 
@@ -230,7 +229,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="10dp"
-                    android:background="@drawable/stroke_box"
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
         </FrameLayout>
@@ -241,13 +239,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal" />
-        
-        <Button
-            android:id="@+id/station_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/stroke_button"
-            android:text="@string/save" />
+       
     </LinearLayout>
 </TabHost>

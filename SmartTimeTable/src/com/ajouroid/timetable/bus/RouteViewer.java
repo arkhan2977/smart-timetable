@@ -173,7 +173,7 @@ public class RouteViewer extends Activity {
 				//extra.putAll(data.getExtras());
 				//favorite_intent.putExtras(extra);
 				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
-				//this.finish();
+				this.finish();
 			}
 		}
 	}

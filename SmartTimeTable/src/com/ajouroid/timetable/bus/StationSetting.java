@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -98,7 +99,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 	ArrayList<BusStopInfo> stopList;
 	ArrayList<BusInfo> busList;
 	
-	Button btn_save;
 	
 	Resources r;
 
@@ -218,7 +218,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		
 		tv_start = (TextView)findViewById(R.id.station_startValue);
 		tv_dest = (TextView)findViewById(R.id.station_destValue);
-		btn_save = (Button)findViewById(R.id.station_save);
 
 
 		tabHost.setup();
@@ -289,7 +288,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 		btn_search_station.setOnClickListener(this);
 		btn_search_bus.setOnClickListener(this);
 		
-		btn_save.setOnClickListener(this);
+		
 
 		registerForContextMenu(current_station_list);
 		registerForContextMenu(search_station_list);
@@ -770,21 +769,7 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 			busList = dbA.getBusInfoByNumber(et_busNumber.getText().toString());
 			search_bus_List.setAdapter(new FindBusAdapter());
-			break;		
-			
-		case R.id.station_save:
-			if (start_id == null || dest_id == null)
-			{
-				Toast.makeText(this, "정류장이 설정되지 않았습니다.", Toast.LENGTH_SHORT);
-			}
-			else
-			{
-				DBAdapter dbA = new DBAdapter(this);
-				dbA.open();
-				dbA.addFavoriteInfo(start_id, start_name, dest_id, dest_name);
-				dbA.close();
-				finish();
-			}
+			break;	
 		}
 	}
 
@@ -881,19 +866,43 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 					start_name = data.getStringExtra("start_name");
 					start_id = data.getStringExtra("start_id");
 					tv_start.setText(start_name);
-				}
-
+				}	
+				
 				if (data.hasExtra("dest_id")) {
 					dest_name = data.getStringExtra("dest_name");
 					dest_id = data.getStringExtra("dest_id");
 					tv_dest.setText(dest_name);
+					
+					if(start_id != null)
+					{
+						AlertDialog dlg = new AlertDialog.Builder(this)
+						.setTitle(r.getString(R.string.currentRoute))		// title 지정
+						.setMessage(start_name + " ▶ " + dest_name + "\n" + r.getString(R.string.rqConfirm))	
+						.setPositiveButton(r.getString(R.string.ok), new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int which) {
+								DBAdapter dbA = new DBAdapter(StationSetting.this);
+								dbA.open();
+								dbA.addFavoriteInfo(start_id, start_name, dest_id, dest_name);
+								dbA.close();
+								finish();
+							}
+						}).setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						}).show();
+					}
+					else{
+						AlertDialog dlg = new AlertDialog.Builder(this)
+						.setTitle(r.getString(R.string.currentRoute))
+						.setMessage("출발지가 설정되지 않았습니다.")	
+						.setPositiveButton(r.getString(R.string.ok), new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						}).show();
+					}
 				}
-
-				/*
-				extra.putAll(data.getExtras());
-				favorite_intent.putExtras(extra);
-				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
-				this.finish(); */
 			}
 		}
 	}

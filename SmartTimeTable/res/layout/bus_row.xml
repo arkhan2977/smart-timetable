@@ -14,7 +14,7 @@
         android:layout_marginLeft="30dp"
         android:layout_gravity="center_vertical"
         android:textStyle="bold"
-        android:textColor="#000000"/>
+        android:textColor="#FFFFFF"/>
 
 
     <TextView
@@ -25,6 +25,6 @@
         android:text="경기도"
         android:layout_marginRight="15dp"
         android:layout_gravity="center_vertical"
-        android:textColor="#000000"/>
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>

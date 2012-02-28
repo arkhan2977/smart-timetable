@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_root"
     android:layout_width="280dp"
-    android:layout_height="340dp"
+    android:layout_height="345dp"
     android:layout_gravity="center_vertical|center_horizontal"
     android:background="@drawable/stroke_dialog"
     android:orientation="vertical"
@@ -53,11 +53,12 @@
         <!-- 조준영 사무실: 0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g -->
 		<!-- 조준영 노트북: 0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ -->
         <!-- 노건욱 사무실: 0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow -->
+        <!-- 노건욱 노트북: 0b4LZni7frDKcvBGNEsytiwD_4B6f0rzW64iogA -->
         <com.google.android.maps.MapView
             android:id="@+id/mapview_alert"
             android:layout_width="fill_parent"
             android:layout_height="180dp"
-            android:apiKey="0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow"
+            android:apiKey="0b4LZni7frDKcvBGNEsytiwD_4B6f0rzW64iogA"
             android:clickable="true" >
         </com.google.android.maps.MapView>
 
@@ -90,13 +91,7 @@
                     android:text="@string/bus_set_dest" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:orientation="vertical" >
-            </LinearLayout>
+           
         </LinearLayout>
 
 </LinearLayout>

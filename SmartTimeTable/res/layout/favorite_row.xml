@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
     android:orientation="horizontal" >
     <TextView
         android:id="@+id/fav_row_start"
@@ -35,12 +36,11 @@
         android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:singleLine="true" />
-    
-    <Button
+        <Button
         android:id="@+id/fav_row_delete"
-        android:layout_width="32dp"
+        android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical"        
         android:text="X" />
 
 </LinearLayout>
