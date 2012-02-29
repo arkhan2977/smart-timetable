@@ -58,7 +58,7 @@
             android:id="@+id/mapview_alert"
             android:layout_width="fill_parent"
             android:layout_height="180dp"
-            android:apiKey="0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow"
+            android:apiKey="0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g"
             android:clickable="true" >
         </com.google.android.maps.MapView>
 
