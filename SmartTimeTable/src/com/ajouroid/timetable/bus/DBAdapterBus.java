@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DBAdapterBus {
 
@@ -608,20 +609,23 @@ public class DBAdapterBus {
 		Log.d("Bus Database", sql);
 		Cursor c = mDb.rawQuery(sql, null);
 		
-		while (c.moveToNext())
-		{
-			int iId = c.getColumnIndex("ROUTE_ID");
-			int iName = c.getColumnIndex("ROUTE_NM");
-			int iRegion = c.getColumnIndex("REGION_NAME");
-			int iUpStart = c.getColumnIndex("UP_FIRST_TIME");
-			int iUpEnd = c.getColumnIndex("UP_LAST_TIME");
-			int iDownStart = c.getColumnIndex("DOWN_FIRST_TIME");
-			int iDownEnd = c.getColumnIndex("DOWN_LAST_TIME");
-			int iPeekTerm = c.getColumnIndex("PEEK_ALLOC");
-			int iNPeekTerm = c.getColumnIndex("NPEEK_ALLOC");
-			
-			info = new BusInfo(c.getString(iId), c.getString(iName), c.getString(iRegion),c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
-			infoList.add(info);
+		if(c.getCount() != 0){
+
+			while (c.moveToNext())
+			{
+				int iId = c.getColumnIndex("ROUTE_ID");
+				int iName = c.getColumnIndex("ROUTE_NM");
+				int iRegion = c.getColumnIndex("REGION_NAME");
+				int iUpStart = c.getColumnIndex("UP_FIRST_TIME");
+				int iUpEnd = c.getColumnIndex("UP_LAST_TIME");
+				int iDownStart = c.getColumnIndex("DOWN_FIRST_TIME");
+				int iDownEnd = c.getColumnIndex("DOWN_LAST_TIME");
+				int iPeekTerm = c.getColumnIndex("PEEK_ALLOC");
+				int iNPeekTerm = c.getColumnIndex("NPEEK_ALLOC");
+
+				info = new BusInfo(c.getString(iId), c.getString(iName), c.getString(iRegion),c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
+				infoList.add(info);
+			}
 		}
 		c.close();
 		

@@ -142,6 +142,7 @@
                     <!-- 조준영 사무실: 0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g -->
                     <!-- 조준영 노트북: 0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ -->
                     <!-- 노건욱 사무실: 0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow -->
+                    <!-- 노건욱 노트북: 0b4LZni7frDKcvBGNEsytiwD_4B6f0rzW64iogA -->
                 <com.google.android.maps.MapView
                     android:id="@+id/mapview"
                     android:layout_width="fill_parent"
