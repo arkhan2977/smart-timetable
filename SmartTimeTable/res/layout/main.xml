@@ -29,7 +29,7 @@
             android:layout_gravity="left"
             android:background="@drawable/drawer_button"
             android:text="@string/subjectTask_down"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -120,7 +120,7 @@
             android:layout_gravity="right"
             android:background="@drawable/drawer_button"
             android:text="@string/busArrival_down"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="14sp" />
 
         <LinearLayout
