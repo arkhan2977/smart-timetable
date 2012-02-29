@@ -135,7 +135,7 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 		}
 
 		@Override
-		public void bindView(View v, Context context, Cursor cursor) {
+		public void bindView(View v, Context context, final Cursor cursor) {
 			
 			TextView tv_start = (TextView)v.findViewById(R.id.fav_row_start);
 			TextView tv_dest = (TextView)v.findViewById(R.id.fav_row_dest);
@@ -149,6 +149,7 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					dbA.deleteFavoriteInfo((Integer)v.getTag());
+					cursor.requery();
 				}
 			});
 		}
