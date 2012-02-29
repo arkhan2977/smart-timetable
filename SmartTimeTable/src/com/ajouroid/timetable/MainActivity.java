@@ -148,6 +148,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	final int FAVORITE_LIST = 6;
 	public void initWidgets() {
 		addBtn.setOnClickListener(new OnClickListener() {
 
@@ -165,7 +166,7 @@ public class MainActivity extends Activity {
 
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this, FavoriteList.class);
-				startActivity(i);
+				startActivityForResult(i, FAVORITE_LIST);
 			}
 			
 		});
@@ -195,8 +196,7 @@ public class MainActivity extends Activity {
 			public void onPanelOpened(Panel panel) {
 				busDrawerButton.setText("Bus Arrival ▲");
 				
-				//busManager.setRoute(sPref.getInt("current_route", -1));
-				busManager.setRoute(99); // input test value
+				busManager.setRoute(sPref.getInt("current_route", -1));
 				if (!busManager.isUpdating())
 					busManager.update();
 			}
@@ -229,6 +229,8 @@ public class MainActivity extends Activity {
 		taskAdapter = new TaskDBAdapter(taskC);
 		lv_task.setAdapter(taskAdapter);
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -311,6 +313,14 @@ public class MainActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				String subject = data.getStringExtra("subject");
 				timeTable.selectAdder(subject);
+			}
+		}
+		else if (requestCode == FAVORITE_LIST)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				busManager.setRoute(sPref.getInt("current_route", -1));
+				busManager.update();
 			}
 		}
 
@@ -657,13 +667,14 @@ public class MainActivity extends Activity {
 		// 노선 선택
 		public void setRoute(int _id) {
 			route_id = _id;
+			sPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+			
 			if (_id == -1) {
 				tv_start.setText("미설정");
 				tv_dest.setText("미설정");
 				start_id = "NULL";
 				dest_id="NULL";
 			}
-			
 			
 			else if (_id == 99) // Test Value
 			{
@@ -673,6 +684,14 @@ public class MainActivity extends Activity {
 				dest_id = "202000061";
 			}
 			
+			else
+			{
+				tv_start.setText(sPref.getString("current_start_name", "미설정"));
+				tv_dest.setText(sPref.getString("current_dest_name", "미설정"));
+				start_id = sPref.getString("current_start_id", "NULL");
+				dest_id=sPref.getString("current_dest_id", "NULL");
+			}
+
 			// TODO: 데이터베이스로부터 노선 정보를 가져와 설정
 
 		}

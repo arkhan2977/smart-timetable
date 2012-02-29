@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,13 +19,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FavoriteList extends Activity {
+public class FavoriteList extends Activity implements OnItemClickListener {
 
 	private SharedPreferences mPrefs;
 	DBAdapter dbA;
@@ -32,7 +36,7 @@ public class FavoriteList extends Activity {
 	FavoriteAdapter adapter;
 	private static final int From_StationSetting = 0;
 	Button btn_Add;
-	Button btn_Delete;
+	ImageView btn_Delete;
 	ListView favorite_list;
 	Resources r;
 	@Override
@@ -56,7 +60,7 @@ public class FavoriteList extends Activity {
 		}
 		favorite_list = (ListView)findViewById(R.id.fav_list);
 		btn_Add = (Button)findViewById(R.id.fav_add);
-		btn_Delete = (Button)findViewById(R.id.fav_row_delete);
+		btn_Delete = (ImageView)findViewById(R.id.fav_row_delete);
 	}
 
 	@Override
@@ -66,6 +70,7 @@ public class FavoriteList extends Activity {
 		c = dbA.getFavoriteCursor();
 		adapter = new FavoriteAdapter();
 		favorite_list.setAdapter(adapter);
+		favorite_list.setOnItemClickListener(this);
 		
 		btn_Add.setOnClickListener(new OnClickListener() {
 
@@ -151,5 +156,33 @@ public class FavoriteList extends Activity {
  
 			return View.inflate(context, R.layout.favorite_row, null);
 		}
+	}
+
+
+
+
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor ed = sPref.edit();
+		
+		c.moveToPosition(arg2);
+		
+		int iSTART_ID = c.getColumnIndex("START_ID");
+		int iSTART_NM = c.getColumnIndex("START_NM");
+		int iDEST_ID = c.getColumnIndex("DEST_ID");	
+		int iDEST_NM = c.getColumnIndex("DEST_NM");	
+		
+		@SuppressWarnings("unused")
+		int id = c.getInt(0);
+		String startId = c.getString(iSTART_ID);
+		
+		ed.putInt("current_route", c.getInt(0));
+		ed.putString("current_start_id", c.getString(iSTART_ID));
+		ed.putString("current_start_name", c.getString(iSTART_NM));
+		ed.putString("current_dest_id", c.getString(iDEST_ID));
+		ed.putString("current_dest_name", c.getString(iDEST_NM));
+		ed.commit();
+		setResult(RESULT_OK);
+		finish();
 	}
 }
