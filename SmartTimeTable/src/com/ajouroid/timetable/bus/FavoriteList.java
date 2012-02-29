@@ -81,14 +81,8 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 			}			
 		});
 		
-		/*
-		btn_Delete.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		}); */
+		
+		
 	}
 
 	
@@ -148,7 +142,15 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 			TextView tv_dest = (TextView)v.findViewById(R.id.fav_row_dest);
 			tv_start.setText(cursor.getString(iSTART_NM));
 			tv_dest.setText(cursor.getString(iDEST_NM));
-			
+			int id = cursor.getInt(0);
+			v.setTag(id);
+			btn_Delete.setOnClickListener(new OnClickListener() {
+
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dbA.deleteFavoriteInfo((Integer)v.getTag());
+				}
+			});
 		}
 
 		@Override

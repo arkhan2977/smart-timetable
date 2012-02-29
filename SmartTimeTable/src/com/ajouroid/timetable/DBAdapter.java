@@ -128,6 +128,9 @@ public class DBAdapter {
 		initialValues.put("DEST_NM", d_nm);
 		mDb.insert("favorite", null, initialValues);
 	}
+	public void deleteFavoriteInfo(int id){
+		mDb.delete("favorite", "_id = '" + id + "'", null);
+	}
 
 	public boolean addSubject(String name, String classroom, String professor,
 			String email, int color) {
