@@ -66,7 +66,7 @@ public class TimeTableWidget extends AppWidgetProvider {
 		int displayHeight = display.getHeight();
 
 		TimeTable tbl = new TimeTable(context);
-		tbl.getWidgetImage(displayWidth, (int)(displayHeight * 0.8));
+		tbl.getWidgetImage(displayWidth, (int)(displayHeight * 0.9));
 
 		RemoteViews remoteView = new RemoteViews(context.getPackageName(),
 				R.layout.widget_layout);

@@ -119,12 +119,6 @@ public class RouteViewer extends Activity {
 		case R.id.cmenu_end:
 			setDestStop(stationArr.get(info.position).getStop_id(),stationArr.get(info.position).getStop_name());
 			break;
-		case R.id.cmenu_start_2:
-			setStartStop_2(stationArr.get(info.position).getStop_id(),stationArr.get(info.position).getStop_name());
-			break;
-		case R.id.cmenu_end_2:
-			setDestStop_2(stationArr.get(info.position).getStop_id(),stationArr.get(info.position).getStop_name());
-			break;
 		}
 
 		adapter.notifyDataSetChanged();
@@ -173,46 +167,30 @@ public class RouteViewer extends Activity {
 				//extra.putAll(data.getExtras());
 				//favorite_intent.putExtras(extra);
 				this.setResult(RESULT_OK, favorite_intent); // 성공했다는 결과값을 보내면서 데이터 꾸러미를 지고 있는 intent를 함께 전달한다.
-				this.finish();
+				if (favorite_intent.hasExtra("start_id") && favorite_intent.hasExtra("dest_id"))
+					finish();
 			}
 		}
 	}
 
 	public void setStartStop(String id,String name)
 	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("START_STOP",id); 
-		ed.putString("START_STOP_NAME", name);
-		Toast.makeText(this, r.getString(R.string.bus_start1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
+		favorite_intent.putExtra("start_id", id);
+		favorite_intent.putExtra("start_name", name);
+		setResult(RESULT_OK, favorite_intent);
+		if (favorite_intent.hasExtra("start_id") && favorite_intent.hasExtra("dest_id"))
+			finish();
 	}
 	
 	public void setDestStop(String id,String name)
 	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("DEST_STOP",id); 
-		ed.putString("DEST_STOP_NAME", name);
-		Toast.makeText(this, r.getString(R.string.bus_dest1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
+		favorite_intent.putExtra("dest_id", id);
+		favorite_intent.putExtra("dest_name", name);
+		setResult(RESULT_OK, favorite_intent);
+		if (favorite_intent.hasExtra("start_id") && favorite_intent.hasExtra("dest_id"))
+			finish();
 	}
 	
-	public void setStartStop_2(String id,String name)
-	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("START_STOP_2",id); 
-		ed.putString("START_STOP_NAME_2", name);
-		Toast.makeText(this, r.getString(R.string.bus_start2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
-	}
-	
-	public void setDestStop_2(String id,String name)
-	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("DEST_STOP_2",id); 
-		ed.putString("DEST_STOP_NAME_2", name);
-		Toast.makeText(this, r.getString(R.string.bus_dest2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
-	}
 	
 	class FindRouteTask extends AsyncTask<String, Void, Void>
 	{
@@ -373,44 +351,8 @@ public class RouteViewer extends Activity {
 				current.setVisibility(View.VISIBLE);
 			}
 			
-			String spId = sPrefs.getString("START_STOP", "");
-			String destId = sPrefs.getString("DEST_STOP", "");
-			
-			String spId_2 = sPrefs.getString("START_STOP_2", "");
-			String destId_2 = sPrefs.getString("DEST_STOP_2", "");
-			
-			TextView state = (TextView)row.findViewById(R.id.route_state);
-			
 			String curId = stationArr.get(position).getStop_id();
-			if (spId.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_st1);
-				stop_name.setTextColor(0xFFDAA520);
-				state.setVisibility(View.VISIBLE);
-			}
-			else if (destId.compareTo(curId) == 0){
-				state.setText(R.string.bus_ds1);
-				stop_name.setTextColor(0xFFDAA520);
-				state.setVisibility(View.VISIBLE);
-			}
 			
-			else if (spId_2.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_st2);
-				stop_name.setTextColor(0xFFFF0000);
-				state.setVisibility(View.VISIBLE);
-			}
-			else if(destId_2.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_ds2);
-				stop_name.setTextColor(0xFFFF0000);
-				state.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				state.setVisibility(View.INVISIBLE);
-			}
-
 			
 			return row;
 

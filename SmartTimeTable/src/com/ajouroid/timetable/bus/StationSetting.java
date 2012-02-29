@@ -344,12 +344,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				setDestStop(sp_stop_arrlist.get(info.position).getStop_id(),sp_stop_arrlist.get(info.position).getStop_name());
 				break;
 
-			case R.id.cmenu_start_2:
-				setStartStop_2(sp_stop_arrlist.get(info.position).getStop_id(),sp_stop_arrlist.get(info.position).getStop_name());
-				break;
-			case R.id.cmenu_end_2:
-				setDestStop_2(sp_stop_arrlist.get(info.position).getStop_id(),sp_stop_arrlist.get(info.position).getStop_name());
-				break;
 			}
 			break;
 
@@ -363,12 +357,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				setDestStop(dest_stop_arrlist.get(info.position).getStop_id(),dest_stop_arrlist.get(info.position).getStop_name());
 				break;
 
-			case R.id.cmenu_start_2:
-				setStartStop_2(dest_stop_arrlist.get(info.position).getStop_id(),dest_stop_arrlist.get(info.position).getStop_name());
-				break;
-			case R.id.cmenu_end_2:
-				setDestStop_2(dest_stop_arrlist.get(info.position).getStop_id(),dest_stop_arrlist.get(info.position).getStop_name());
-				break;
 			}
 			break;			
 		case 2:
@@ -381,12 +369,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				setDestStop(current_stop_arrlist.get(info.position).getStop_id(),current_stop_arrlist.get(info.position).getStop_name());
 				break;
 
-			case R.id.cmenu_start_2:
-				setStartStop_2(current_stop_arrlist.get(info.position).getStop_id(),current_stop_arrlist.get(info.position).getStop_name());
-				break;
-			case R.id.cmenu_end_2:
-				setDestStop_2(current_stop_arrlist.get(info.position).getStop_id(),current_stop_arrlist.get(info.position).getStop_name());
-				break;
 			}
 			break;
 
@@ -401,12 +383,6 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 				setDestStop(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
 				break;
 
-			case R.id.cmenu_start_2:
-				setStartStop_2(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
-				break;
-			case R.id.cmenu_end_2:
-				setDestStop_2(stopList.get(info.position).getStop_id(),stopList.get(info.position).getStop_name());
-				break;
 			}
 			break;			
 		}
@@ -609,45 +585,8 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 
 			TextView stop_name = (TextView)row.findViewById(R.id.stop_name);		
-			stop_name.setText(arrlist.get(position).getStop_name());			
-
-			String spId = sPrefs.getString("START_STOP", "");
-			String destId = sPrefs.getString("DEST_STOP", "");
-
-			String spId_2 = sPrefs.getString("START_STOP_2", "");
-			String destId_2 = sPrefs.getString("DEST_STOP_2", "");
-
-			TextView state = (TextView)row.findViewById(R.id.stop_state);
-
-			String curId = arrlist.get(position).getStop_id();
-			if (spId.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_st1);
-				stop_name.setTextColor(0xFFDAA520);
-				state.setVisibility(View.VISIBLE);
-			}
-			else if (destId.compareTo(curId) == 0){
-				state.setText(R.string.bus_ds1);
-				stop_name.setTextColor(0xFFDAA520);
-				state.setVisibility(View.VISIBLE);
-			}
-
-			else if (spId_2.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_st2);
-				stop_name.setTextColor(0xFFFF0000);
-				state.setVisibility(View.VISIBLE);
-			}
-			else if(destId_2.compareTo(curId) == 0)
-			{
-				state.setText(R.string.bus_ds2);
-				stop_name.setTextColor(0xFFFF0000);
-				state.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				state.setVisibility(View.INVISIBLE);
-			}
+			stop_name.setText(arrlist.get(position).getStop_name());
+			
 
 			TextView stop_num = (TextView)row.findViewById(R.id.stop_num);
 			stop_num.setText(arrlist.get(position).getNumber() + "");
@@ -715,42 +654,18 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 
 	public void setStartStop(String id,String name)
 	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("START_STOP",id); 
-		ed.putString("START_STOP_NAME", name);
-		Toast.makeText(this, r.getString(R.string.bus_start1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
-		updateAdapter();
+		start_id = id;
+		start_name = name;
+		tv_start.setText(name);
+		checkSetting();
 	}
 
 	public void setDestStop(String id,String name)
 	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("DEST_STOP",id); 
-		ed.putString("DEST_STOP_NAME", name);
-		Toast.makeText(this, r.getString(R.string.bus_dest1) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();	
-		updateAdapter();
-	}
-
-	public void setStartStop_2(String id,String name)
-	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("START_STOP_2",id); 
-		ed.putString("START_STOP_NAME_2", name);
-		Toast.makeText(this, r.getString(R.string.bus_start2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();
-		updateAdapter();
-	}
-
-	public void setDestStop_2(String id,String name)
-	{
-		SharedPreferences.Editor ed = sPrefs.edit();
-		ed.putString("DEST_STOP_2",id); 
-		ed.putString("DEST_STOP_NAME_2", name);
-		Toast.makeText(this, r.getString(R.string.bus_dest2) + r.getString(R.string.isSet), Toast.LENGTH_SHORT).show();
-		ed.commit();	
-		updateAdapter();
+		dest_id = id;
+		dest_name = name;
+		tv_dest.setText(name);
+		checkSetting();
 	}
 
 	public void onClick(View v) {
@@ -872,41 +787,45 @@ public class StationSetting extends MapActivity implements LocationListener, Vie
 					dest_name = data.getStringExtra("dest_name");
 					dest_id = data.getStringExtra("dest_id");
 					tv_dest.setText(dest_name);
-					
-					if(start_id != null)
-					{
-						AlertDialog dlg = new AlertDialog.Builder(this)
-						.setTitle(r.getString(R.string.currentRoute))		// title 지정
-						.setMessage(start_name + " ▶ " + dest_name + "\n" + r.getString(R.string.rqConfirm))	
-						.setPositiveButton(r.getString(R.string.ok), new DialogInterface.OnClickListener(){
-							public void onClick(DialogInterface dialog, int which) {
-								DBAdapter dbA = new DBAdapter(StationSetting.this);
-								dbA.open();
-								dbA.addFavoriteInfo(start_id, start_name, dest_id, dest_name);
-								dbA.close();
-								finish();
-							}
-						}).setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener(){
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						}).show();
-					}
-					else{
-						AlertDialog dlg = new AlertDialog.Builder(this)
-						.setTitle(r.getString(R.string.currentRoute))
-						.setMessage("출발지가 설정되지 않았습니다.")	
-						.setPositiveButton(r.getString(R.string.ok), new DialogInterface.OnClickListener(){
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						}).show();
-					}
 				}
+					
+				checkSetting();
+
 			}
 		}
 	}
 	
+	public void checkSetting()
+ {
+		if (start_id != null && dest_id != null) {
+			AlertDialog dlg = new AlertDialog.Builder(this)
+					.setTitle(r.getString(R.string.currentRoute))
+					// title 지정
+					.setMessage(
+							start_name + " ▶ " + dest_name + "\n"
+									+ r.getString(R.string.rqConfirm))
+					.setPositiveButton(r.getString(R.string.ok),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									DBAdapter dbA = new DBAdapter(
+											StationSetting.this);
+									dbA.open();
+									dbA.addFavoriteInfo(start_id, start_name,
+											dest_id, dest_name);
+									dbA.close();
+									finish();
+								}
+							})
+					.setNegativeButton(r.getString(R.string.cancel),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).show();
+		}
+	}
 	
 	
 }

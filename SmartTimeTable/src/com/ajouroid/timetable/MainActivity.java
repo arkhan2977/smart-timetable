@@ -18,6 +18,7 @@ import com.ajouroid.timetable.bus.BusInfo;
 import com.ajouroid.timetable.bus.DBAdapterBus;
 import com.ajouroid.timetable.bus.FavoriteList;
 import com.ajouroid.timetable.bus.GotoSchoolActivity;
+import com.ajouroid.timetable.bus.RouteViewer;
 import com.ajouroid.timetable.bus.StationSetting;
 import com.ajouroid.timetable.interpolator.BounceInterpolator;
 import com.ajouroid.timetable.interpolator.EasingType.Type;
@@ -56,6 +57,8 @@ public class MainActivity extends Activity {
 	TaskDBAdapter taskAdapter;
 	Cursor c;
 	Cursor taskC;
+	
+	ArrayList<BusInfo> busInfoList;
 
 	// 위젯
 	TimeTable timeTable;
@@ -161,7 +164,18 @@ public class MainActivity extends Activity {
 
 		});
 		lv_task.setOnItemClickListener(new TaskClickListener());
-		
+		lv_busList.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent i = new Intent(MainActivity.this, RouteViewer.class);
+
+				i.putExtra("id", busInfoList.get(arg2).getBus_id());
+
+				startActivity(i);
+			}
+			
+		});
 		btn_favorite.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -676,14 +690,6 @@ public class MainActivity extends Activity {
 				dest_id="NULL";
 			}
 			
-			else if (_id == 99) // Test Value
-			{
-				tv_start.setText("대원터널4거리.전주회관.우리은행");
-				tv_dest.setText("아주대학교.아주대병원입구.아주대삼거리");
-				start_id = "205000156";
-				dest_id = "202000061";
-			}
-			
 			else
 			{
 				tv_start.setText(sPref.getString("current_start_name", "미설정"));
@@ -1012,7 +1018,8 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onProgressUpdate(ArrayList<BusInfo>... values) {
 			super.onProgressUpdate(values);
-			BusAdapter adapter = new BusAdapter(values[0]);
+			busInfoList = values[0];
+			BusAdapter adapter = new BusAdapter(busInfoList);
 			lv_busList.setAdapter(adapter);
 		}
 		

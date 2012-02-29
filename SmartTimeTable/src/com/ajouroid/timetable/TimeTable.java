@@ -275,7 +275,7 @@ public class TimeTable extends View {
 		}
 
 		// 시간과 요일 표시부분의 너비
-		dayheight = 60;
+		dayheight = 50;
 		timewidth = 80;
 
 		update();
@@ -844,7 +844,7 @@ public class TimeTable extends View {
 
 		float totalTime = endTime.toMinute() - startTime.toMinute();
 
-		topmost = 50;
+		topmost = 60;
 		
 		// 시작 좌표 지정
 		int timetop = dayheight + topmost;
@@ -1036,16 +1036,17 @@ public class TimeTable extends View {
 
 		/*
 		 * ====================== 과목 출력 ======================
-		 */
-		Paint subjectPaint = new Paint();
-		subjectPaint.setStyle(Style.FILL);
-		subjectPaint.setAlpha(0xFF);
-		subjectPaint.setAntiAlias(true);
-		
+		 */		
 		Paint subjectStroke = new Paint();
-		subjectStroke.setStrokeWidth(4);
-		subjectStroke.setStyle(Style.STROKE);
-		subjectStroke.setAlpha(0xFF);
+		if (alphaValue == 0)
+		{
+			subjectStroke.setStyle(Style.STROKE);
+			subjectStroke.setStrokeWidth(4);
+		}
+		else
+		{
+			subjectStroke.setStyle(Style.FILL);
+		}
 		subjectStroke.setAntiAlias(true);
 
 		
@@ -1071,17 +1072,9 @@ public class TimeTable extends View {
 
 		int taskRadius = boxwidth / 20;
 
-		// 현재 수업 출력용
-		Subject nowSubject = null;
-		RectF nowRect = null;
-		RectF shadowRect = null;
 		float sX = 0, sY = 0, eX = 0, eY = 0;
-		float nSX = 0, nSY = 0, nEX = 0, nEY = 0;
-
 		final int listSize = subjectList.size();
-
-		subjectPaint.setColor(subjectBgColor);
-		subjectPaint.setAlpha(alphaValue);
+		
 		for (int i = 0; i < listSize; i++) {
 			Subject subject = subjectList.get(i);
 
@@ -1102,6 +1095,7 @@ public class TimeTable extends View {
 
 			// 해당 과목의 색으로 설정
 			subjectStroke.setColor(subject.getColor());
+			subjectStroke.setAlpha(0x66);
 
 			ArrayList<ClassTime> timeList = subject.getTime();
 			final int timeSize = timeList.size();
@@ -1161,8 +1155,7 @@ public class TimeTable extends View {
 
 				
 				RectF subjectRect = new RectF(sX, sY, eX, eY);
-
-				canvas.drawRoundRect(subjectRect, 2, 2, subjectPaint);
+				
 				canvas.drawRoundRect(subjectRect, 2, 2, subjectStroke);
 
 				if (priority > 0 && showCurTime) {
@@ -1199,133 +1192,6 @@ public class TimeTable extends View {
 				canvas.drawBitmap(textBitmap, null, new RectF(sX, sY, eX, eY), null);
 			}
 		}
-		/*
-		if (showCurTime && nowSubject != null) {
-			float timeHeight = nEY - nSY;
-			float timeWidth = nEX - nSX;
-
-			subjectPaint.setColor(nowSubject.getColor());
-
-			if (alphaValue == 0) {
-				subjectPaint.setStyle(Style.FILL);
-
-				subjectFont.setColor(0);
-				subjectFont.setAlpha(0xFF);
-				classFont.setColor(0);
-				classFont.setAlpha(0xFF);
-			}
-
-			canvas.drawRoundRect(shadowRect, 5, 5, shadowPaint);
-
-			canvas.drawRoundRect(nowRect, 5, 5, subjectPaint);
-
-			if (alphaValue > 0) {
-				canvas.drawRoundRect(nowRect, 5, 5, linePaint);
-			}
-
-			int priority = taskTable.get(nowSubject.getName());
-			switch (priority) {
-			case TaskAlert.HIGH:
-				taskPaint.setColor(0xFFFF0000);
-				break;
-			case TaskAlert.MEDIUM:
-				taskPaint.setColor(0xFFFFAA00);
-				break;
-			case TaskAlert.LOW:
-				taskPaint.setColor(0xFFAAAAAA);
-				break;
-			default:
-				taskPaint.setColor(0);
-			}
-
-			if (priority > 0) {
-				float cX = nSX + taskRadius * 2;
-				float cY = nSY + taskRadius * 2;
-				canvas.drawCircle(cX, cY, taskRadius+1, subjectFont);
-				canvas.drawCircle(cX, cY, taskRadius, taskPaint);
-			}
-
-			Bitmap textBitmap = Bitmap.createBitmap((int)timeWidth, (int)timeHeight,
-					Bitmap.Config.ARGB_8888);
-			Canvas textCanvas = new Canvas(textBitmap);
-
-			String name = nowSubject.getName();
-			String[] subjectLines = seperateLines(name, boxwidth, subjectFont);
-			int subjectLineCnt = subjectLines.length;
-
-			String classroom = nowSubject.getClassRoom();
-			String[] classLines = seperateLines(classroom, boxwidth, classFont);
-			int classLineCnt = classLines.length;
-
-			int subHeight = (int) ((subjectFont.descent()
-					- subjectFont.ascent() + 1) * (subjectLineCnt)) + 5;
-			int classHeight = (int) ((classFont.descent() - classFont.ascent())
-					* (classLineCnt) - classFont.ascent());
-
-			// 영역 안에 들어가는 경우
-			if (subHeight < timeHeight / 2 && classHeight < timeHeight / 2) {
-				for (int l = 0; l < subjectLineCnt; l++) {
-					textCanvas
-							.drawText(
-									subjectLines[l],
-									boxwidth / 2,
-									timeHeight
-											/ 2
-											- ((subjectFont.descent() - subjectFont
-													.ascent()) * (subjectLineCnt
-													- l - 1)) - 5, subjectFont);
-				}
-
-				for (int l = 0; l < classLineCnt; l++) {
-					textCanvas.drawText(
-							classLines[l],
-							boxwidth / 2,
-							timeHeight
-									/ 2
-									+ ((classFont.descent() - classFont
-											.ascent()) * (l + 1)), classFont);
-				}
-			}
-
-			// 들어가지 못하는 경우 위에서부터 출력
-			else {
-				for (int l = 0; l < subjectLineCnt; l++) {
-					textCanvas
-							.drawText(
-									subjectLines[l],
-									boxwidth / 2,
-									(((1 + subjectFont.descent() - subjectFont
-											.ascent())) * l)
-											- subjectFont.ascent(), subjectFont);
-				}
-
-				int classTop = (int) ((1 + subjectFont.descent() - subjectFont
-						.ascent()) * (subjectLineCnt + 1)) + 5;
-
-				for (int l = 0; l < classLineCnt; l++) {
-					textCanvas.drawText(classLines[l], boxwidth / 2, classTop
-							+ (1 + classFont.descent() - classFont.ascent())
-							* l, classFont);
-				}
-			}
-
-			canvas.drawBitmap(textBitmap, null, new RectF(nSX, nSY + taskRadius
-					* 2, nEX, nEY + taskRadius * 2), null);
-		}
-
-		
-		 * Paint timeLine = new Paint(); timeLine.setColor(timeLineColor);
-		 * timeLine.setAlpha(0x3F); timeLine.setStrokeWidth(3);
-		 * 
-		 * if (!(nowT.before(startTime) || endTime.before(nowT))) { float
-		 * nowTime = nowT.toMinute() - startTime.toMinute();
-		 * 
-		 * float timeRate = nowTime / totalTime;
-		 * 
-		 * int timeY = (int) (timeRate * (bottom - timetop)) + timetop;
-		 * 
-		 * canvas.drawLine(leftMargin, timeY, rightside, timeY, timeLine); }
-		 */
 
 		return bitmap;
 	}
