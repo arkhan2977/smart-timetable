@@ -36,7 +36,7 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 	FavoriteAdapter adapter;
 	private static final int From_StationSetting = 0;
 	Button btn_Add;
-	ImageView btn_Delete;
+
 	ListView favorite_list;
 	Resources r;
 	@Override
@@ -60,7 +60,6 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 		}
 		favorite_list = (ListView)findViewById(R.id.fav_list);
 		btn_Add = (Button)findViewById(R.id.fav_add);
-		btn_Delete = (ImageView)findViewById(R.id.fav_row_delete);
 	}
 
 	@Override
@@ -142,8 +141,9 @@ public class FavoriteList extends Activity implements OnItemClickListener {
 			TextView tv_dest = (TextView)v.findViewById(R.id.fav_row_dest);
 			tv_start.setText(cursor.getString(iSTART_NM));
 			tv_dest.setText(cursor.getString(iDEST_NM));
+			ImageView btn_Delete = (ImageView)v.findViewById(R.id.fav_row_delete);
 			int id = cursor.getInt(0);
-			v.setTag(id);
+			btn_Delete.setTag(id);
 			btn_Delete.setOnClickListener(new OnClickListener() {
 
 				public void onClick(View v) {
