@@ -3,7 +3,7 @@ package com.ajouroid.timetable.bus;
 import java.util.ArrayList;
 
 public class BusInfo {
-	private String bus_id;
+	private long bus_id;
 	private String bus_number;
 	String upFirstTime;
 	String upLastTime;
@@ -18,7 +18,7 @@ public class BusInfo {
 	
 	public BusInfo(){}
 	
-	public BusInfo(String _id, String _number, String _region, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term)
+	public BusInfo(long _id, String _number, String _region, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term)
 	{
 		bus_id = _id;
 		bus_number = _number;
@@ -31,7 +31,7 @@ public class BusInfo {
 		region = _region;
 	}
 	
-	public BusInfo(String _id, String _number, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term) {
+	public BusInfo(long _id, String _number, String ufirst, String ulast, String dfirst, String dlast, String _peek_term, String _npeek_term) {
 		bus_id = _id;
 		bus_number = _number;
 		upFirstTime = ufirst;
@@ -48,11 +48,11 @@ public class BusInfo {
 		bus_type = _type;
 	}
 
-	public String getBus_id() {
+	public long getBus_id() {
 		return bus_id;
 	}
 
-	public void setBus_id(String bus_id) {
+	public void setBus_id(long bus_id) {
 		this.bus_id = bus_id;
 	}
 

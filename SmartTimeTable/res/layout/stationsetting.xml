@@ -140,14 +140,15 @@
                 
 
                     <!-- 조준영 사무실: 0E4V7JeQRagE9zqjgmd1BKB6senZw-TQstivP6g -->
-                    <!-- 조준영 노트북: 0E4V7JeQRagEBXnLr2OnwKs2gyxNquiZIJFyTgQ -->
+                    <!-- 조준영 노트북: 0E4V7JeQRagGPKHGa2-ciYdj5ubeg0kaq6LukDw -->
                     <!-- 노건욱 사무실: 0b4LZni7frDLKSAIeCAahHwJ9lTU3oGc5SFVuow -->
                     <!-- 노건욱 노트북: 0b4LZni7frDKcvBGNEsytiwD_4B6f0rzW64iogA -->
+                    <!-- KEYSTORE: 0E4V7JeQRagFLXQMRVloPmsPXd6SQPQP7PM8PpQ -->
                 <com.google.android.maps.MapView
                     android:id="@+id/mapview"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:apiKey="0b4LZni7frDKcvBGNEsytiwD_4B6f0rzW64iogA"                    
+                    android:apiKey="0E4V7JeQRagFLXQMRVloPmsPXd6SQPQP7PM8PpQ"                    
                     android:clickable="true" />
                 
                  </LinearLayout>

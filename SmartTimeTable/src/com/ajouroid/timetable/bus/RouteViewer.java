@@ -87,7 +87,7 @@ public class RouteViewer extends Activity {
 		favorite_intent = new Intent();
 		sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String busId = getIntent().getStringExtra("id");
+		long busId = getIntent().getLongExtra("id", -1);
 		
 		FindRouteTask task = new FindRouteTask();
 		task.execute(busId);
@@ -192,7 +192,7 @@ public class RouteViewer extends Activity {
 	}
 	
 	
-	class FindRouteTask extends AsyncTask<String, Void, Void>
+	class FindRouteTask extends AsyncTask<Long, Void, Void>
 	{
 		ProgressDialog dialog;
 		
@@ -235,7 +235,7 @@ public class RouteViewer extends Activity {
 		}
 
 		@Override
-		protected Void doInBackground(String... params) {
+		protected Void doInBackground(Long... params) {
 			stationArr = dbA.getBusStopOfBus(params[0]);
 			info = dbA.getBusInfo(params[0]);
 			

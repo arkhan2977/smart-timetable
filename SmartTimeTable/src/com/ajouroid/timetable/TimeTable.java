@@ -1095,7 +1095,7 @@ public class TimeTable extends View {
 
 			// 해당 과목의 색으로 설정
 			subjectStroke.setColor(subject.getColor());
-			subjectStroke.setAlpha(0x66);
+			subjectStroke.setAlpha(0xAA);
 
 			ArrayList<ClassTime> timeList = subject.getTime();
 			final int timeSize = timeList.size();

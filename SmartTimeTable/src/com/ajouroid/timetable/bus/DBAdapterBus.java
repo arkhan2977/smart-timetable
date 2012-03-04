@@ -1,6 +1,7 @@
 package com.ajouroid.timetable.bus;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -377,10 +378,11 @@ public class DBAdapterBus {
 		}
 	}
 	
-	public ArrayList<String> findBuses(String sp_route_id, String dest_route_id)
+	public ArrayList<Long> findBuses(String sp_route_id, String dest_route_id)
 	{
 		Long startTime = System.currentTimeMillis();
 		Log.d("Bus Database", "Starting find bus...");
+		/*
 		String sql = "select a.route_id 'ROUTE_ID'" +
 				" from routestation a inner join routestation b" +
 				" where a.station_id='" + sp_route_id + "' and b.station_id='" + dest_route_id + "'" +
@@ -396,9 +398,60 @@ public class DBAdapterBus {
 			retVal.add(c.getString(0));
 		}
 		
+		*/
+		
+		ArrayList<Long> retVal = new ArrayList<Long>();
+		
+		
+		String sql2 = "SELECT ROUTE_ID FROM routestation WHERE STATION_ID='" + sp_route_id + "' ORDER BY ROUTE_ID ASC";
+		String sql3 = "SELECT ROUTE_ID FROM routestation WHERE STATION_ID='" + dest_route_id + "' ORDER BY ROUTE_ID ASC";
+		
+		ArrayList<Long> startList = new ArrayList<Long>();
+		ArrayList<Long> destList = new ArrayList<Long>();
+		
+		Cursor sC = mDb.rawQuery(sql2, null);
+		while (sC.moveToNext())
+		{
+			Log.d("Bus Database", "Start Station: " + sC.getString(0) + ", " + sC.getLong(0));
+			startList.add(sC.getLong(0));
+		}
+		sC.close();
+		
+		Cursor dC = mDb.rawQuery(sql3, null);
+		while (dC.moveToNext())
+		{
+			Log.d("Bus Database", "Dest Station: " + dC.getString(0) + ", " + dC.getLong(0));
+			destList.add(dC.getLong(0));
+		}
+		dC.close();
+		
+		Iterator<Long> itr_Start = startList.iterator();
+		Iterator<Long> itr_Dest = destList.iterator();
+		long cur_Start = -1L;
+		long cur_Dest = -1L;
+		
+		while(itr_Start.hasNext() && itr_Dest.hasNext())
+		{
+			cur_Start = itr_Start.next();
+			while (itr_Dest.hasNext() && (cur_Dest = itr_Dest.next()) < cur_Start); // 크거나 같은 값이 나올때까지 그냥 넘김
+			
+			Log.d("Bus Database", "S:" + cur_Start + ", D:" + cur_Dest);
+
+			
+			if (cur_Start < cur_Dest)
+			{
+				while (itr_Start.hasNext() && (cur_Start = itr_Start.next()) < cur_Dest);
+				Log.d("Bus Database", "S:" + cur_Start + ", D:" + cur_Dest);
+			}
+			
+			if (cur_Start == cur_Dest)
+			{
+				retVal.add(cur_Start);
+			}
+		}
+		
 		Long endTime = System.currentTimeMillis();
 		Log.d("Bus Database", "Finding Bus: " + (endTime - startTime) + "ms");
-		
 		return retVal;
 	}
 	
@@ -552,7 +605,7 @@ public class DBAdapterBus {
 		return infoList;
 	}
 	
-	public BusInfo getBusInfo(String id)
+	public BusInfo getBusInfo(long id)
 	{
 		BusInfo info = null;
 
@@ -573,7 +626,7 @@ public class DBAdapterBus {
 			int iPeekTerm = c.getColumnIndex("PEEK_ALLOC");
 			int iNPeekTerm = c.getColumnIndex("NPEEK_ALLOC");
 			
-			info = new BusInfo(c.getString(iId), c.getString(iName), c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
+			info = new BusInfo(c.getLong(iId), c.getString(iName), c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
 			
 			/*
 			String sql2 = "SELECT * FROM routestation WHERE ROUTE_ID = '" + c.getString(iId) + "' ORDER BY STA_ORDER ASC";
@@ -623,7 +676,7 @@ public class DBAdapterBus {
 				int iPeekTerm = c.getColumnIndex("PEEK_ALLOC");
 				int iNPeekTerm = c.getColumnIndex("NPEEK_ALLOC");
 
-				info = new BusInfo(c.getString(iId), c.getString(iName), c.getString(iRegion),c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
+				info = new BusInfo(c.getLong(iId), c.getString(iName), c.getString(iRegion),c.getString(iUpStart), c.getString(iUpEnd), c.getString(iDownStart), c.getString(iDownEnd), c.getString(iPeekTerm), c.getString(iNPeekTerm));
 				infoList.add(info);
 			}
 		}
@@ -632,7 +685,7 @@ public class DBAdapterBus {
 		return infoList;
 	}
 	
-	public ArrayList<BusStopInfo> getBusStopOfBus(String busId)
+	public ArrayList<BusStopInfo> getBusStopOfBus(long busId)
 	{
 		String sql = "SELECT STATION_ID, STATION_NM, UPDOWN, STA_ORDER FROM routestation WHERE ROUTE_ID = '" + busId + "' ORDER BY STA_ORDER ASC";
 		Log.d("Bus Database", sql);

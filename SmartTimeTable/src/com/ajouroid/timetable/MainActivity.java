@@ -17,7 +17,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.ajouroid.timetable.bus.BusInfo;
 import com.ajouroid.timetable.bus.DBAdapterBus;
 import com.ajouroid.timetable.bus.FavoriteList;
-import com.ajouroid.timetable.bus.GotoSchoolActivity;
 import com.ajouroid.timetable.bus.RouteViewer;
 import com.ajouroid.timetable.bus.StationSetting;
 import com.ajouroid.timetable.interpolator.BounceInterpolator;
@@ -818,7 +817,7 @@ public class MainActivity extends Activity {
 				ArrayList<BusInfo> temp = new ArrayList<BusInfo>();
 				BusInfo bus = null;
 
-				ArrayList<String> validBus = busDb.findBuses(sp_stationID,
+				ArrayList<Long> validBus = busDb.findBuses(sp_stationID,
 						dest_stationID);
 				boolean skip = false;
 
@@ -857,7 +856,7 @@ public class MainActivity extends Activity {
 										bus = new BusInfo();
 									} else if (tag.compareTo("routeId") == 0) {
 										xpp.next();
-										String id = xpp.getText();
+										long id = Long.parseLong(xpp.getText());
 
 										if (validBus.contains(id)) {
 											bus.setBus_id(id);
