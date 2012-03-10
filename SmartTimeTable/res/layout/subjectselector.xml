@@ -19,7 +19,7 @@
     <ListView 
         android:id="@+id/selector_list"
         android:background="@drawable/stroke_box"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

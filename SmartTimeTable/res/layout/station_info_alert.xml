@@ -40,7 +40,7 @@
                 android:id="@+id/close_img_button"
                 android:contentDescription="@string/cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:paddingBottom="10dip"
                 android:paddingLeft="10dip"
                 android:paddingRight="8dip"
@@ -78,14 +78,14 @@
 
                 <Button
                     android:id="@+id/btn_set_start"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/stroke_button"
                     android:text="@string/bus_set_start" />
 
                 <Button
                     android:id="@+id/btn_set_dest"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/stroke_button"

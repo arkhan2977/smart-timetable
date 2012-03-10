@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/task_subject"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/task_title"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"

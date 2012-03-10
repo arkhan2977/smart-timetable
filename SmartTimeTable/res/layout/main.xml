@@ -35,7 +35,7 @@
 
         <LinearLayout
             android:id="@id/panelContent"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="300dp"
             android:background="#505050"
             android:baselineAligned="false"
@@ -70,7 +70,7 @@
 
                 <Button
                     android:id="@+id/btn_addSubject"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="right"
                     android:layout_margin="10dp"
@@ -127,7 +127,7 @@
 
         <LinearLayout
             android:id="@id/busContent"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="300dp"
             android:background="#505050"
             android:baselineAligned="false"

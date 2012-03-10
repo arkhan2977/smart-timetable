@@ -1,16 +1,16 @@
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabhost"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:background="#FFFFFF"
         android:orientation="vertical" >
         
         <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#505050"
         android:orientation="horizontal"
@@ -73,7 +73,7 @@
 
                     <TextView
                         android:id="@+id/roh_my_location_current"
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="30dp"
@@ -89,7 +89,7 @@
                 <ListView
                     android:id="@+id/roh_current_stop_list"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="fill_parent"
                     android:layout_margin="10dp"                    
                     android:cacheColorHint="#00000000" />
             </LinearLayout>
@@ -118,7 +118,7 @@
 
                     <TextView
                         android:id="@+id/roh_my_location_current1"
-                        android:layout_width="match_parent"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="30dp"
@@ -237,7 +237,7 @@
 
         <TabWidget
             android:id="@android:id/tabs"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal" />
