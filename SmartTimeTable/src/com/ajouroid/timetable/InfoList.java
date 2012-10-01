@@ -58,8 +58,6 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 		super.onCreate(savedInstanceState);
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.infolist);
 		
 		infoList = (ListView)findViewById(R.id.infolistbox);
@@ -306,50 +304,55 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
                 v = vi.inflate(R.layout.infolist_row, null);
             }
 			
-			TextView type = (TextView)v.findViewById(R.id.info_type);
-			TextView title = (TextView)v.findViewById(R.id.info_title);
-			TextView datetime = (TextView)v.findViewById(R.id.info_datetime);
-			TextView remain = (TextView)v.findViewById(R.id.info_remain);
-			ImageView delete = (ImageView)v.findViewById(R.id.info_delete);
-			
-			Task task = taskList.get(position);
-			String typeStr=new String();
-			switch(task.getType())
-			{
-			case DBAdapter.TYPE_ASSIGNMENT:
-				typeStr = getResources().getString(R.string.info_assign);
-				break;
-			case DBAdapter.TYPE_TEST:
-				typeStr = getResources().getString(R.string.info_test);
-				break;
-			case DBAdapter.TYPE_EXTRA:
-				typeStr = getResources().getString(R.string.info_test);
-				break;
-			case DBAdapter.TYPE_ETC:
-				typeStr = getResources().getString(R.string.info_etc);
-				break;
-			}
-			type.setText(typeStr);
-			title.setText(task.getName());
-			
-			boolean useTime = task.isUsetime();
-			
-			long dist=0;
 			try {
-				Date taskTime = (new SimpleDateFormat(getResources().getString(R.string.dateformat), Locale.US)).parse(task.getTaskDate());
+			
+				TextView type = (TextView)v.findViewById(R.id.info_type);
+				TextView title = (TextView)v.findViewById(R.id.info_title);
+				TextView datetime = (TextView)v.findViewById(R.id.info_datetime);
+				TextView remain = (TextView)v.findViewById(R.id.info_remain);
+				ImageView delete = (ImageView)v.findViewById(R.id.info_delete);
+				
+				Task task = taskList.get(position);
+				
+				String typeStr=new String();
+				switch(task.getType())
 				{
+				case DBAdapter.TYPE_ASSIGNMENT:
+					typeStr = getResources().getString(R.string.info_assign);
+					break;
+				case DBAdapter.TYPE_TEST:
+					typeStr = getResources().getString(R.string.info_test);
+					break;
+				case DBAdapter.TYPE_EXTRA:
+					typeStr = getResources().getString(R.string.info_test);
+					break;
+				case DBAdapter.TYPE_ETC:
+					typeStr = getResources().getString(R.string.info_etc);
+					break;
+				}
+				type.setText(typeStr);
+				title.setText(task.getName());
+				
+				boolean useTime = task.isUsetime();
+				
+				long dist=0;
+				Date taskTime = new Date(task.getTaskDate());
+				{
+					SimpleDateFormat format;
 					if (useTime)
 					{
-						datetime.setText(task.getTaskDate());
+						format = new SimpleDateFormat(r.getString(R.string.dateformat), Locale.US);
+						datetime.setText(format.format(taskTime));
 					}
 					else
 					{
-						String date = task.getTaskDate().split(" ")[0];
+						format = new SimpleDateFormat(r.getString(R.string.onlydateformat), Locale.US);
+						String date = format.format(taskTime);
 						datetime.setText(date);
 					}
 				}
 				
-				dist = task.getRemain();
+				dist = taskTime.getTime() - (new Date().getTime());
 				Log.d("SmartTimeTable", "[" + task.getName() + "] " + dist + "ms");
 				
 				if (dist<0)
@@ -395,16 +398,16 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 						remain.setTextColor(Color.RED);
 					}
 				}
+				delete.setOnClickListener(listener);
+				delete.setTag(task.getId());
 			} catch (NotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			
-			delete.setOnClickListener(listener);
-			delete.setTag(task.getId());
+			catch (IndexOutOfBoundsException e)
+			{
+				return null;
+			}
 			return v;
 		}
 
@@ -426,7 +429,8 @@ public class InfoList extends Activity implements View.OnClickListener, AdapterV
 					dbA.deleteTask(id);
 					
 					taskList = dbA.getTask(subject.getName());
-					arrAdapter.notifyDataSetChanged();
+					arrAdapter = new TaskArrayAdapter();
+					infoList.setAdapter(arrAdapter);
 				}
 			})
 			.setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener() {

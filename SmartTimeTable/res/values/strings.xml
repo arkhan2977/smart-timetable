@@ -193,11 +193,11 @@
     <string name="btn_sendEmail">e-mail\n전송</string>
     <string name="btn_deleteSubject">과목\n삭제</string>
     
-    <string name="subjectTask_up">▲ Subjects/Tasks</string>
-    <string name="subjectTask_down">▼ Subjects/Tasks</string>
+    <string name="subjectTask_up">▲ Subjects</string>
+    <string name="subjectTask_down">▼ Subjects</string>
     
-    <string name="busArrival_up">Bus Arrival▲</string>
-    <string name="busArrival_down">Bus Arrival▼</string>
+    <string name="busArrival_up">Tasks▲</string>
+    <string name="busArrival_down">Tasks▼</string>
     
     <string name="currentRoute">현재 노선</string>
     <string name="favoriteList">노선 목록</string>
@@ -238,4 +238,5 @@
     <string name="daylater">일 후</string>
     <string name="today">오늘</string>
     <string name="dateformat">yyyy/MM/dd a hh:mm</string>
+    <string name="onlydateformat">yyyy/MM/dd</string>
 </resources>

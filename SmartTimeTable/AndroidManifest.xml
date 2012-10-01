@@ -10,10 +10,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -90,18 +86,12 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".AboutUsActivity"
-            android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".AboutUsActivity" />
         
         <activity
             android:name=".AddDialog"
              android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name=".bus.FavoriteList"
-             android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name=".bus.AddFavorite"
-             android:theme="@android:style/Theme.Translucent" />
+
         
         <activity
             android:name=".TaskView"
@@ -121,40 +111,10 @@
         <activity
             android:name=".AddTaskDialog"
              android:theme="@android:style/Theme.Translucent" />
-        
-        <activity android:name=".bus.GotoSchoolActivity"
-            android:screenOrientation = "portrait"
-            android:theme="@style/WhiteTheme" />
-        
-        <activity android:name=".bus.SetupLocation"
-            android:screenOrientation = "portrait"
-            android:theme="@style/WhiteTheme" />
-        
-        <activity android:name=".MapViewer" />
-        
-        <activity android:name=".NMapViewer" />
-        
-        <activity
-            android:name=".bus.SearchAddrAddr"
-            android:theme="@android:style/Theme.Translucent"
-            android:windowSoftInputMode="adjustPan"/>
-        
-        <activity android:name=".bus.StationSetting" />
-        
-        <activity
-      android:name=".bus.StationInfoAlert"
-             android:theme="@android:style/Theme.Translucent" />
+
         
         <activity android:name=".AlarmView"
             android:screenOrientation = "portrait" />
-        
-        <activity android:name=".bus.FindBusActivity"
-            android:theme="@style/WhiteTheme" />
-        <activity android:name=".bus.RouteViewer"
-            android:theme="@style/WhiteTheme" />
 
-        <uses-library
-            android:name="com.google.android.maps"
-            android:required="true" />
     </application>
 </manifest>

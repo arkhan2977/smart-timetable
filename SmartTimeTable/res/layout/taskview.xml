@@ -29,27 +29,28 @@
             android:background="@drawable/stroke_box"
             android:text="과제"
             android:textColor="#000000" />
-
+
         <TextView
-            android:id="@+id/taskview_title"
+            android:id="@+id/taskview_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:layout_margin="5dp"
-            android:background="@drawable/stroke_edittext"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:text="제목"
+            android:text="2012/01/01"
             android:textColor="#000000" />
+
     </LinearLayout>
 
     <TextView
-        android:id="@+id/taskview_date"
-        android:layout_width="wrap_content"
+        android:id="@+id/taskview_title"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:layout_margin="5dp"
-        android:text="2012/01/01"
+        android:background="@drawable/stroke_edittext"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:text="제목"
         android:textColor="#000000" />
 
     <ScrollView

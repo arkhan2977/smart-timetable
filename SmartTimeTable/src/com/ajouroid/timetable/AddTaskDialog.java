@@ -48,8 +48,6 @@ public class AddTaskDialog extends Activity implements View.OnClickListener, Che
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.addtask);
 		
 		r = getResources();
@@ -147,9 +145,9 @@ public class AddTaskDialog extends Activity implements View.OnClickListener, Che
 		DBAdapter dbA = new DBAdapter(this);
 		dbA.open();
 		if (_id < 0)
-			dbA.addTask(subject, type.getSelectedItemPosition(), title.getText().toString(), desc.getText().toString(), datetime, b_useTime);
+			dbA.addTask(subject, type.getSelectedItemPosition(), title.getText().toString(), desc.getText().toString(), datetime.getTimeInMillis(), b_useTime);
 		else
-			dbA.updateTask(_id, subject, type.getSelectedItemPosition(), title.getText().toString(), desc.getText().toString(), datetime, b_useTime);
+			dbA.updateTask(_id, subject, type.getSelectedItemPosition(), title.getText().toString(), desc.getText().toString(), datetime.getTimeInMillis(), b_useTime);
 		dbA.close();
 		finish();
 	}

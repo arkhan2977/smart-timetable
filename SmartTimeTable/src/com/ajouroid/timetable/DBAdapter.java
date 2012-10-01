@@ -473,30 +473,20 @@ public class DBAdapter {
 	
 	public Cursor getValidTaskCursor() {
 		Cursor cursor;
-
-		SimpleDateFormat form = new SimpleDateFormat(mCtx.getResources()
-				.getString(R.string.dateformat), Locale.US);
 		
-		String dateStr;
-		dateStr = form.format(new Date(System.currentTimeMillis()));
-		
-		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE taskdate > '" + dateStr + "' ORDER BY taskdate asc", null);
+		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE taskdate > '" + System.currentTimeMillis() + "' ORDER BY taskdate asc", null);
 
 		return cursor;
 	}
 
 	public Cursor getTaskCursor(String subject) {
 		Cursor cursor;
-		SimpleDateFormat form = new SimpleDateFormat(mCtx.getResources()
-				.getString(R.string.dateformat), Locale.US);
 
-		
-		String dateStr;
-		dateStr = form.format(new Date(System.currentTimeMillis()));
+		long now = System.currentTimeMillis();
 
 
 		cursor = mDb.rawQuery("SELECT * FROM tasks WHERE subject = '" + subject
-				+ "' AND taskdate > '" + dateStr + "' ORDER BY taskdate asc", null);
+				+ "' AND taskdate > '" + now + "' ORDER BY taskdate asc", null);
 
 		return cursor;
 	}
@@ -526,7 +516,7 @@ public class DBAdapter {
 		Task task;
 		while(cursor.moveToNext())
 		{
-			task = new Task(cursor.getString(iSubject), cursor.getString(itaskTitle), cursor.getString(itaskDate), cursor.getInt(itaskType));
+			task = new Task(cursor.getString(iSubject), cursor.getString(itaskTitle), cursor.getLong(itaskDate), cursor.getInt(itaskType));
 			task.setId(cursor.getInt(iId));
 			
 			if (cursor.getInt(iUsetime) == 1)
@@ -534,14 +524,9 @@ public class DBAdapter {
 			else
 				task.setUsetime(false);
 			
-			try {
-				Date taskDate = form.parse(task.getTaskDate());
-				Long dist = taskDate.getTime() - System.currentTimeMillis();
-				task.setRemain(dist);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Date taskDate = new Date(task.getTaskDate());
+			Long dist = taskDate.getTime() - System.currentTimeMillis();
+			task.setRemain(dist);
 			
 			taskList.add(task);
 		}
@@ -553,7 +538,7 @@ public class DBAdapter {
 		
 		while(dCursor.moveToNext())
 		{
-			task = new Task(dCursor.getString(iSubject), dCursor.getString(itaskTitle), dCursor.getString(itaskDate), dCursor.getInt(itaskType));
+			task = new Task(dCursor.getString(iSubject), dCursor.getString(itaskTitle), dCursor.getLong(itaskDate), dCursor.getInt(itaskType));
 			task.setId(dCursor.getInt(iId));
 			
 			if (dCursor.getInt(iUsetime) == 1)
@@ -572,17 +557,14 @@ public class DBAdapter {
 	}
 
 	public void addTask(String subject, int type, String title, String desc,
-			Calendar datetime, boolean useTime) {
+			long datetime, boolean useTime) {
 		ContentValues row = new ContentValues();
 
 		row.put("subject", subject);
 		row.put("type", type);
 		row.put("title", title);
 		row.put("desc", desc);
-		SimpleDateFormat format = new SimpleDateFormat(mCtx.getResources()
-				.getString(R.string.dateformat), Locale.US);
-		String date = format.format(datetime.getTime());
-		row.put("taskdate", date);
+		row.put("taskdate", datetime);
 
 		if (useTime)
 			row.put("usetime", 1);
@@ -597,17 +579,14 @@ public class DBAdapter {
 	}
 
 	public void updateTask(int _id, String subject, int type, String title,
-			String desc, Calendar datetime, boolean useTime) {
+			String desc, long datetime, boolean useTime) {
 		ContentValues row = new ContentValues();
 
 		row.put("subject", subject);
 		row.put("type", type);
 		row.put("title", title);
 		row.put("desc", desc);
-		SimpleDateFormat format = new SimpleDateFormat(mCtx.getResources()
-				.getString(R.string.dateformat), Locale.US);
-		String date = format.format(datetime.getTime());
-		row.put("taskdate", date);
+		row.put("taskdate", datetime);
 
 		if (useTime)
 			row.put("usetime", 1);
@@ -682,7 +661,7 @@ public class DBAdapter {
 		int iSubject = tcursor.getColumnIndex("subject");
 
 		if (tcursor.moveToFirst()) {
-			task = new Task(tcursor.getString(iSubject), tcursor.getString(itaskTitle), tcursor.getString(itaskDate), tcursor.getInt(itaskType));
+			task = new Task(tcursor.getString(iSubject), tcursor.getString(itaskTitle), tcursor.getLong(itaskDate), tcursor.getInt(itaskType));
 			task.setId(tcursor.getInt(iId));
 		}
 		tcursor.close();
@@ -718,7 +697,7 @@ public class DBAdapter {
 		int iSubject = ycursor.getColumnIndex("subject");
 
 		while (ycursor.moveToNext()) {
-			Task temp = new Task(ycursor.getString(iSubject), ycursor.getString(itaskTitle), ycursor.getString(itaskDate), ycursor.getInt(itaskType));
+			Task temp = new Task(ycursor.getString(iSubject), ycursor.getString(itaskTitle), ycursor.getLong(itaskDate), ycursor.getInt(itaskType));
 
 			list.add(temp);
 		}
@@ -992,7 +971,7 @@ public class DBAdapter {
 					String title = parsedData[cnt++];
 					String desc = parsedData[cnt++];
 					desc = desc.replace("\t", "\n");
-					String taskdate = parsedData[cnt++];
+					long taskdate = Long.parseLong(parsedData[cnt++]);
 					int usetime = Integer.parseInt(parsedData[cnt++]);
 					
 					boolean bUsetime;
@@ -1001,17 +980,10 @@ public class DBAdapter {
 					else
 						bUsetime = false;
 					
-					SimpleDateFormat format = new SimpleDateFormat(mCtx.getResources().getString(R.string.dateformat), Locale.US);
-					Date date = format.parse(taskdate);
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(date);
-					this.addTask(subject, type, title, desc, cal, bUsetime);
+					this.addTask(subject, type, title, desc, taskdate, bUsetime);
 					Log.d("SmartTimeTable", "Restore Task:" + _id + "," + subject + "," + type + "," + title + "," + desc + "," + taskdate + "," + usetime);
 				} catch (NumberFormatException e)
 				{
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

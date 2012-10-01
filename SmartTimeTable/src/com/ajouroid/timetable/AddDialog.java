@@ -109,8 +109,6 @@ public class AddDialog extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		setContentView(R.layout.adddialog);
 
 		r = getResources();

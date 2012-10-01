@@ -15,8 +15,6 @@ public class AboutUsActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.aboutus);
 		
 		Button close = ((Button)findViewById(R.id.aboutus_close));

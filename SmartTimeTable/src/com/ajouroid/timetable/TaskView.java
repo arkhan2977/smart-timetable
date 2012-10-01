@@ -37,8 +37,6 @@ public class TaskView extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		this.setContentView(R.layout.taskview);
 
 		tv_type = (TextView) findViewById(R.id.taskview_type);
@@ -72,29 +70,25 @@ public class TaskView extends Activity implements OnClickListener{
 			int iDate = c.getColumnIndex("taskdate");
 			int iUseTime = c.getColumnIndex("usetime");
 			
-			task = new Task(c.getString(iSubject), c.getString(iTitle), c.getString(iDate), c.getInt(iType));
+			task = new Task(c.getString(iSubject), c.getString(iTitle), c.getLong(iDate), c.getInt(iType));
 			task.setId(_id);
 
 			tv_type.setText(getResources().getStringArray(R.array.tasks)[task.getType()]);
 			tv_title.setText(task.getName());
 			tv_desc.setText(c.getString(iDesc));
 
-			SimpleDateFormat form = new SimpleDateFormat(getResources()
-					.getString(R.string.dateformat), Locale.US);
-			Date d = null;
-			String dateStr;
-			try {
-				d = form.parse(c.getString(iDate));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
-			dateStr = (1900 + d.getYear()) + "/" + (d.getMonth()+1) + "/" + d.getDate();
-
-			if (c.getInt(iUseTime) > 0) {
-				dateStr += " " + new Time(d.getHours(), d.getMinutes()).to12Hour();
+			Date d = new Date(c.getLong(iDate));
+			SimpleDateFormat format;
+			
+			if (c.getInt(iUseTime) > 0)
+			{
+				format = new SimpleDateFormat(this.getResources().getString(R.string.dateformat), Locale.US);
 			}
+			else
+				format = new SimpleDateFormat(this.getResources().getString(R.string.onlydateformat), Locale.US);
+			
+			String dateStr = format.format(d);
 			
 			tv_date.setText(dateStr);
 			c.close();

@@ -341,7 +341,7 @@ public class AlarmService extends Service {
 						.getString(R.string.dateformat), Locale.US);
 				Calendar today = Calendar.getInstance();
 				
-				Date startTaskTime = format.parse(task.getTaskDate()); // DB에서 가져온
+				Date startTaskTime = new Date(task.getTaskDate()); // DB에서 가져온
 																	// 날짜를//
 																	// Date로
 																	// parse
@@ -380,7 +380,7 @@ public class AlarmService extends Service {
 							"TaskAlarm Set: " + format.format(today.getTime()));
 				}
 			}
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		dbA.close();

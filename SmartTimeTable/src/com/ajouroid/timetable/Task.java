@@ -9,7 +9,7 @@ public class Task implements Serializable {
 	private static final long serialVersionUID = -6755868785839366731L;
 
 	String subject;
-	String taskDate;
+	long taskDate;
 	String name;
 	int Type;
 	
@@ -20,7 +20,7 @@ public class Task implements Serializable {
 	long remain;
 	
 
-	public Task(String _subject, String title, String _taskDate, int _Type)
+	public Task(String _subject, String title, long _taskDate, int _Type)
 	{
 		subject = _subject;
 		name = title;
@@ -33,10 +33,10 @@ public class Task implements Serializable {
 	public void setType(int _type) {
 		Type = _type;
 	}
-	public String getTaskDate() {
+	public long getTaskDate() {
 		return taskDate;
 	}
-	public void setTaskDate(String _taskDate) {
+	public void setTaskDate(long _taskDate) {
 		this.taskDate = _taskDate;
 	}
 	public String getName() {

@@ -14,11 +14,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.ajouroid.timetable.bus.BusInfo;
-import com.ajouroid.timetable.bus.DBAdapterBus;
-import com.ajouroid.timetable.bus.FavoriteList;
-import com.ajouroid.timetable.bus.RouteViewer;
-import com.ajouroid.timetable.bus.StationSetting;
 import com.ajouroid.timetable.interpolator.BounceInterpolator;
 import com.ajouroid.timetable.interpolator.EasingType.Type;
 import com.ajouroid.timetable.widget.Panel;
@@ -57,7 +52,6 @@ public class MainActivity extends Activity {
 	Cursor c;
 	Cursor taskC;
 	
-	ArrayList<BusInfo> busInfoList;
 
 	// 위젯
 	TimeTable timeTable;
@@ -69,16 +63,6 @@ public class MainActivity extends Activity {
 
 	Button drawerButton;
 	Button busDrawerButton;
-
-	TextView tv_start;
-	TextView tv_dest;
-	Button btn_favorite;
-	ListView lv_busList;
-	
-	ProgressBar busProgress;
-	Button busUpdate;
-
-	BusArrivalManager busManager;
 
 	LinearLayout topdown;
 
@@ -110,23 +94,12 @@ public class MainActivity extends Activity {
 		busDrawer = (Panel) findViewById(R.id.busPanel);
 		busDrawer.setInterpolator(new BounceInterpolator(Type.OUT));
 
-		tv_start = (TextView) findViewById(R.id.main_bus_start);
-		tv_dest = (TextView) findViewById(R.id.main_bus_dest);
-		
-		lv_busList = (ListView)findViewById(R.id.main_bus_list);
-
-		btn_favorite = (Button) findViewById(R.id.main_bus_favotite_list);
-
 		drawerButton = (Button) findViewById(R.id.panelHandle);
 		busDrawerButton = (Button) findViewById(R.id.busHandle);
-		
-		busProgress = (ProgressBar)findViewById(R.id.main_bus_progress);
-		busUpdate = (Button)findViewById(R.id.main_bus_update);
 
 		r = getResources();
 		sPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-		busManager = new BusArrivalManager(this);
 	}
 
 	@Override
@@ -163,26 +136,6 @@ public class MainActivity extends Activity {
 
 		});
 		lv_task.setOnItemClickListener(new TaskClickListener());
-		lv_busList.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent i = new Intent(MainActivity.this, RouteViewer.class);
-
-				i.putExtra("id", busInfoList.get(arg2).getBus_id());
-
-				startActivity(i);
-			}
-			
-		});
-		btn_favorite.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				Intent i = new Intent(MainActivity.this, FavoriteList.class);
-				startActivityForResult(i, FAVORITE_LIST);
-			}
-			
-		});
 
 		SubjectListClickListener listener = new SubjectListClickListener();
 		listview_subject.setOnItemClickListener(listener);
@@ -191,11 +144,11 @@ public class MainActivity extends Activity {
 		drawer.setOnPanelListener(new OnPanelListener() {
 
 			public void onPanelClosed(Panel panel) {
-				drawerButton.setText("▼ Subjects / Tasks");
+				drawerButton.setText("▼ Subjects");
 			}
 
 			public void onPanelOpened(Panel panel) {
-				drawerButton.setText("▲ Subjects / Tasks");
+				drawerButton.setText("▲ Subjects");
 			}
 
 		});
@@ -203,25 +156,14 @@ public class MainActivity extends Activity {
 		busDrawer.setOnPanelListener(new OnPanelListener() {
 
 			public void onPanelClosed(Panel panel) {
-				busDrawerButton.setText("Bus Arrival ▼");
+				busDrawerButton.setText("Tasks ▼");
 			}
 
 			public void onPanelOpened(Panel panel) {
-				busDrawerButton.setText("Bus Arrival ▲");
-				
-				busManager.setRoute(sPref.getInt("current_route", -1));
-				if (!busManager.isUpdating())
-					busManager.update();
+				busDrawerButton.setText("Tasks ▲");
+
 			}
 
-		});
-		
-		busUpdate.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				busManager.update();
-			}
-			
 		});
 
 	}
@@ -259,11 +201,6 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.menu_alarm:
-			dbA.close();
-			Intent gotoschool = new Intent(this, StationSetting.class);
-			startActivityForResult(gotoschool, GOTO_ACTIVITY);
-			break;
 		case R.id.menu_option:
 			dbA.close();
 			Intent intent = new Intent(this, OptionActivity.class);
@@ -328,15 +265,6 @@ public class MainActivity extends Activity {
 				timeTable.selectAdder(subject);
 			}
 		}
-		else if (requestCode == FAVORITE_LIST)
-		{
-			if (resultCode == RESULT_OK)
-			{
-				busManager.setRoute(sPref.getInt("current_route", -1));
-				busManager.update();
-			}
-		}
-
 	}
 
 	@Override
@@ -470,38 +398,30 @@ public class MainActivity extends Activity {
 			long remain = 0;
 
 			// 현재 시간
-			Date now = new Date(System.currentTimeMillis());
+			long now = System.currentTimeMillis();
 
 			int iDate = taskCursor.getColumnIndex("taskdate");
 			int iUseTime = taskCursor.getColumnIndex("usetime");
 
 			boolean useTime = false;
 
-			SimpleDateFormat format = new SimpleDateFormat(getResources()
-					.getString(R.string.dateformat), Locale.US);
 
 			while (taskCursor.moveToNext()) {
-				String dateStr = taskCursor.getString(iDate);
-				try {
-					// DB에서 가져온 날짜를 Date로 parse
-					Date selectedDate = format.parse(dateStr);
-					if (selectedDate.before(now))
-						continue;
+				long date = taskCursor.getLong(iDate);
 
-					long between = DBAdapter.distance(selectedDate, now);
+				long between = date - now;
+					
+				if (between < 0)
+					continue;
 
-					// 처음 나왔거나, 기존의 일정보다 먼저 오는 일정인 경우
-					if (between < remain || remain == 0) {
-						remain = between;
-						// 시간 사용 여부
-						if (taskCursor.getInt(iUseTime) > 0) {
-							useTime = true;
-						} else
-							useTime = false;
-					}
-
-				} catch (ParseException e) {
-					e.printStackTrace();
+				// 처음 나왔거나, 기존의 일정보다 먼저 오는 일정인 경우
+				if (between < remain || remain == 0) {
+					remain = between;
+					// 시간 사용 여부
+					if (taskCursor.getInt(iUseTime) > 0) {
+						useTime = true;
+					} else
+						useTime = false;
 				}
 			}
 			taskCursor.close();
@@ -589,18 +509,69 @@ public class MainActivity extends Activity {
 			TextView datetime = (TextView) view
 					.findViewById(R.id.task_datetime);
 			TextView title = (TextView) view.findViewById(R.id.task_title);
+			
+			TextView remain = (TextView) view.findViewById(R.id.task_remain);
 
 			type.setText(r.getStringArray(R.array.tasks)[cursor.getInt(iType)]);
 			subject.setText(cursor.getString(iSubject));
 			title.setText(cursor.getString(iTitle));
 
-			String date = cursor.getString(iDatetime);
+			long date = cursor.getLong(iDatetime);
 			int usetime = cursor.getInt(iUsetime);
-
-			if (usetime == 1)
-				datetime.setText(date);
+			
+			SimpleDateFormat format;
+			
+			if (usetime > 0)
+			{
+				format = new SimpleDateFormat(r.getString(R.string.dateformat), Locale.US);
+			}
 			else
-				datetime.setText(date.split(" ")[0]);
+				format = new SimpleDateFormat(r.getString(R.string.onlydateformat), Locale.US);
+			
+			datetime.setText(format.format(date));
+			
+			long dist = date - (new Date().getTime());
+			
+			if (dist<0)
+			{
+				remain.setText("지난 일정");
+				title.setTextColor(Color.LTGRAY);
+				remain.setTextColor(Color.LTGRAY);
+				datetime.setTextColor(Color.LTGRAY);
+			}
+			else
+			{
+				dist = dist/1000;
+				if (dist > 86400) {
+					// 남은 일수를 계산
+					dist = dist / 86400;
+					remain.setText(dist + getResources().getString(R.string.daylater));
+				}
+				//시간을 지정했다면 시간 단위 표시
+				else if (usetime == 1) {
+					// 시간 단위 (1시간 : 3600초)
+					if (dist > 3600) {
+						dist = (dist + 1800) / (3600);
+						remain.setText(dist + getResources().getString(R.string.hourlater));
+						remain.setTextColor(0xFFFF6000); //오렌지색
+					}
+					//분 단위 (1분 : 60초)
+					else if (dist > 60) {
+						dist = (dist + 30)  / 60;
+						remain.setTextColor(Color.RED);
+						remain.setText(dist + getResources().getString(R.string.minlater));
+					}
+					//초 단위
+					else {
+						remain.setText(dist + getResources().getString(R.string.seclater));
+						remain.setTextColor(Color.RED);
+					}
+				}
+				else {
+					remain.setText(getResources().getString(R.string.today));
+					remain.setTextColor(Color.RED);
+				}
+			}
 		}
 
 		@Override
@@ -635,401 +606,4 @@ public class MainActivity extends Activity {
 		}
 	};
 
-	/**
-	 * Bus Arrival Information Class
-	 */
-
-	class BusArrivalManager {
-		Context context;
-		boolean updating = false;
-		int route_id;
-		
-		String start_id = "NULL";
-		String dest_id = "NULL";
-		
-		
-		RequestBusInfoTask task;
-
-		public BusArrivalManager(Context ctx) {
-			context = ctx;
-		}
-
-		// 업데이트
-		public void update() {
-			if (!updating && route_id > -1)
-			{
-				task = new RequestBusInfoTask(context, this);
-				task.execute(start_id, dest_id);
-			}
-		}
-		
-		public void startUpdate()
-		{
-			updating = true;
-			busProgress.setVisibility(View.VISIBLE);
-			busUpdate.setEnabled(false);
-		}
-		
-		public void finishUpdate()
-		{
-			updating = false;
-			busProgress.setVisibility(View.INVISIBLE);
-			busUpdate.setEnabled(true);
-		}
-
-		// 노선 선택
-		public void setRoute(int _id) {
-			route_id = _id;
-			sPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-			
-			if (_id == -1) {
-				tv_start.setText("미설정");
-				tv_dest.setText("미설정");
-				start_id = "NULL";
-				dest_id="NULL";
-			}
-			
-			else
-			{
-				tv_start.setText(sPref.getString("current_start_name", "미설정"));
-				tv_dest.setText(sPref.getString("current_dest_name", "미설정"));
-				start_id = sPref.getString("current_start_id", "NULL");
-				dest_id=sPref.getString("current_dest_id", "NULL");
-			}
-
-			// TODO: 데이터베이스로부터 노선 정보를 가져와 설정
-
-		}
-
-		public boolean isUpdating() {
-			return updating;
-		}
-	}
-	
-	class BusAdapter extends ArrayAdapter<BusInfo> {
-		ArrayList<BusInfo> info;
-
-		BusAdapter(ArrayList<BusInfo> arr) {
-			super(MainActivity.this, R.layout.row, R.id.bus_number, arr);
-
-			info = arr;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-
-			LayoutInflater inflater = getLayoutInflater();
-
-			View row = inflater.inflate(R.layout.row, parent, false);
-
-			TextView bus_number = (TextView) row.findViewById(R.id.bus_number);
-			TextView arrive_time = (TextView) row
-					.findViewById(R.id.arrive_time);
-
-			bus_number.setText(info.get(position).getBus_number());
-			arrive_time.setText(info.get(position).getArrive_time()
-					+ r.getString(R.string.bus_later));
-			// arrive_time.setTextColor(0xFFFFFF);
-
-			return row;
-
-		}
-	}
-
-	class RequestBusInfoTask extends AsyncTask<String, ArrayList<BusInfo>, Boolean> {
-		ProgressDialog dialog;
-		int ERROR_CODE = 0;
-		Context context;
-		DBAdapterBus busDb;
-		String url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station";
-		
-		BusArrivalManager parent;
-
-		public RequestBusInfoTask(Context ctx, BusArrivalManager manager) {
-			context = ctx;
-			parent = manager;
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			parent.startUpdate();
-			busDb = new DBAdapterBus(context);
-			busDb.open();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected void onCancelled() {
-			parent.finishUpdate();
-			busDb.close();
-			super.onCancelled();
-		}
-
-		
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected synchronized Boolean doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			int statusCode = 0;
-
-			String sp_stationID = "NULL";
-			String dest_stationID = "NULL";
-
-			sp_stationID = params[0];
-			dest_stationID = params[1];
-
-
-			if (sp_stationID.compareToIgnoreCase("NULL") == 0
-					|| dest_stationID.compareToIgnoreCase("NULL") == 0) {
-
-				statusCode = 17;
-				return false;
-			}
-
-			if (!sPref.getBoolean("db_complete", false)) {
-				statusCode = -1;
-				return false;
-			}
-
-			try {
-				String key = URLEncoder.encode(Keyring.BUS_KEY, "UTF-8");
-				// key = URLEncoder.encode(KEY, "UTF-8");
-				XmlPullParserFactory baseparser = XmlPullParserFactory
-						.newInstance();
-				baseparser.setNamespaceAware(true);
-				XmlPullParser xpp = baseparser.newPullParser();
-
-				String urlStr = url + "?serviceKey=" + key + "&stationId="
-						+ sp_stationID;
-
-				Log.d("SmartTimeTable", "Requesting Bus Arrival Information...");
-				Log.d("SmartTimeTable", "URL: " + urlStr);
-				URL requestURL = new URL(urlStr);
-				InputStream input = requestURL.openStream();
-				xpp.setInput(input, "UTF-8");
-
-				int parserEvent = xpp.getEventType();
-				parserEvent = xpp.next();// 파싱한 자료에서 다음 라인으로 이동
-				boolean check = true;
-
-				// businfo[type].clear();
-				ArrayList<BusInfo> temp = new ArrayList<BusInfo>();
-				BusInfo bus = null;
-
-				ArrayList<Long> validBus = busDb.findBuses(sp_stationID,
-						dest_stationID);
-				boolean skip = false;
-
-				while (parserEvent != XmlPullParser.END_DOCUMENT) {
-					if (!check) {
-						break;
-					}
-
-					switch (parserEvent) {
-					case XmlPullParser.END_TAG: // xml의 </> 이부분을 만나면 실행되게 됩니다.
-						break;
-					case XmlPullParser.START_TAG: // xml의 <> 부분을 만나게 되면 실행되게
-													// 됩니다.
-						if (xpp.getName().compareToIgnoreCase("returnCode") == 0) // <returnCode>
-																					// 인
-																					// 경우.
-						{
-							xpp.next();
-							String tempCode = xpp.getText();
-							statusCode = Integer.parseInt(tempCode);
-							xpp.next();
-							check = false;
-						} else if (xpp.getName().compareToIgnoreCase(
-								"resultCode") == 0) // <returnCode> 인 경우.
-						{
-							xpp.next();
-							String tempCode = xpp.getText();
-							statusCode = Integer.parseInt(tempCode);
-							xpp.next();
-						} else if (xpp.getName().compareTo("msgBody") == 0) {
-							parserEvent = xpp.next();
-							while (true) {
-								if (parserEvent == XmlPullParser.START_TAG) {
-									String tag = xpp.getName();
-									if (tag.compareTo("busArrivalList") == 0) {
-										bus = new BusInfo();
-									} else if (tag.compareTo("routeId") == 0) {
-										xpp.next();
-										long id = Long.parseLong(xpp.getText());
-
-										if (validBus.contains(id)) {
-											bus.setBus_id(id);
-											BusInfo info = busDb.getBusInfo(id);
-											bus.setBus_id(id);
-											bus.setBus_number(info
-													.getBus_number());
-										} else {
-											skip = true;
-										}
-									} else if (tag.compareTo("predictTime1") == 0) {
-										xpp.next();
-										bus.setArrive_time(xpp.getText());
-									}
-								} else if (parserEvent == XmlPullParser.END_TAG) {
-									if (xpp.getName().compareTo(
-											"busArrivalList") == 0) {
-										if (!skip) {
-											temp.add(bus);
-											Log.d("SmartTimeTable",bus.getBus_number()
-															+ " ("
-															+ bus.getArrive_time()
-															+ "min) added.");
-										}
-										skip = false;
-									} else if (xpp.getName().compareTo(
-											"msgBody") == 0) {
-										break;
-									}
-								}
-
-								parserEvent = xpp.next();
-							}
-						}
-					}
-					parserEvent = xpp.next(); // 다음 태그를 읽어 들입니다.
-				}
-				publishProgress(temp);
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				Log.d("sibal", "xml exception");
-			} catch (IOException e) {
-				Log.d("sibal", "io exception");
-			}
-
-			/*
-			 * switch(type) { case TO_SCHOOL: businfo = temp; break; case
-			 * FROM_SCHOOL: businfo_2 = temp; break; }
-			 */
-
-			if (checkXml(statusCode)) {
-				return true;
-			} else {
-				ERROR_CODE = statusCode;
-				return false;
-			}
-
-		}
-
-		public boolean checkXml(int statusCode) {
-
-			if (statusCode != 0) {
-				// xml 에러의 경우
-				return false;
-			} else {
-				return true;
-			}
-
-		}
-
-		public void ErrorDialog() {
-			if (ERROR_CODE != 0) {
-				switch (ERROR_CODE) {
-
-				case -1:
-					Toast.makeText(
-							context,
-							getResources()
-									.getString(R.string.dbdown_noDatabase),
-							Toast.LENGTH_SHORT).show();
-					return;
-
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				case 5:
-					break;
-				case 6:
-					break;
-				case 7:
-					break;
-				case 8:
-					break;
-
-				case 17:
-					ERROR_CODE = 18;
-					break;
-
-				case 20:
-					ERROR_CODE = 9;
-					break;
-				case 21:
-					ERROR_CODE = 10;
-					break;
-				case 22:
-					ERROR_CODE = 11;
-					break;
-				case 23:
-					ERROR_CODE = 12;
-					break;
-				case 30:
-					ERROR_CODE = 13;
-					break;
-				case 31:
-					ERROR_CODE = 14;
-					break;
-				case 32:
-					ERROR_CODE = 15;
-					break;
-				case 99:
-					ERROR_CODE = 16;
-					break;
-
-				default:
-					ERROR_CODE = 17;
-					break;
-				}
-
-				Log.d("RequestBusInfoTask", "Error : " + ERROR_CODE);
-				String addition_msg = "";
-				// error code에 해당하는 메시지를 띄운다.
-				if (ERROR_CODE == 4) {
-					addition_msg += "\n"
-							+ getResources().getString(R.string.bus_noBus);
-				}
-				AlertDialog alert_dialog = new AlertDialog.Builder(context)
-						.setTitle("Error!!")
-						.setMessage(
-								getResources()
-										.getStringArray(R.array.errorCode)[ERROR_CODE]
-										+ addition_msg)
-						.setPositiveButton(
-								getResources().getString(R.string.ok),
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int which) {
-										dialog.dismiss();
-									}
-								}).show();
-			}
-		}
-
-		@Override
-		protected void onProgressUpdate(ArrayList<BusInfo>... values) {
-			super.onProgressUpdate(values);
-			busInfoList = values[0];
-			BusAdapter adapter = new BusAdapter(busInfoList);
-			lv_busList.setAdapter(adapter);
-		}
-		
-		@Override
-		protected void onPostExecute(Boolean result) {
-			parent.finishUpdate();
-			busDb.close();
-			super.onPostExecute(result);
-			if (!result) {
-				ErrorDialog();
-			}
-		}
-	}
 }

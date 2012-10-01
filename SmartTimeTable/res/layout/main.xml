@@ -39,13 +39,8 @@
             android:layout_height="300dp"
             android:background="#505050"
             android:baselineAligned="false"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -76,30 +71,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/stroke_button"
                     android:text="@string/addNewSubject" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#888888"
-                    android:gravity="center_vertical"
-                    android:text="일정" />
-
-                <ListView
-                    android:id="@+id/taskList"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dip"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:cacheColorHint="#00000000" />
-            </LinearLayout>
         </LinearLayout>
     </com.ajouroid.timetable.widget.Panel>
 
@@ -133,6 +105,25 @@
             android:baselineAligned="false"
             android:orientation="vertical" >
 
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:gravity="center_vertical"
+                    android:text="일정" />
+
+                <ListView
+                    android:id="@+id/taskList"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:cacheColorHint="#00000000" />
+
+                </LinearLayout>
+            <!--  
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -224,6 +215,7 @@
                     android:visibility="invisible" />
             </FrameLayout>
         </LinearLayout>
+        -->
     </com.ajouroid.timetable.widget.Panel>
 
 </merge>

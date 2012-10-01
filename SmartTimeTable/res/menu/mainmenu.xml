@@ -5,12 +5,6 @@
             android:icon="@drawable/icon_add_subject"
             />
         <item
-            android:id="@+id/menu_alarm"
-            android:title="@string/menu_alarm"
-            android:icon="@drawable/icon_schoolbus"
-
-            />
-        <item
             android:id="@+id/menu_share"
             android:title="@string/menu_share"
             android:icon="@drawable/icon_menu_share" />
